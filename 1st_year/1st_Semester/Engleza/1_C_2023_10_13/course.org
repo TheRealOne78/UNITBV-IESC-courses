@@ -1,8 +1,8 @@
-#+title: Course
+#+title: Curs Engleza 13 Octombrie 2023
 
 * Cum vor fi la cursuri:
-** 7 prezente
-** Examenul va avea puncajul 50% de la seminare
+- 7 prezente
+- Examenul va avea puncajul 50% de la seminare
 
 * ENGLISH PLACEMENT TEST [75/100]
 1) [X] boils
