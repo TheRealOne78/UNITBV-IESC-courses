@@ -1,0 +1,7 @@
+# LaTeX
+.auctex-auto
+_region_*
+*.aux
+*.dvi
+*.log
+*.synctex.*
