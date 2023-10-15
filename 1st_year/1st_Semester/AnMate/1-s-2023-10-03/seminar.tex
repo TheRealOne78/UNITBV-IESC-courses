@@ -1,0 +1,125 @@
+\documentclass[a4paper, 12pt, notitlepage]{book}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{spalign}
+\usepackage{enumerate}
+\begin{document}
+
+    %\title{Seminar 1, Analiz\u{a} Matematic\u{a}}
+    %\author{TheRealOne78 --- \textit{BAJCSI Elias-Robert} \and GAROIU Ștefan}
+    %\date{3 Octombrie 2023 --- Rev. 1}
+    %\maketitle
+
+
+    \newcommand\revstr{Rev.\@ 1}
+    \chapter{Seminar --- 3 Oct.\@ 2023, \revstr}
+
+    \section{Studia\c{t}i monotonia \c{s}irului}
+    $x_{n} = \frac{3n+5}{4n+6}, n \in \mathbb{N}$\\[5pt]
+    $x_{n+1} = \frac{3(n+1)+5}{4(n+1)+6} = \frac{3n+8}{4n+1}$
+    \begin{tabbing}
+      \= $x_{n+1} - x_{n}$ \= = $\frac{3n+8}{4n+1} - \frac{3n+5}{4n+7} =$\\[2pt]
+      \>  \> = $\frac{(4n+7)(4n+8)}{(4n+1)(4n+7)} =$\\[2pt] % TODO pune inmultire
+      \>  \> = $\frac{(3n+8)(4n+7) - (3n+5)(4n+1)}{(4n+1)(4n+7)} =$\\[2pt]
+      \>  \> = $\frac{(12n+56)-(12n+5)}{16n+7} =$\\[2pt]
+      \>  \> = $\frac{51}{16n+7}$\\[2pt]
+    \end{tabbing}
+
+    \section{Calcula\c{t}i $\lim\limits_{n\to\infty} n \cdot \ln{(1-\frac{1}{n})}$}
+    $\lim\limits_{n\to\infty} n \cdot \ln{(1-\frac{1}{n})} = 0 \cdot \infty$
+    \[
+      C.N.: \frac{0}{0}; \frac{\infty}{\infty}; 1^{\infty}; 0 \cdot \infty; 0^{0}; \infty - \infty; 0^{\infty}
+    \]
+    \subsection{Metoda I}
+        \begin{center}
+          \textbf{Criteriul log.}:
+          $\lim\limits_{n\to\infty} \frac{\ln(1+x_{n})}{x_{n}} \stackrel{\frac{0}{0}}{=} 1$, pentru $\lim\limits_{n\to\infty}x_{n}=0$\\[5pt]
+        \end{center}
+        $l = \lim\limits_{n\to\infty}\frac{n \cdot \ln(1-\frac{1}{n})}{-\frac{1}{n}} \cdot (-\frac{1}{n}) = \lim\limits_{n\to\infty} \cancel{n} (-\frac{1}{\cancel{n}}) = -1$\\[5pt]
+    \subsection{Metoda II}
+        \[ \lim\limits_{n\to\infty}f(x_{n})=f(\lim\limits_{n\to\infty}x_{n}) \]%\\[5pt]
+        \begin{center}
+          \textbf{Criteriul lui Euler}:
+          $\lim\limits_{n \to \infty}{(1+x_{n})}^{\frac{1}{x_{n}}} = l$, pentru $\lim\limits_{n \to \infty} x_{n}=0$\\[5pt]
+        \end{center}
+        $l = \lim\limits_{n\to\infty}\ln{(1-\frac{1}{n})}^{n} = \ln(\lim\limits_{n\to\infty}{(\underbrace{1-\frac{1}{n}}_{1^{\infty}})}^{n}) = \ln [ \lim\limits_{n\to\infty}(1-\frac{1}{n}) ] $\\[5pt]
+        $\lim{n\to\infty} {(x_{n})}^{y^{n}} = (\lim\limits_{n\to\infty}, x_{n})$
+
+    \section{$\lim\limits_{x \to 0}\frac{\sqrt{1+x+x^{2}}-\sqrt{1+x^{2}}}{x}$}
+    \begin{tabbing}
+      \= $\lim\limits_{x \to 0}\frac{\sqrt{1+x+x^{2}}-\sqrt{1+x^{2}}}{x}$ \= $\stackrel{\frac{0}{0}}{=} \lim\limits_{x \to 0}\frac{1+x+x^{2}- (1+x^{2})}{x (\sqrt{1+x+x^{2}} + \sqrt{1+x^{2}})}=$\\[2pt]
+      \>    \> $= \lim\limits_{x \to 0} \frac{\cancel{x}}{\cancel{x} (\sqrt{1+x+x^{2}} + \sqrt{1+x^{2}})} =$\\[2pt]
+      \>    \> $= \frac{1}{2}$%\\[2pt]
+    \end{tabbing}
+    \[ (\sqrt{a} - \sqrt{b}) (\sqrt{a} + \sqrt{b}) = a - b \]
+    \[ (x - y) (x + y) = x^{2} - y^{2} \]
+
+    \section{Studia\c{t}i continuitatea func\c{t}iei}
+    $f(x) = \spalignsys{
+      \frac{\sqrt{1+x} - x}{x} \text{,}\ x <0 ;
+      \frac{\lim{(1+2x)}}{x} \text{,}\ x \ge 0;
+    }$
+    \begin{enumerate}[I. ]
+            \item $x <0 \Rightarrow f(x) = \frac{\sqrt{1+x} - 1}{x}$ --- elementar\u{a}, deci continu\u{a} pe $x \in (-\infty, 0)$
+            \item $x >0 \Rightarrow f(x) = \frac{\ln{(1+2x)}}{x}$ --- elementar\u{a}, deci continu\u{a} pe $x \in (0, \infty)$
+            \item $x = 0$ : f --- continu\u{a} $\Leftrightarrow ls(0) = ld(0) = f(0)$
+    \end{enumerate}
+    \begin{tabbing}
+      \= $ls(0)$\= $=\lim\limits_{\substack{x\to 0 \\ x<0}}\frac{x(\sqrt{1+x}-1)}{x}=$\\[2pt]
+      \>  \> $= \lim\limits_{\substack{x\to 0 \\ x<0}}\frac{1+x-1}{x(\sqrt{1+x}+1)}=$\\[2pt]
+      \>  \> $= \lim\limits_{\substack{x\to 0 \\ x<0}}\frac{x}{x(\sqrt{1+x}+1)}=$\\[2pt]
+      \>  \> $= \frac{1}{2}$
+   \end{tabbing}
+   $\lim\limits_{\substack{x\to 0 \\ x>0}}\ln \frac{(1+2x)}{2x}\cdot 2 = 2$\\[5pt]
+   $ls(0) \ne ld(0) \Rightarrow f$ nu este continu\u{a}
+
+   \section{}
+   \begin{enumerate}[\bfseries a.]
+     \item $f(x) = \arctan \frac{1-x^{2}}{1+x^{2}}\text{,}\ f'(x) =$?
+           \begin{tabbing}
+             $f'(x)$ \= $= \frac{1}{1+ {\left(\frac{1-x^{2}}{1+x^{2}}\right)}^{2}} \cdot \left( \frac{1-x^{2}}{1+x^{2}} \right)' = $\\[2pt]
+             \> $ = \frac{1}{1+ {\left(\frac{1-x^{2}}{1+x^{2}}\right)}^{2}} \cdot \frac{(-2x)(xx^{2}) - (1-x^{2})\cdot 2x}{{(1+x^{2})}^{2}} = $\\[2pt]
+             \> $ = \frac{1}{1+ {\left(\frac{1-x^{2}}{1+x^{2}}\right)}^{2}} \cdot \frac{-2x - \cancel{2x^{3}} -2x + \cancel{2x^{2}} }{{(1+x^{2})}^{2}} = $\\[2pt]
+             \> $ = \frac{1}{1+ {\left(\frac{1-x^{2}}{1+x^{2}}\right)}^{2}} \cdot -\left( \frac{4x}{{(1+x^{2})}^{2}} \right) $
+           \end{tabbing}
+
+     \item $f'(x) = x^{x}$
+           \[ a^{b} = 2^{b \ln a}\]
+           $f'(x) = (e^{x} \cdot \ln x)' = (e^{u(x)})' = e^{u(x)} \cdot u'(x)$
+           \[ (e^{x})' = e^{x}\]
+           \[ (e^{u(x)})' = e^{u(x)} \cdot u'(x) \]
+           $e^{x} \cdot \ln^{x} \cdot [ x' \cdot \ln x + x \cdot (\ln x)' ] = $\\[2pt]
+           $= e^{x} \cdot \ln^{x} \cdot (\ln x + x \cdot \frac{1}{x}) = $\\[2pt]
+           $= e^{x} \cdot \ln^{x} \cdot \ln x$
+
+     \item $f'(x_{0}) = \lim\limits_{x\to x_{0}} \frac{f(x)-f(x_{0}')}{x-x_{0}}$
+           $f'(x_{0}) = \lim\limits_{x\to x_{0}} \frac{f(x)-f(x_{0}')}{x-x_{0}} = \lim\limits_{x\to x_{0}} \frac{e^{x}-e^{x_{0}}}{x-x_{0}}$
+           \begin{center}
+             \textbf{Criteriul exponen\c{t}ial}:
+             $\lim\limits_{x \to a}\frac{e^{f(x)}-1}{f(x)} = 1$, pentru $\lim\limits_{x \to a}f(x)=0$
+           \end{center}
+           $\lim\limits_{x\to x_{0}} \frac{e^{x}-e^{x_{0}}}{x-x_{0}} \stackrel{\frac{0}{0}}{=} \lim\limits_{x\to x_{0}} \frac{e^{x-x_{0}}-1}{x-x_{0}} = e^{x_{0}}$
+   \end{enumerate}
+
+   \section{}
+   \begin{tabbing}
+     $\int \frac{\cos x - \sin x}{\cos x + \sin x} dx$ \= $= \int \frac{1}{t}dt =$\\[2pt]
+     \> $= \ln t + C =$\\[2pt]
+     \> $= \ln (-\sin x + \cos x) + C$
+   \end{tabbing}
+   $\cos x + \sin x = t\ \arrowvert\ d \Leftrightarrow (-\sin x + \cos x) \cdot dx = dt$
+
+   \[ x_{1} \ne \ x_{2} \Rightarrow f(x_{1}) \ne f(x_{2}) \text{ --- func\c{t}ie injectiv\u{a}}\]
+   \[ f(x_{1}) = f(x_{2}) \Rightarrow x_{1} = x_{2} \text{ --- func\c{t}ie injectiv\u{a}}\]
+
+   \section{}
+   $\int \frac{x^{3}}{{(1+x^{2})}^{2}}dx = \int \frac{x \cdot x^{2}}{{(1+x^{2})}^{2}}dx = \int \frac{2x \cdot x^{2}}{{(1+x^{2})}^{2}} \cdot \frac{1}{2} dx = \frac{1}{2} \int \frac{x^{2}}{1+x^{2}}2x\ dx$\\[5pt]
+   ${(1+x^{2})}^{2} = t\ \arrowvert\ d \Leftrightarrow 2 \cdot (1+x^{2})(1+x^{2})'dx=dt$\\[5pt]
+   \begin{tabbing}
+     $1+x^{2} = t\ \arrowvert\ d \Leftrightarrow 2x\ dx$ \= $= dt =$\\[2pt]
+                                                        \> $= \int \frac{1}{x} - \int t^{2} =$\\[2pt]
+                                                        \> $= \ln (t) - t \frac{-2+1}{2-2+1} + C$
+   \end{tabbing}
+
+\end{document}
