@@ -1,0 +1,32 @@
+#+title: Seminar Comunicare - 16 Octombrie 2023
+
+* Redactarea unui E-Mail formal
+** 1. E-Mail pentru profesorul de grafica asistata
+Motiv: Vreti sa o anuntati ca ati ales tema proiectului la grafica asistata din lista postata pe E-Learning
+
+`Subiect: [Tema proiect] Alegere tema Grafica Asistata`
+
+Buna ziua Doamna Profesor <placeholder>,
+
+Sunt student in anul I la facultatea de Inginerie Electrica si Stiintele Calculatoarelor (IESC) la profilul Calculatoare, in grupa <placeholder>.
+
+Va scriu acest E-Mail cu scopul de a va anunta ca am ales tema a proiectului la grafica asistata din lista postata pe E-Learning, aceasta fiind <placeholder>.
+
+Cu respect,
+Bajcsi Elias-Robert
+
+** 2. E-Mail formal unui director de companie
+Motiv: Vreti sa ii spuneti ca ati ales data pentru interviul de angajare dupa selectia facuta de compania lui
+
+`Subiect: Instiintare selectare data interviu job`
+
+Buna ziua domnule <placeholder>,
+
+Ma numesc Bajcsi Elias-Robert si am fost ales recent pentru intervierea angajarii la firma dumneavoastra cu postul <placeholder>.
+
+Doresc sa va instiintez ca in cazul in care suntem in comun acord, am ales ca data de interviere ziua de <dd/mm/yyyy>.
+
+Astept raspuns de confirmare.
+
+Cu respect,
+Bajcsi Elias-Robert

@@ -1,0 +1,3 @@
+#+title: Curs PCLP1 16 Octombrie 2023
+
+* Programarea si rezolvarea problemelor
