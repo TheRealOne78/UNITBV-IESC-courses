@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<style  type="text/css">
+			h1 {
+				color:blue;
+			}
+
+			P.clasa1 {
+				background: yellow;
+				color: blue;
+				font-family: Helvetica;
+				font-weight: bold;
+				text-indent: 15pt;
+			}
+			
+			.clasa2 {
+				color: blue;
+				font-family: Arial, Times;
+				font-we`: bold;
+			}
+			.ex2{
+				margin: 25px;
+				padding: 10px;
+				border-style="solid"
+			}
+			
+			.listul{
+				color: blue;
+				list-style-position: inside;
+				font-weight: bold;
+			}
+			
+			a:link, a:visited {
+				background-color: green;
+				color: white;
+				padding: 10px 20px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+			}
+			
+			a:hover, a:active {
+				background-color: red;
+			}
+			
+			P.clasa2:hover{
+				background-color: red;
+			}
+			
+			P.clasa3:hover{
+				font-size:150%;
+			}
+			
+			P.clasa4 {
+				animation-duration: 3s;
+				animation-name: anim1; 
+				animation-iteration-count: infinite;
+				animation-direction: alternate;
+			}
+			@keyframes anim1 {
+				from {
+					margin-left: 30%;
+				} 
+				to {
+				margin-left: 50%;
+				}
+			}
+			
+			table {
+				border-collapse: collapse;
+			}
+			th {
+				background-color: green;
+				color: white;
+			}
+			th, td {
+				padding: 7px;
+				text-align: left;
+				border-bottom: 1px solid;
+			}
+			tr:hover{
+				background-color: yellow;
+			} 
+		</style>		
+	</head>
+	<body>
+		<p TYPE="text/css" STYLE="font: 14pt/25pt Arial; color: red; text-align: center">
+			Textul scris cu modele de stiluri
+		</p>
+		<h1>Header 1 test</h1>
+		<p class="clasa1">
+			Foo
+		</p>
+		<h2 class="clasa2">
+			Bar
+		</h2>
+		<p class="ex2">
+			Finally got some time for updating the interractive page for my mirror. It was expected to start it earlier but didn't feel like doing it and also had other things to do as well.
+		</p>
+		
+		<ul class="listul">Fructe:
+			<li>Mere</li>
+			<li>Pere</li>
+			<li>Cirese</li>			
+		</ul>
+		
+		<a href="https://gnu.org">gnu.org</a>
+		<p class="clasa2">Finally got some time for updating the interractive page for my mirror. It was expected to start it earlier but didn't feel like doing it and also had other things to do as well.</p>
+		<p class="clasa3">hi.</p>
+		<p class="clasa4">:p</p>
+		<table>
+			<tr>
+				<th>th1</th>
+				<th>th2</th>
+			</tr>
+			<tr>
+				<td>Hello</td>
+				<td>World!</td>
+			</tr>
+		</table>
+
+		
+		
+	</body>
+</html>
