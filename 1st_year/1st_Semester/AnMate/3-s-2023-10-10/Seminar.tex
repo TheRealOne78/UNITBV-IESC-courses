@@ -1,0 +1,113 @@
+\documentclass[a4paper, 12pt, notitlepage]{book}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{spalign}
+\usepackage{enumerate}
+\begin{document}
+
+    %\title{Seminar 3, Analiz\u{a} Matematic\u{a}}
+    %\author{TheRealOne78 --- \textit{BAJCSI Elias-Robert} \and GAROIU Ștefan}
+    %\date{10 Octombrie 2023 --- Rev. 1}
+    %\maketitle
+
+
+    %\newcommand\revstr{Rev.\@ 1}
+    \newcommand\revstr{Alpha 0.1}
+    \chapter{Seminar --- 10 Oct.\@ 2023, \revstr}
+
+    \section{Mul\c{t}imea numerelor reale $\mathbb{R}$}
+    \subsection{Teorie}
+    Fie $A \subseteq \mathbb{R}$ o mul\c{t}ime
+    \begin{description}
+      \item[Def.] Spunem c\u{a} $A$ este m\u{a}rginit\u{a} dac\u{a}:
+            \begin{description}
+                    \item $(\exists)\ m,M \in \mathbb{R}$ astfel \^{\i}nc\^{a}t:
+                    \item $\underbrace{m}_{\text{Margine inferioar\u{a} (minorant)}} \le a \le \underbrace{M}_{\text{Margine superioar\u{a} (majorant)}}, \forall a \in A$
+            \end{description}
+      \item[$\inf A$] = cea mai mare margine inferioar\u{a} / cel mai mare minorant
+      \item[$\sup A$] = cea mai mic\u{a} margine superioar\u{a} / cel mai mic majorant
+      \item[$\min A$] = $\inf A$, dac\u{a} $\inf A \in A$
+      \item[$\max A$] = $\sup A$, dac\u{a} $\sup A \in A$
+    \end{description}
+
+    \section{Exerci\c{t}ii}
+    \subsection{Determina\c{t}i $\inf A$, $\sup A$, $\min A$, $\max A$ pentru:}
+    \begin{enumerate}[a.]
+      \item $A = (0,1)$\\
+            $\inf A = 0 \in A$\\
+            $\sup A = 1 \in A$\\
+            $\min A =$ nu exist\u{a}\\
+            $\max A =$ nu exist\u{a}
+
+      \item $A = (-1, 1] \cup \{2\} $\\
+            $\inf A = -1$\\
+            $\sup A = 2$\\
+            $\min A =$ nu exist\u{a}\\
+            $\max A = 2$
+
+      \item $A = (-\infty, 0]$\\
+            $\inf A = -\infty$\\
+            $\sup A = 0$\\
+            $\min A =$ nu exist\u{a}\\
+            $\max A = 0$
+
+      \item $A = \{x^{2} - 2x +5 \arrowvert x \in \mathbb{R}\}$\\
+            $= \text{Im} f=[y_{v}, \infty)$\\
+            $f\ :\ \mathbb{R} \to \mathbb{R}; f(x) = x^{2} - 2x +5$\\
+            $y_{v} = \frac{\Delta}{4a}\\
+            \Delta = 4-20 = -16 \Rightarrow y_{v} = \frac{16}{4} = 4$\\
+
+            $\text{Im} f=[y_{v}, \infty) = [4, \infty)$\\
+
+            $\inf A = \infty$\\
+            $\sup A = 4$\\
+            $\min A = 4$ \\
+            $\max A = $ nu exist\u{a}
+
+      \item $A = \{x^{2} + 2x - 1 \arrowvert x \in \mathbb{R}\}$\\
+            $\text{Im} f=[-\infty, \frac{-\Delta}{4a})$\\
+            $\Delta = 4-4 = 0 \Rightarrow \text{Im} f=(-\infty, 0]$
+
+            $\inf A = -\infty$\\
+            $\sup A = 0$\\
+            $\min A =$ nu exist\u{a}\\
+            $\max A = 0$
+
+      \item $A = \{x \in \mathbb{R} \arrowvert 4x^{2} +3x-1 > 0\}$\\
+            $f\ :\ \mathbb{R} \to \mathbb{R}, f(x) = 4x^{2} +3x-1$\\
+            $f(x) = 0$\\
+            $\Delta = 9+16 = 25$\\
+            $x_{1,2} = \frac{-1 \pm 5}{8}$\\
+            $x_{1} = -1;\ x_{2} = \frac{1}{4} \Rightarrow $\\
+
+            $\inf A = -\infty$\\
+            $\sup A = \infty$\\
+
+    \end{enumerate}
+
+\begin{table}[]
+\begin{tabular}{l|llllllll}
+x &
+  -\textbackslash{}infty &
+   &
+  -1 &
+   &
+   &
+  -1 &
+  \textbackslash{}frac\{1\}\{4\} &
+  \multicolumn{1}{r}{\textbackslash{}infty} \\ \hline
+f(x) &
+  \multicolumn{1}{r}{+} &
+  \multicolumn{1}{r}{+} &
+  \multicolumn{1}{c}{0} &
+  \multicolumn{1}{c}{-} &
+  \multicolumn{1}{c}{-} &
+  \multicolumn{1}{c}{0} &
+  + &
+  +
+\end{tabular}
+\end{table}
+
+
+\end{document}
