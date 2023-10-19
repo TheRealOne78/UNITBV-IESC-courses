@@ -4,6 +4,7 @@
 \usepackage{amssymb}
 \usepackage{spalign}
 \usepackage{enumerate}
+%\usepackage{tabularray}
 \begin{document}
 
     %\title{Seminar 3, Analiz\u{a} Matematic\u{a}}
@@ -52,7 +53,7 @@
             $\min A =$ nu exist\u{a}\\
             $\max A = 0$
 
-      \item $A = \{x^{2} - 2x +5 \arrowvert x \in \mathbb{R}\}$\\
+      \item $A = \{x^{2} - 2x +5 \vert x \in \mathbb{R}\}$\\
             $= \text{Im} f=[y_{v}, \infty)$\\
             $f\ :\ \mathbb{R} \to \mathbb{R}; f(x) = x^{2} - 2x +5$\\
             $y_{v} = \frac{\Delta}{4a}\\
@@ -65,7 +66,7 @@
             $\min A = 4$ \\
             $\max A = $ nu exist\u{a}
 
-      \item $A = \{x^{2} + 2x - 1 \arrowvert x \in \mathbb{R}\}$\\
+      \item $A = \{x^{2} + 2x - 1 \vert x \in \mathbb{R}\}$\\
             $\text{Im} f=[-\infty, \frac{-\Delta}{4a})$\\
             $\Delta = 4-4 = 0 \Rightarrow \text{Im} f=(-\infty, 0]$
 
@@ -74,7 +75,7 @@
             $\min A =$ nu exist\u{a}\\
             $\max A = 0$
 
-      \item $A = \{x \in \mathbb{R} \arrowvert 4x^{2} +3x-1 > 0\}$\\
+      \item $A = \{x \in \mathbb{R} \vert 4x^{2} +3x-1 > 0\}$\\
             $f\ :\ \mathbb{R} \to \mathbb{R}, f(x) = 4x^{2} +3x-1$\\
             $f(x) = 0$\\
             $\Delta = 9+16 = 25$\\
@@ -84,30 +85,27 @@
             $\inf A = -\infty$\\
             $\sup A = \infty$\\
 
+            \begin{table}[h]
+              %\centering
+              \begin{tabular}{l|llllllll}
+                $x$    & $-\infty$ &   & -1 &   &   & $\frac{1}{4}$ &   & $\infty$  \\
+                \hline
+                $f(x)$ & +       & + & 0  & - & - & 0           & + & +
+              \end{tabular}
+            \end{table}
+
+            $A = (-\infty, -1) \cup \left( \frac{1}{4}, \infty \right)$\\
+            $\inf A = -\infty$\\
+            $\sup A = \infty$
     \end{enumerate}
 
-\begin{table}[]
-\begin{tabular}{l|llllllll}
-x &
-  -\textbackslash{}infty &
-   &
-  -1 &
-   &
-   &
-  -1 &
-  \textbackslash{}frac\{1\}\{4\} &
-  \multicolumn{1}{r}{\textbackslash{}infty} \\ \hline
-f(x) &
-  \multicolumn{1}{r}{+} &
-  \multicolumn{1}{r}{+} &
-  \multicolumn{1}{c}{0} &
-  \multicolumn{1}{c}{-} &
-  \multicolumn{1}{c}{-} &
-  \multicolumn{1}{c}{0} &
-  + &
-  +
-\end{tabular}
-\end{table}
+    \subsection{Care din urm\u{a}toarele mul\c{t}imi este m\u{a}rginit\u{a}?}
+    \begin{enumerate}
+            \item $A = \{ \frac{1}{x} \vert x \in (0,\infty) \}$
+    \end{enumerate}
+
+
+
 
 
 \end{document}
