@@ -1,0 +1,79 @@
+#+title: Seminar Engleza - 19 Octombrie 2023
+
+* Translation Studies. Terminology.
+** Reguli
+*** Technical terms are to be translated by Transfer Translation
+*** Machine Translation - not completely reliable (yet)
+*** Term
+- Semantic(/meaning/definition/) unit - Can be expressed of 1 or several words
+*** Translation process:
+- V1 - W4W (Word for Word)
+- V2 - ~OK
+- V3 - OK
+*** Sinonimie contextuala
+*** Word order:
+- _Masina_ *rosie* - *Red* _car_
+*** Englezismele
+*** Same word, different transition
+*** Number of words
+** Exercitii:
+- Am mancat o pizza.
+  1. [ ] I ate a pizza.
+  2. [X] I have eaten a pizza.
+- Mananc.
+  1. I am eating.
+  2. I eat.
+  3. I have been eating
+- Nestoichiometria coloizilor
+- Potentiostat
+- Beam
+  1. +buiandrug+
+  2. +grinda+
+  3. (raza)
+  4. _fascicul_
+- Electric Power and machinery
+  1. [ ] Electricitate si operarea masinilor
+  2. [ ] Masinarii si actionari electrice
+  3. [ ] Electricitate si mecanica
+  4. [ ] Surse si masinarii electrice
+  5. [ ] Electrica putere si masinarii [v1]
+  6. [ ] Putere electrica si masinarii [v2]
+  7. [X] (Energie electrica/Electricitate/Curent electric) si (aparate/aparatura/echipamente)
+- Electric != Electronic
+- Control systems
+- _Osciliscop_ digital Lecroi de 4GHz de inalta definitie
+  - High definition 4GHz Lecroi digital _Osciloscope_
+- Satelite comunication
+  - Comunicatii prin satelit
+- Comunication satelite
+  - Satelit de comunicare
+- Computer design
+  1. Design de calculator
+  2. Proiectarea calculatoarelor
+- Solid state electronics
+  - Electronica solida
+- medical imaging systems
+  - Sisteme de imagistica medical
+- Consumer electronics
+  - Electrocasnice
+- Alternating current (AC)
+  - Curent alternativ
+- Device
+  - Dispozitive
+- To add binary numbers
+  - A adauga/insuma numere binare
+- Micro-manipulator
+  - Micromanipulator
+- Silicon
+  - Siliciu
+- Automated manufacture
+  - Manufactura automata (contradictie in termeni)
+  - Constructie automata
+  - Fabricare automata
+  - Confectionare automata
+  - Productie automata
+** Pronuntari:
+- Anti - entai
+- micro - maicrou
+- semi - semai
+- ions - aions
