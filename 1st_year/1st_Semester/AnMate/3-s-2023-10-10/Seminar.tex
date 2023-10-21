@@ -3,8 +3,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{spalign}
+\usepackage{mathtools}
 \usepackage{enumerate}
-\usepackage{xparse}
 \begin{document}
 
     %\title{Seminar 3, Analiz\u{a} Matematic\u{a}}
@@ -13,8 +13,7 @@
     %\maketitle
 
 
-    %\newcommand\revstr{Rev.\@ 1}
-    \newcommand\revstr{Alpha 0.1}
+    \newcommand\revstr{Rev.\@ 1}
     \chapter{Seminar --- 10 Oct.\@ 2023, \revstr}
 
     \section{Mul\c{t}imea numerelor reale $\mathbb{R}$}
@@ -115,8 +114,129 @@
             $\frac{n^{2}}{n+1} > 0$\\[5pt]
             $\frac{n^{2}}{n+1} < \frac{n^{2}}{n} = n$\\[5pt]
             $n \in \mathbb{N},\quad \mathbb{N}$ --- nem\u{a}rginit\u{a} $\; \Rightarrow \; A$ --- nu este m\u{a}rginit\u{a}
-
     \end{enumerate}
 
+    \subsection{$A, B \subset \mathbb{R},\;\; A, B \ne \emptyset,\;\; A, B$ --- m\u{a}rginite\\
+      Ar\u{a}ta\c{t}i c\u{a}:}
+    $\min \{ \inf A, \inf B \} = \text{Im}(A \cup B) \le \sup (A \cup B) = \max \{ \sup A, \sup B \}$\\[5pt]
+    Presupunem \;\; $\text{Im} A \le \inf B \Rightarrow \min \{ \inf A, \inf B \} = \inf A$\\[5pt]
+    \begin{math}
+      \begin{rcases}
+        \inf A \le a,\; \forall a \in A\\
+        \inf B \le b,\; \forall b \in B\\
+        \inf A \le B
+      \end{rcases}
+      \Rightarrow \inf A \le b,\; \forall\ b \in B\\[5pt]
+    \end{math}
+    $\inf (A \cup B) = \inf A$\\[5pt]
+
+    \begin{center}
+      Def.: Fie $x_{0} \in \mathbb{R}$. Spunem c\u{a} mul\c{t}imea $V$ este o vecin\u{a}tate a lui $x_{0}$ dac\u{a}:
+      \[ \left(x_{0} - \varepsilon, x_{o} + \varepsilon \right) \subset V \]
+      $V_{x_{0}} = $ mul\c{t}imea tuturor vecin\u{a}t\u{a}\c{t}ilor lui $x_{0}$.\\
+    \end{center}
+
+    \subsection{Preciza\c{t}i care din urm\u{a}toarele mul\c{t}imi sunt vecin\u{a}t\u{a}\c{t}i pentru $x_{0}$}
+    \begin{enumerate}[a.]
+      \item $(-1, \infty) \in V_{o}$\\[5pt]
+            $(-\varepsilon, \varepsilon) \subset (-1, \infty)$\\[5pt]
+            $\varepsilon = 1 \; \Rightarrow \; (-1, 1) \subset (-1, \infty)$
+      \item $(10, 11) \in V_{10}$
+            $(\underbrace{10 - \varepsilon}_{< 10}, 10 + \varepsilon) \not\subset (10,11)$
+      \item $\{ 0,1,2 \} \in V_{1 } \quad $ (NU --- o mul\c{t}ime de elemente nu are vecin\u{a}t\u{a}\c{t}i)
+      \item $\overline{\mathbb{R}} \in V_{-\infty}$ \quad (DA)\\[5pt]
+            $(-\infty, \infty) < \underbrace{\left[-\infty, \infty \right]}_{\overline{\mathbb{R}}}$
+      \item $\mathbb{Q} \in V_{0}$ \quad (NU)
+    \end{enumerate}
+    \section{\c{S}iruri de numere reale}
+    Def.: Un \c{s}ir de numere reale este o func\c{t}ie $f : \mathbb{N} \to M,\; M \subseteq \mathbb{R}$\\[5pt]
+    $\mathbb{N} \ni n \to f(n) = \underbrace{x_{n}}_{\text{termenul general al \c{s}irului}} \in M$
+    \subsection{Exemple}
+    \begin{enumerate}
+      \item $x_n = n, \; \forall\ n \in \mathbb{N}$
+      \item $x_{n} = 2 \cdot n,\; \forall\ n \in \mathbb{N}$ (sub\c{s}ir al \c{s}irului --- nr.\ naturale)
+      \item $x_{n} = 2n+1,\; \forall\ n \in \mathbb{N}$ (sub\c{s}ir al \c{s}irului --- nr.\ naturale)
+    \end{enumerate}
+
+    \subsection{Nota\c{t}ie}
+    \[ (x_{n})_{n} \in \mathbb{N} \text{ --- \c{s}ir de numere naturale} \]
+
+    \subsection{Defini\c{t}ie}
+    Spunem c\u{a} \c{s}irul ${(x_{n})}_{n} \in \mathbb{N}$ este monoton dac\u{a}:
+    \begin{enumerate}
+      \item $x_n \text{ --- cresc\u{a}tor, } \forall n \in \mathbb{N}:$\\[5pt]
+            $x_{0} \le x_{1} \le x_{2} \le \ldots \le x_{n} \le x_{n+1} \le \ldots \; \forall\ n \in \mathbb{N}$\\
+
+            sau\\
+      \item $x_{n} \text{ descresc\u{a}tor}, \forall\ n \in \mathbb{N}$\\[5pt]
+            $x_{0} \ge x_{1} \ge x_{2} \le \ldots \ge x_{n} \ge x_{n+1} \ge \ldots \; \forall\ n \in \mathbb{N}$\\
+    \end{enumerate}
+
+    \subsection{Criteriu}
+    $(x_{n})\ n \in \mathbb{N} \text{ este:}$
+    \begin{enumerate}[\quad a.]
+      \item Cresc\u{a}tor dac\u{a}:\\[5pt]
+            $x_{n+1} - x_{n} \ge 0, \forall\ n \in \mathbb{N}$
+      \item Descresc\u{a}tor dac\u{a}:\\[5pt]
+            $x_{n+1} - x_{n} \le 0, \forall\ n \in \mathbb{N}$
+    \end{enumerate}
+
+    \subsection{Exerci\c{t}ii}
+    \begin{enumerate}
+      \item Studia\c{t}i monotonia \c{s}irurilor
+            \begin{enumerate}[\quad a.]
+              \item $x_{n} = \frac{2n+1}{4n+3}, n \in \mathbb{N}$\\[5pt]
+                    $x_{n+1} = \frac{2(n+1) + 1}{4(n+1) +3} = \frac{2n+3}{4n+7}$\\[5pt]
+                    \begin{tabular}{ll}
+                      $x_{n+1} - x_{n}$ & $= \frac{2n+3}{4n+7} - \frac{2n+1}{4n+3} =$\\[5pt]
+                                     & $= \frac{(2n+3)(4n+3)-(2n+1)(4n+7)}{(4n+3)(4n+7)}=$\\[5pt]
+                                     & $= \frac{\cancel{8n^{2}} + \cancel{18n} + 9 - \cancel{8n^{2}} - \cancel{18n} - 7}{(4n+3)(4n+7)}=$\\[5pt]
+                                     & $= \frac{2}{(4n+3)(4n+7)} > 0$
+                    \end{tabular}\\[5pt]
+                    \begin{math}
+                      \begin{rcases}
+                        n \in \mathbb{N}\\[5pt]
+                        2 (???)\\[5pt]
+                      \end{rcases}
+                      \Rightarrow x_{n+1} - x_{n} > 0, \;\; x_{n} \text{ monoton cresc\u{a}tor}
+                    \end{math}
+
+              \item $x_{n} \frac{1}{n+1} + \frac{1}{n+2} + \frac{1}{n+3} \ldots \frac{1}{2n},\;\; n \ge 1$\\[5pt]
+                    $x_{n+1} = \frac{1}{n+2} + \frac{1}{n+3} \ldots \frac{1}{2n} + \frac{1}{2n+1} + \frac{1}{2n+2}$\\[5pt]
+                    \begin{tabular}{ll}
+                    $x_{n+1} - x_{n}$ & $= \frac{1}{n+2} + \frac{1}{n+3} \ldots \frac{1}{2n} + \frac{1}{2n+1} + \frac{1}{2n+2} - \frac{1}{n+1} - \frac{1}{n+2} \ldots - \frac{1}{2n}=$\\[5pt]
+                                      & $= \frac{1}{2n+1} + \frac{1}{2n+2} - \frac{1}{n+1} =$\\[5pt]
+                                      & $= \frac{1}{2n+1} - \frac{1}{2n+2} > 0,\;\; x_{n} \text{ monoton cresc\u{a}tor}$
+                    \end{tabular}
+
+              \item $x_{n} = (-1)^{n} + \frac{1}{n}, \; n \ge 1$\\[5pt]
+                    $n = 1 \Rightarrow x_{1} = -1 +1 = 0$\\[5pt]
+                    $n = 2 \Rightarrow x_{2} = -1 + {1 \over 2} = \frac{3}{2} $\\[5pt]
+                    $n = 3 \Rightarrow x_{3} = -1 + {1 \over 3} = - \frac{2}{3}$\\[5pt]
+                    \begin{math}
+                      \begin{rcases}
+                        x_{1} < x_{2}\\[5pt]
+                        x_{2} > x_{3}
+                      \end{rcases}
+                      \Rightarrow x_{n} \text{ --- nu este monoton }
+                    \end{math}
+
+              \item $x_{n} = \cos (\pi \cdot n), \forall\ n \in \mathbb{N}$\\[5pt]
+                    $n = 0 \Rightarrow x_{0} = \cos 0    = 1$\\[5pt]
+                    $n = 1 \Rightarrow x_{1} = \cos \pi  = -1 $\\[5pt]
+                    $n = 2 \Rightarrow x_{2} = \cos 2\pi = 1 $\\[5pt]
+                    $x_{n} = {(-1)}^{2}$ --- nu este monoton
+
+              \item $x_{n} = \frac{1 \cdot 4}{3^{2}} \cdot \frac{2 \cdot 5}{4^{2}} \ldots \frac{n(n+3)}{{(n+2)}^{2}}$\\[5pt]
+                      $x_{n+1}= \frac{1 \cdot 4}{3^{2}} \cdot \frac{2 \cdot 5}{4^{2}} \ldots \frac{n(n+3)}{{(n+2)}^{2}} \cdot \frac{(n+1)(n+4)}{{(n+3)}^{2}}$\\[5pt]
+
+                    \begin{tabular}{ll}
+                      $\frac{x_{n+1}}{x_{n}}$ & $= \frac{1 \cdot 4 \cdot 2 \cdot 5 \ldots n(n+3)(n+1)(n+4)}{3^{2} \cdot 4^{2} \ldots {(n+2)}^{2} \cdot {(n+3)}^{2}} \cdot \frac{3^{2} \cdot 4^{2} \ldots {(n+2)}^{2}}{1 \cdot 4 \cdot 2 \cdot 5 \ldots n(n+3)} =$\\[5pt]
+                                              & $= \frac{(n+1)(n+4)}{(n+3)^{2}}=$\\[5pt]
+                                              & $= \frac{n^{2} + 5n + 4}{n^{2} + 6n + 9} < 1$
+                    \end{tabular}\\[5pt]
+                    $\Rightarrow x_{n+1} < x_{n} \; \Rightarrow \; (x_{n})_{n} \in \mathbb{N} $ --- monoton descresc\u{a}tor
+            \end{enumerate}
+    \end{enumerate}
 
 \end{document}
