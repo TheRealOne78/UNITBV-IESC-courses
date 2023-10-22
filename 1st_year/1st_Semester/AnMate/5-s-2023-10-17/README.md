@@ -1,13 +1,16 @@
-### Seminar 16 Oct 2023 [ALPHA]
+### Seminar 17 Oct 2023
 
 Contents/Continut: 
 
 ```sh
 .
-└── README.md
+├── img
+│   └── 1.svg
+├── README.md
+├── Seminar.pdf
+└── Seminar.tex
 
-1 directory, 1 file
+2 directories, 4 files
 ```
-
 Copyright/Drepturi de autor:
 * GAROIU Ștefan - Universitatea Transilvania din Brasov (UNITBV)
