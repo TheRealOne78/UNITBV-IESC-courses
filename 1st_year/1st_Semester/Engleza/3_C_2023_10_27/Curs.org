@@ -1,0 +1,59 @@
+#+title: Curs Engleza - 27 Octombrie 2023
+
+* Translation
+Limba Romana este limba sursa (source), Limba Enlgeza este limba tinta (target)
+
+* Verb and Verb-Phrase
+- Time (when?)
+- Aspect (How?)
+- #TODO Prima poza
+** Timpuri in Romana:
+[4/7] (Forme uzual folosite)
+1. [X] Prezent: Scriu
+2. [X] Imperfect: Scriam
+3. [X] Perfect Compus: Am scris
+4. [ ] Mai Mult Ca Perfectul (M.M.C.P.): Scri-se-sem (Pe cale de disparitie)
+5. [ ] Perfect Simplu: Scrisei
+6. [X] Viitor: Voi scrie (o/am sa scriu)
+7. [ ] Viitor anterior: Voi fi scris
+** Exemple
+- (Saptamana trecuta) _am scris_ trei scrisori
+  - Last week [Adverb]
+    - +Have written (v3)+
+    - Wrote (v2)
+- _Am scris_ deja 3 scrisori *deja*/*pana acum*
+  - +wrote+
+  - have written
+*** Traduceti
+  - Te astept de 10 minute
+    - I have been waiting for you for 10 minutes.
+  - Te-am asteptat de 10 minute
+    - I +were+ have waiting for you for 10 minutes.
+  - Cand m-ai sunat, te-am asteptat de 10 minute
+    - When you called me, I had been waiting for you.
+** 3 Times
+1. Past
+2. Present
+3. Future
+** 4 Aspects
+1. Simple
+2. Continuos
+3. Perfect
+4. Perfect Continuos
+   TODO: Add second image of graph representation
+** 12 Tenses
+1. *Present*
+   1. Present Simple
+   2. Present Continuos
+   3. Present Perfect
+   4. Present Perfect Continuos
+2. *Past*
+   1. Past simple
+   2. Past Continuos
+   3. Past Perfect
+   4. Past Perfect Continuos
+3. *Future*
+   1. Future Simple
+   2. Future Continuos
+   3. Future Perfect
+   4. Future Perfect Continuos
