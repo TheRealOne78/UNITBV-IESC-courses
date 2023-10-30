@@ -1,0 +1,30 @@
+#+title: Seminar Comunicare - 30 Octombrie 2023
+
+* Scrisoarea de recomandare este un text oficial care atesta:
+- nivelul profesional
+- de studiu
+- abilitati + calitati pe care le are aplicantul
+** Pentru recomandare academica ar mai trebui sa contina:
+- rezultate academice (concursuri, proiecte)
+- potentialul aplicantului
+* Scrieti un E-Mail unui profesor/mentor rugandu-l sa va dea o recomandare pentru a aplica la un Master. Mentionati:
+- Atasarea unui CV actualizat a informatiilor despre facultatea si specializarea la care vreti sa mergeti
+- Motivatia pentru care ati ales acest profesor
+** Rezolvare
+Buna ziua Doamna Profesor <placeholder>,
+
+Ma numesc Bajcsi Elias-Robert si sunt un fost student al facultatii de Inginerie
+Electrica si Stiintele Calculatoarelor al Universtitatii Transilvania din Brasov
+din promotia <placeholder> in grupa <placeholder>, specializarea Calculatoare.
+
+Va rog respectuos sa imi oferiti o scrisoare de recomandare pentru a aplica la
+Master-ul facultatii de Inginerie Electrica si Stiinta Calculatoarelor al
+Universitatatii Transilvania din Brasov cu specializarea <placeholder>.
+
+Experienta in cadrul dumneavoastra a fost una inedita pentru mine, asadar m-ar
+bucura foarte mult sa imi oferiti o scrisoare de recomandare.
+
+Va mai atasez in acest email CV-ul meu actualizat.
+
+Cu respect,
+Bajcsi Elias-Robert
