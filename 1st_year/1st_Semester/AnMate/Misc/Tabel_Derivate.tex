@@ -1,0 +1,42 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{amsmath}
+
+\DeclareMathOperator{\arccot}{arccot}
+\begin{document}
+
+\title{Tabel derivate}
+\author{BAJCSI Elias-Robert a.k.a. TheRealOne78 \and Radu MICULESCU}
+
+\maketitle
+
+
+
+  \section{Derivatele func\c{t}iilor trigonometrice}
+  \begin{math}
+    \left( x^{\alpha} \right)' = \alpha \cdot x^{\alpha -1}\\[5pt]
+    \left( a^{x} \right)' = a^{x} \cdot \ln a \quad \quad \left[ \left( e^{x} \right)' = e^{x} \right]\\[5pt]
+    \left( \sin x \right)' = \cos x\\[5pt]
+    \left( \cos x \right)' = - \sin x\\[5pt]
+    \left( \ln x \right)' = {1 \over x} \\[5pt]
+    \left( \arcsin x \right)' = {1 \over \sqrt{1 - x^{2}}} \\[5pt]
+    \left( \arccos x \right)' = - {1 \over \sqrt{1 - x^{2}}} \\[5pt]
+    \left( \arctan x \right)' = {1 \over 1 + x^{2}} \\[5pt]
+    \left( \arccot x \right)' = - {1 \over 1 + x^{2}} \\[5pt]
+    \left( \tan x \right)' = \tan^{2}x + 1 = {1 \over \cos^{2}x} \\[5pt]
+    \left( \cot x \right)' = - {1 \over \sin x} \\[5pt]
+  \end{math}
+
+  \section{Reguli de derivare}
+  \begin{math}
+    \left( f + g \right)' = f' + g'\\[5pt]
+    \left( f \cdot g \right)' = f' \cdot g + f \cdot g' \quad \quad \left[ \left( \alpha \cdot f(x) \right)' = \alpha \cdot f(x)' \right] \\[5pt]
+    \left( {f \over g} \right)' = \frac{f' \cdot g - f \cdot g'}{g^{2}}\\[5pt]
+    \left( f \circ g \right)'(x) = f'(g(x)) \cdot g'(x)\\[5pt]
+    \left( f^{-1} \right)' \left( f(x) \right) = \frac{1}{f'(x)}\\[5pt]
+
+    \noindent
+    \left( f^{-1} \circ f \right)' \left( f(x) \right) = \frac{1}{f'(x)} \quad \quad \text{deoarece este func\c{t}ie invers\u{a}} \\[5pt]
+    \left( f^{-1} \right)' \left( f(x) \right) \cdot f'(x) = \frac{1}{f'(x)}\\[5pt]
+  \end{math}
+
+\end{document}
