@@ -1,0 +1,33 @@
+<HTML>
+  <HEAD>
+    <TITLE> Numele si telefonul utilizatorului </TITLE>
+  </HEAD>
+  <BODY>
+    <h3>Introduceti numele si nr. de telefon</h3>
+    <FORM METHOD="POST" ACTION="p1.php">
+      Nume:<BR>
+      <INPUT TYPE="TEXT" SIZE=15 MAXLENGTH=20 NAME="nume">
+      <BR>
+      Telefon:<BR>
+      <INPUT TYPE="TEXT" SIZE=15 MAXLENGTH=15 NAME="telefon">
+      <BR>
+      TextArea: <BR>
+      <TEXTAREA NAME="un_nume" ROWS=nr_lin COLS=nr_col WRAP="wrap">
+      </TEXTAREA>
+
+      <br><br>
+      <INPUT TYPE="RADIO" NAME="acoperire_nori" VALUE="senin" CHECKED> Senin<BR>
+      <INPUT TYPE="RAdio" NAME="acoperire_nori" VALUE="variabil"> Variabil<BR>
+      <INPUT TYPE="RADIO" NAME="acoperire_nori" VALUE="innorat"> Innorat<BR>
+
+      <br><br>
+      <SELECT MULTIPLE NAME="nume[]" SIZE="nr_linii" >
+        <OPTION VALUE="valoare_1"> Text_afisat_1 </OPTION>
+        <OPTION VALUE="valoare_2"> Text_afisat_2 </OPTION>
+      </SELECT>
+
+      <br><br>
+      <INPUT TYPE="SUBMIT" VALUE="Trimite">
+    </FORM>
+  </BODY>
+</HTML>
