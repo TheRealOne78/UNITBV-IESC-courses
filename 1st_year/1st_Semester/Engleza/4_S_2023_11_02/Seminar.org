@@ -1,0 +1,54 @@
+#+title: Seminar Engleza - 02 Noiembrie 2023
+
+* D - Translate from Romanian to English
+** Translating
+RO      ->  En    |
+L1      ->  L2    | = UNRELIABLE: x3 { Difficult; Unreliable; Time consuming - about 1 page / hour}
+S.Lg    ->  T.Lg. |
+
+** Proof reading
+- It is reccomended to be done by another person
+- Forget about the source text
+** Genive
+             A.S.G.
+1. _Masina_ *mamei*
+  obj.pos.
+
+2. Culoarea peretelui
+   - +Wall's color+ - NU EXISTĂ
+   - The color of the wall
+3. Culoarea papusei - The hair of the doll
+
+*** BUT
+1. The _dool's_ hair - inanimate
+   - Personificarea unui obiect
+2. To signify imporance and uniqueness
+   - Distanta soarelui fata de pamant
+     The distance of the sun
+     BUT exceptionaly use: The sun's heat (importance and uniqueness)
+   - My car's wheels cost 2000$ (Un pasionat de masina lui)
+   - The flag of the country.
+     My _country's_ flag (O persoana care arata patriotism).
+3. Exceptia 3 (Regula 1):
+   - Comportamentul cainelui.
+     Dog's behaviour.
+     BUT exceptionaly: The behaviour of the dog. (Objectification)
+4. Unitati de masura
+   - Se folosesc cu 's genitive
+   - Yesterday's news
+   - One month's salary
+   - Last week's events
+5. Hibrid genitive
+   - The sattelite speed
+   - The antenna tip
+   - The phone screen
+** Articol hotarat:
++the+
+Leii sunt animale periculoase - +The+ Linons are dangerous
+** Ultimul
+- Ultimul album al lui Beatles - Last beatles album
+- Ultimul album al lui <insert manele creator here> - Latest <manele creator> album
+** Sintagme
+- Notar pulic - Notary public
+- Presedintele ales - President ellect
+- Episcop designat - Bishop designate
