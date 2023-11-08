@@ -1,18 +1,8 @@
-### Laborator 01 Nov 2023
+### Laborator 08 Nov 2023
 
 Contents/Continut: 
 
 ```sh
-.
-├── Laborator3_IA.pdf
-├── README.md
-└── src
-    ├── calc.php
-    ├── index.html
-    ├── p1.html
-    └── p1.php
-
-2 directories, 6 files
 ```
 
 Copyright/Drepturi de autor:
