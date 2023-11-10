@@ -1,0 +1,39 @@
+#+title: Curs Engleza - 10 Noiembrie 2023
+
+* Verbs
+** Tenses
+- Time (When?)
+  + Past
+  + Present
+  + Future
+- Aspect (How?)
+  + Simple
+  + Continuos
+  + Perfect
+  + Perfect Continuos
+*** Insuruire verbe
+- Present
+  + Present Simple
+  + Present Continuos
+  + Present Perfect
+  + Present Perfect Continuos
+- Past
+  + Past Simple
+  + Past Continuos
+  + Past Perfect
+  + Past Perfect Continuos
+- Future
+  + Future Simple
+  + Future Continuos
+  + Future Perfect
+  + Future Perfect Continuos
+** Forms
+*** Time
+- Present: [V_1] ! *s* 3 sg.
+- Past: [V_2]
+  + ed.
+  + 1 *1* 1
+- Future: [Will + V_1]
+*** Aspects
+- Continous: [Be + V_ing]
+- Perfect: [Have + V_3]
