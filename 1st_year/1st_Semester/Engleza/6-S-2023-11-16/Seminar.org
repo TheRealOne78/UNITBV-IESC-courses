@@ -1,0 +1,15 @@
+#+title: Seminar Engleză - 16 Nov 2023
+
+* 1
+** 1.1
+Cea mai +largă+ vastă și diversificată arie a ingineriei se ocupă cu dezvoltarea și proiectarea aplicațiilor, și crearea de sistemelor și dispozitivelor care folosesc curent electric și semnale *electrice*. Printre cele mai importante +subiecte+ ramuri din această arie din sfârșitul aniilor 1980 sunt curentul electric și mașinării, circuite electrice, sisteme de control, proiectare asistată de calculator, superconductori, electronice +în+ cu stare solidă, sisteme de imagistică medicală, robotică, lasere, radar, electrocasnice, și fibre optice.
+În ciuda diversității, ingineria electrică poate fi împărțită în 4 ramuri principale:
+- +Curent electric și mașinării+ Energie și aparatură electrică,
+- electronice,
+- comunicații și control,
+- și computere.
+** 1.2
+Aria curentului electric este preocupată cu proiectarea și operarea sistemelor pentru generarea, transmiterea și distribuirea curentului electric. Inginerii din această nișă au adus destul de multe dezvoltări importante începând cu sfârșitul aniilor 1970. Una din acestea este abilitatea de a transimte curent la tensiuni înalte pentru modurile de curent continuu și curent alternativ, reducând proporțional pierderea curentului. O alta este controlul generării curentului în timp real, transmisia, și distribuirea, folosind calculatoare pentru a analiza  datele trimise inapoi de la sistemul energetic către stația centrală și rezultând în optimizarea eficienței sistemelor în timpul operării.
+Un +avantaj+ progres semnificativ în ingineria mașinăriilor electrice a fost introducerea panourilor electrice care permit motoarelor +cu+ de curent alternativ să ruleze la viteze variabile prin +ajustarea+ reglarea frecvenței curentului cosumat de acestea. Motoarele +cu+ de curent continuu au fost de asemenea făcute pentru a funcționa mai eficient în acest mod.
+** 1.3
+Ingineria electronică se ocupă cu cercetarea, proiectarea, integrarea și aplicarea de circuite și dispozitive folosite în transmiterea și procesarea de informații. În prezent informația este generată, transmisă, +primită+ recepționată și stocată electronic pe o scară neatinsă în istorie, și +există orice indicație+ este clar că rata explozivă +a creșterii+ de dezvoltare în acest domeniu va rămâne indisputabilă.
