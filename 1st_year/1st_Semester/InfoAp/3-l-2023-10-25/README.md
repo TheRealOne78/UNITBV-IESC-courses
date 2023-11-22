@@ -14,4 +14,4 @@ Contents/Continut:
 
 Copyright/Drepturi de autor:
 
-* [Laborator2_IA.pdf](./Laborator2_IA.pdf) - http://imag.pub.ro/~soprisescu/iesc/ia/Laborator2_IA.pdf © Serban OPRISESCU, 2022 - Profesor Serban Oprisescu la Universitatea Transilvania din Brasov UNITBV
+* [Laborator2_IA.pdf](./Laborator2_IA.pdf) - http://vega.unitbv.ro/~soprisescu/iesc/ia/Laborator2_IA.pdf © Serban OPRISESCU, 2022 - Profesor Serban Oprisescu la Universitatea Transilvania din Brasov UNITBV
