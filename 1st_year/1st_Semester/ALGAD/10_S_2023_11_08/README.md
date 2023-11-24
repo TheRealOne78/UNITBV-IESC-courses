@@ -1,4 +1,4 @@
-### Curs 08 Nov 2023 [ALPHA]
+### Seminar 08 Nov 2023 [ALPHA]
 
 Contents/Continut: 
 
