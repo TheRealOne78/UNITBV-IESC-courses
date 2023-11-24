@@ -1,0 +1,66 @@
+#+title: Curs Engleza - 21 November 2023
+
+* 12 Tenses
+** Present:
+*** Present Simple:
+1. Real Situation:
+2. Definition: [arată o actiune repetată, obijnuită ori ad. val.]
+3. Form: [V1]
+4. Adverbs: Usually, seldom, rarely, scarsly, etc...
+5. Ex:
+   - Affirmation: I *write* a letter _everyday_.
+   - Interogativ: *Do* you write a letter _everyday_?
+   - Negation: I *don't* write a letter _everyday_.
+6. Forms Ro:
+*** Present Continuos:
+1. Real Situation:
+2. Def: [actiune in desfasurare (cont) in momentul vorbirii]
+3. Form: I am + writing
+4. Adverbe: [de moment prezent]: _now_. This year.
+5. Ex:
+   - I *am writing* a letter _right now_.
+   - *Are* you *writing* a letter _now_?
+   - I *am* not *writing* a letter _now_.
+*** Present Perfect
+1. Real situation:
+2. Definitie: Arata o actiune incheiata (perfectata) inainte de momentul vorbirii (prezent) - Present effect of a perfect action
+3. Forma: [Have/Has + V3]
+4. Adverbele: _by now_, so far, already, for 2h, since 10 o'clock, never.
+5. Ex:
+   - I have written a lettter - am scris.
+   - Have you written a letter yet.
+   - I have never written a letter.
+   Obs: Daca avem adverb 0 cu perfectul compus, se presupune (pana acum) si se traduce obligatoriu cu present perfect
+*** Present Perfect Continuos
+1. Real situation:
+2. Definition: [actiune partial terminata/incheiata (perfect), dar inca in desfasurare (continuos) in momentul vorbirii (present)]
+3. Forma: [have been writing]
+4. Adverbe:
+   - continuos: now (optional)
+   - perfect: for/since/already (obligatoriu)
+5. Exemplu:
+   - Afirmativ: I _have been writing_ a letter + *for a while* + (now).
+   - Interogativ: _Have you been writing_ *for long*?
+   - Negat: I _haven't been writing_ *for a while*.
+* Ex:
+[8/10][80%]
+1. [X] De obicei iau micul dejun la ora 8.
+   I usually take the breakfast at 8 o'clock.
+2. [X] Ce mananci acolo?
+   What are you eating right there?
+3. [-] [0,5] Nu ti-a spus doctorul ca in perioada asta mananci prea mult?
+   Hasn't the doctor told you that you +eat+ too much in this period?
+4. [X] Mananca de o ora.
+   They have been eating for one hour.
+5. [X] Mereu vine acasa tarziu si obosit.
+   They always come home late and tired.
+6. [X] De atunci nu a mai avut nicio veste de la el.
+   They have been not getting any news from him since then.
+7. [ ] Te caut de o ora.
+   I've *been* +searched+ *searching* for you for one hour.
+8. [X] De cand speli?
+   Since when have you been washing the laundry?
+9. [X] Cate camasi ai spalat?
+   How many shirts have you washed?
+10. [X] Te-am cautat doua ore. In sfarsit te-am gasit.
+    I have searched for you for two hours. I finally found you.
