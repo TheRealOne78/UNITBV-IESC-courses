@@ -1,4 +1,4 @@
-### Curs Analiza Matematica - 07 Nov 2023 [ALPHA]
+### Seminar Analiza Matematica - 07 Nov 2023 [ALPHA]
 
 Contents/Continut: 
 
