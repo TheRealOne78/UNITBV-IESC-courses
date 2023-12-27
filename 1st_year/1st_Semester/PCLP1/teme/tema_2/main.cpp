@@ -20,12 +20,11 @@ int main() {
 
 
     /*** == Deschidere fisier == ***/
-    std::ifstream file;
-    file.open("parola.dat");
+    std::ifstream file("parola.dat");
 
     /* Verificare accesibilitate fisier */
     if (!file) {
-        std::cout << "parola.dat neaccesibil" << std::endl;
+        std::cout << "\e[31mEroare: `parola.dat' inaccesibil!\e[0m" << std::endl;
         exit(1);
     }
 
@@ -86,9 +85,9 @@ int main() {
     /*** == Calculare entropie == ***/
     for(unsigned int i = 0; i <= (sizeof(cnt) / sizeof(int)); i++) {
         if (ratio[i] == 0)
-            continue;
+            continue; /* Ignora din moment ce calculul va da 0 */
 
-        entropy += -(ratio[i] * double(i + 1) / nr) * (log(double(i + 1) / nr) / log(2.f));
+        entropy -= ratio[i] * (double(i + 1) / nr) * (log(double(i + 1) / nr) / log(2.f));
     }
 
 
@@ -98,5 +97,7 @@ int main() {
 
 
 
+    /*** == Terminare program == ***/
+    file.close();
     return 0;
 }
