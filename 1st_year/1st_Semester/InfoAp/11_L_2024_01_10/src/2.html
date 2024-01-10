@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <h1 id="lipsum" onmouseover="color_text()" onmouseout="revert_color()">Lorem Ipsum</h1>
+
+    <p id="paragraph">Error quis harum unde. Numquam saepe aut iure magni in debitis. Nesciunt eaque magni sit repellat voluptatum ut. Et placeat dolor quibusdam laudantium qui quis consectetur dolor. Voluptatibus quos ad dolor corporis inventore qui.</p><br>
+
+    <button onclick="add_color_text()">Yo Dayo~</button><br><br>
+
+  </body>
+
+  <script>
+    function color_text() {
+        document.getElementById("paragraph").style.backgroundColor="pink"
+        document.getElementById("paragraph").style.fontSize="18px"
+    }
+
+    function revert_color() {
+        document.getElementById("paragraph").style.backgroundColor=""
+        document.getElementById("paragraph").style.fontSize="15px"
+    }
+     
+    function add_color_text() {
+        var colors = [ "red", "green", "blue", "pink", "yellow", "purple" ];
+        
+        var paragraph = document.createElement("p");
+        var text = document.createTextNode("Veniam facilis magnam eligendi vel similique facilis sed eos. Ducimus id possimus et sed sed. Eos quaerat et doloribus dolore.");
+        paragraph.appendChild(text);
+
+        paragraph.style.color = colors[Math.floor(Math.random() * 6)];
+
+        var container = document.body;
+        container.appendChild(paragraph);
+    }
+  </script>
+</html>
