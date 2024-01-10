@@ -3,6 +3,28 @@
 Contents/Continut: 
 
 ```sh
+.
+├── a
+│   ├── 1
+│   ├── 2
+│   ├── 3
+│   ├── 4
+│   ├── 5
+│   ├── a
+│   │   └── finger
+│   └── hi.
+├── b
+│   └── a
+│       ├── 1
+│       ├── 2
+│       ├── 3
+│       ├── 4
+│       ├── 5
+│       └── hi.
+├── Laborator6_IA.pdf
+└── README.md
+
+5 directories, 15 files
 ```
 
 Copyright/Drepturi de autor:
