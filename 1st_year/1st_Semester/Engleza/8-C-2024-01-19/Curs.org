@@ -1,0 +1,79 @@
+#+title: Curs
+
+1. Future Simple
+   1. Real Situation:
+   2. Def: O actiune care va avea loc (simple), cand intr-un punct din viitor (Future)
+   3. [ will + V1 ]
+      + Shall
+        - pers I, sg (I)/pl (We) = vb F (BV)
+          + shall not -> shan't (prescurtare)
+        - pers II/III, verb modal - *particular*
+   4. Adverbe:
+      + Tommorow
+      + Next
+      + 27 Feb 2025
+      + when (I graduate)
+   5. Example:
+      + Afirmativ: I will/shall <write the letter tommorow>
+      + Interogativ: Will/Shall I <write the letter tommorow>
+      + Negative: I won't <write a letter tommorow>
+   6. Ro [ voi scrie ]
+      + o sa scriu
+      + am sa scriu
+2. Future Continuos
+   1. Real situation:
+   2. Def: Arata o actiune in desfasurare (continuos), intr-un punct din viitor (Future)
+   3. [ will + be + -ing ]
+   4. _adverbe de punct in viitor_ - on my b-day next year, tmrw, 6 years from now
+   5. Example:
+      + Afirmativ: I will be writing a letter tmrw.
+      + Interogativ: Will you be writing a letter tmrw?
+      + Negative: I will not be writing a letter tmrw.
+   6. Ro: Maine lucrezi, maine scrii, [eu] voi scrie...
+3. Future Perfect
+   1. Situatia reala:
+   2. Def.: Arata o actiune perfectata/incheiata (perfect) inainte de un punct din viitor (Future)
+   3. [ will + have + V3 ]
+   4. Adverbe: "By"/"Until" + punct in viitor (Tmrw/Next Year)
+   5. Example:
+      + Afirmativ: By next year I will have written.
+      + Interogativ: Will you have written the letter by tmrw?
+      + Negative: I won't have written the letter by tmrw.
+   6. Ro: Voi scrie/o sa scriu - ca verificare se poate apela la viitor anterior
+4. Future Perfect Continuos
+   1. Real situation:
+   2. Def: Arata o situatie incheiat partial (perfect), dar inca in desfasurare (continuos), intr-un punct din viitor (Future)
+   3. [ will + have + been + ing ]
+   4. adverbe
+      1. Future - eg. tomorrow
+      2. Perfect - eg. for
+   5. Example:
+      + Afirmativ: Tomorrow at six I will have been writing the letter.
+      + Interogativ: Will you have been writing the letter for six hours tomorrow?
+      + Negative: I will have not been writing the letter for 6 hours tomorrow.
+   6. Ro: va testa, o sa scriu
+
+* Simulare colocviu
+1. -
+2. Conduc de trei ore.
+3. Acum conduc spre bucuresti.
+4. Saptamana trecuta pe vremea asta conduceam spre cluj.
+5. Saptamana trecuta pe vremea asta conduceam deja de 6 ore.
+6. Pana atunci, nu condusesem niciodata cu 130 la ora.
+7. Conduc ca sofer profesionist de 10 ani.
+8. Am condus peste 50 000 de kilometri.
+9. Numai anul trecut am condus 10 000.
+10. Saptamana trecuta pe vremea asta eram obosit pentru ca condusesem pe zapada.
+** Rezolvare [6/10]
+1. [X] -
+2. [X] I've been driving for three hours.
+3. [X] I am driving to Bucharest.
+4. [X] Last weekend at this time I was driving to Cluj.
+5. [ ] Last weekend at this time I +have+ *had* been driving to Cluj for six hours.
+6. [ ] Till then, I +haven't drived+ *had driven* with 130 km/h.
+7. [X] I have been driving as a profesional driver for ten years.
+8. [X] I have +drived+ *driven* over 50 tousand kilometers.
+9. [ ] Just last year I +have drived+ *had driven* 10 tousand.
+10. [ ] Last week at this time I was tired because I +have driven+ *had driven* on snow.
+* Colocviu:
+- 45 de minute la dispozitie
