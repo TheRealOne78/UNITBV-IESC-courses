@@ -1,0 +1,60 @@
+#+title: Seminar Engleza 28 Februarie 2024
+
+- Corporations with large companies (inc / ltd)
+- Multinationals (Siems)
+- National companies (Mondly)
+- Institution (Banks / Hospitals / Airport / SRI / STS)
+- Preh
+- Unofficial sources (Friends / Relatives / etc)
+- Vacancy/opency (post vacant)
+- Head hunting companies
+- The salary/wages/income
+  - How much income do you expect as a juniour engineer? 5 figures
+    - taxes (48% net)
+  - High income
+  - Factoring out the money, asuming you have a standard of 2k euro
+  - Leisure activities
+  - Work activities
+- Job description
+
+* Personal values
+1. Programming
+2. Repairing
+3. Sewing
+* Spending Activities
+1. 3D-printing
+2. Updating my toolset
+3. Eating sweets
+
+|--------------------------+----------------------|
+| +-                       | -+                   |
+|--------------------------+----------------------|
+| social                   | individual *         |
+| high risc                | low risc *           |
+| dinamic *                | static *             |
+| creativity               | applicative          |
+| novelty *                | routine              |
+| high responsibility *    | low responsibility   |
+| free *                   | strict rules         |
+| predictibility *         | non-predictibility   |
+| immediate satisfaction * | delayed satisfaction |
+|--------------------------+----------------------|
+
+|-----------------------------------+-------------------------------------|
+| Areas of employment               | Types of activity                   |
+|-----------------------------------+-------------------------------------|
+| Avionics                          | Manufacturing                       |
+| Computing *                       | Planning / Design                   |
+| Defence                           | Instalation                         |
+| Industrial electronics            | Commisioning (punerea in functiune) |
+| Leisure products                  | Maintenance (servisare)             |
+| Telecomunication and broadcasting | Sales                               |
+| Medical Equipment                 | Teaching                            |
+|                                   | Research and Development *          |
+|-----------------------------------+-------------------------------------|
+
+Size: Small / self-employed
+
+Conclusion: Try to adapt the job description to _your_ personal preferences and not the other way around.
+
+Unit 2 - de scos de pe platforma

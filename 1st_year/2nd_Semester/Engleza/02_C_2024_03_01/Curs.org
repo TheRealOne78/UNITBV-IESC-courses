@@ -1,0 +1,87 @@
+#+TITLE: Curs Engleza - 1 Martie 2024
+
+* Semestrul II
++ Exceptions for tenses
++ Passive-Active Voice
++ If-Clauses (Conditional Subord)
++ Modal verbs
+
+* Exceptions for tenses
+1. Present Simple (everyday)
+2. Present Continuous (now)
+
+** Regula de baza: Exceptie
+In orice limba, daca intalniti o situatie unde este incalcata o regula gramaticala cunoscuta:
+1. Este o greseala de vorbitor din diverse motive
+   a. Autorul nu vorbeste in limba lui materna
+   b. Vorbitorul este un native speaker, dar nu vorbeste bine pentru ca are un grad redus de educatie si nu isi cunoaste limba materna
+2. Daca nu este cazul sa fie o greseala, este o incalcare intentionata, si adesea comporta urmatorul sens
+   + semantic
+   + sens
+   + mesaj
+   + Exemplu:
+     - You are _driving_ well *now*.
+     - You are _driving_ well *lately*. (plus de sens: conduci bine acum, spre deosebire de dinainte cand conduceai dezastruos)
+   + Cont + adv-nonadecvate => Reproach
+     + Exemplu: You _are being_ rude *every morning* when you wake up (and I want you to stop)
+   + Cont + adv-nonadecvate => Unhabitual Action
+     + Exemplu: You _are always coming_ punctual to classes *lately*. (de obicei intarziai)
+3. Anumite verbe din Engleza nu au aspectul Continuous, deoarece actiunile descrise de ele dureaza o fractiune de secunda, deci nu pot avea o durata temporala interna
+   + Example:
+     - Stop!
+       - Resp: Ma opresc acum. (I am stopping now)
+   + A.
+     + Vb. duration:
+       - stop
+       - start
+       - cease
+     + Vb. perception:
+       - 5 senses:
+         - see
+           - Exemplu: *Now* I am seeing the red car (R)
+             - I (can) _see_ the red car *now*
+         - hear
+         - smell
+         - feel
+         - taste
+       - Physical perception verbs:
+         -
+       - Emotional perception verbs:
+         - Like/dislike
+         - Love
+           - Adore
+         - Hate
+           - Loath
+       - Intell.
+         - understand
+           - Exemplu: I understand physics generally (Regula, present simple, adverb dedicat)
+             - Acum inteleg acest exercitiu (I am understanding this exercise right now - INNACCEPTABLE) (I can understand right now)
+           - Sinonime:
+             - comprehend
+             - know
+             - believe
+             - imagine
+** Exceptii la patrat (exceptie la exceptie)
+Daca totusi va aparea ca exceptie la exceptie un verb de percetie din oricare dintre cele 3 categorii la continuous, el sigur nu inseamna ca actiunea este prinsa in plina desfasurare, ci are cu totul alt sens (care se studiaza, nu se poate ghici)
+  - I am seeing Jane (lately/now/everyday) - +O vad pe Jane acum/zaresc+ / Eu ma vad cu Jane (ma vad cu ea, ies cu ea, suntem un cupu)
+  - I am seeing my Cardiologist tmrw. +Il zaresc+ / Am o programare.
+  - I am seeing my lawier also.
+  - This house is haunted. Come on, you're just seeing things. (ai vedenii) (things that do not exist)
+  - You're just hearing things. (ai auzenii)
+  - She's smelling the flowers. (repetitive action/voluntary action + duration)
+  - He's tasting the wine. (degusta din vin)
+  - I am feeling low lately. (nu sunt in apele mele + unhabitual action)
+  - Mie imi place. I _like_ it. (sens 1 - generally) (sens 2 - right now)
+    - I'm liking it.
+  - Mie imi place. I _love_ it. (sens 1 - generally) (sens 2 - right now)
+    - I'm loving it. - Slogan McDonalds (subliminal de continous este un reproach + unhabitual action) (Scroptions - I'm still loving you - REPROACH)
+      - why not the shorter 'I love it'?
+** Exceptii imperativ
+Este un mod in care se dau orders/commands. Shut up! (second person / Regula)
+- let's go (let us go)
+- Am auzit ca si-a dat demisia. (Am aflat)
+  + I +'ve heard+ he quit his job. I hear he quit his job.
+- Ai castigat.
+  + You +won/have won+ win! (sense: Present continous, written present simple)
+- Iata-l pe Ion.
+  + [There goes/There comes/Here goes/Here comes] John.
