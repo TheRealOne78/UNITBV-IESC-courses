@@ -1,0 +1,13 @@
+#+TITLE: Proiect PCLP2 - 20 Februarie 2024
+#+DESCRIPTION: Listă de chestii ce trebuie să apară în proiect
+
+- UI
+- Mostenire multipla
+- Principii S.O.L.I.D.
+- Abstracte
+- Overloading/Overriding
+- (baze de date)
+- Magazin/biblioteca
+- Niste teste unitare
+- git
+- Clean code
