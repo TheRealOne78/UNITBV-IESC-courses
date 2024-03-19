@@ -1,0 +1,57 @@
+#+title: Curs Engleza - 15 Martie 2024
+
+| Română             | Engleza            |
+|--------------------+--------------------|
+| Diateza Activa (7) | Active Voice (12)  |
+| Diateza Pasiva     | Passive Voice (12) |
+| Diateza Relfexiva  | -                  |
+
+* Diateza Activa / Active Voice
+- *Pisica* vaneaza _soareci_.
+  + Subiect Logic
+  + Subiect G.
+  + Substantiv
+* Diateza Pasiva / Passive Voice
+- _Soarecele_ este vanat de *pisica*.
+* Diateza Relfexiva
+- Soarecele este vanat de pisica zilnic.
+  + The mouse is chased by the cat every day.
+- Soarecele este vanat de pisica acum.
+  + The mouse is being chased by the cat now.
+
+* Examples
+** Past Simple Passive
+- be + v3
+- Mouse chased (by the cat) yesterday.
+** Past Continuous Passive
+- Be (v2) + v-ing + V3
+- The equipment was being tested (by the service engineer) when the client called.
+** Past Perfect Passive
+- v2 + have  v3 + be
+- The equipment had been tested by 1970.
+** Past Perfect Continuous Passive
+- The equipment had been beeing tested.
+- Obs.: Rarely used but correct.
+** Present Perfect Passive
+- The equipment has been tested by our company
+- A fost testat (se confunda cu Past Simple)
+** Present Perfect Continuous Passive
+- The equipment has been been tested
+** Future Simple Passive
+- will + v1   be + v3
+- The Equipment will be tested (by our company).
+** Future Continuous Passive
+- will + v1 + be Ving + be v3
+- Will be beeing tested
+- Obs.: Rarely used, but correct
+** Future Perfect Passive
+- The equipment will have been tested by 01.09.2025
+** Future Perfect Continuous Passive
+- The equipment will have been beeing tested for two decades next year
+* Example 2
+- The engineer _is testing_ the device right now
+- The power was fed into the device at 220V
+* Example 3
+- Modificari radicale au fost facute pentru a modifica tensiunea in retea
+- S-au facut modificari radicale
+- Am facut modificari radicale
