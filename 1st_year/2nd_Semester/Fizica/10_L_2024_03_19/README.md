@@ -6,9 +6,10 @@ Contents/Continut:
 .
 ├── Figurile_Lissajous.jpg
 ├── Lissajous st.pdf
-└── README.md
+├── README.md
+└── Tabla.jpg
 
-1 directory, 3 files
+1 directory, 4 files
 ```
 
 Copyright/Drepturi de autor:
