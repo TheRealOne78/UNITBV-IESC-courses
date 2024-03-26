@@ -3,6 +3,17 @@
 Contents/Continut: 
 
 ```sh
+.
+├── PCLP2_L_5_suplimentar.pdf
+├── README.md
+└── src
+    └── 1
+        ├── cerc.cpp
+        ├── cerc.hpp
+        ├── punct.cpp
+        └── punct.hpp
+
+3 directories, 6 files
 ```
 
 Copyright/Drepturi de autor:
