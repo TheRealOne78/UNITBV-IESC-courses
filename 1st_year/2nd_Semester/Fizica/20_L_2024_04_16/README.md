@@ -1,13 +1,15 @@
-### Laborator Fizică - 16 Aprilie 2024 [ALPHA]
+### Laborator Fizică - 16 Aprilie 2024
 
 Contents/Continut: 
 
 ```sh
 .
 ├── README.md
-└── T.e.m..pdf
+├── T.e.m..pdf
+├── Tabel.odt
+└── chalkboard.jpg
 
-1 directory, 2 files
+1 directory, 4 files
 ```
 
 Copyright/Drepturi de autor:
