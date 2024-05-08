@@ -5,9 +5,11 @@ Contents/Continut:
 ```sh
 .
 ├── Determinarea rezistivitatii electrice a metalelor.pdf
-└── README.md
+├── Laborator.odt
+├── README.md
+└── chalkboard.jpg
 
-1 directory, 2 files
+1 directory, 4 files
 ```
 
 Copyright/Drepturi de autor:
