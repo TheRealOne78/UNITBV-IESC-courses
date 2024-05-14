@@ -1,3 +1,6 @@
 [submodule "1st_year/2nd_Semester/PCLP2/TTUYDM"]
 	path = 1st_year/2nd_Semester/PCLP2/TTUYDM
 	url = git@github.com:TheRealOne78/TTUYDM.git
+[submodule "1st_year/2nd_Semester/PCLP2/TTYUDM"]
+	path = 1st_year/2nd_Semester/PCLP2/TTUYDM
+	url = https://github.com/TheRealOne78/TTUYDM.git
