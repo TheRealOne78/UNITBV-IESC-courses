@@ -1,7 +1,7 @@
-CC = g++
-CFLAGS = -O3
+CXX = c++
+CXXFLAGS = -O3
 SRC = ./src/*.cpp
 BIN = test.out
 
 $(BIN):
-	$(CC) $(CFLAGS) $(SRC) -o $(BIN)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(BIN)
