@@ -1,0 +1,57 @@
+#+title: Seminar Teoria Sistemelor
+#+DATE: 04.10.2024
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=1.75cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-2cm}
+
+\noindent E-Mail: simona.coman@unitbv.ro
+
+* Tipuri de semnale utilizate in automatica
+Performantele unui sistem pot fi verificate prin intermediul semnalului/semnalelor de intrare. In acest scop, in automatica se folosesc o serie de semnale deterministe (este un semnal a carui variatie in timp este cunoscuta).
+Aceste semnale deterministe se impart in 2 categorii:
+1) Semnale aperiodice
+2) Semnale periodice
+** Semnale aperiodice
+*** Impuls unitar Dirac
+f(x) =
+\begin{cases}
+  \infty, t = 0 \\
+  0, altfel
+\end{cases}
+
+\noindent $\int\limits_{-\infty}^{\infty} \delta(t)dt = 1$
+*** Dreapta unitara
+1_{+}(t) =
+\begin{cases}
+  1, t \geq 0 \\
+  0, t < 0
+\end{cases}
+
+\noindent
+3 \cdot 1_{+}(t) =
+\begin{cases}
+  3, t \geq 0 \\
+  0, t < 0
+\end{cases}
+
+*** Rampa unitara
+u_{r}(t) =
+\begin{cases}
+  t, t \geq 0 \\
+  0, t < 0
+\end{cases}
+
+*** Parabola unitara
+u_{p}(t) =
+\begin{cases}
+  {t^{2} \over 2}, t \geq 0 \\
+  0, t < 0
+\end{cases}
+** Semnale periodice
+u(t) =
+\begin{cases}
+  A \sin \omega t, t \geq 0 \\
+  0, t < 0
+\end{cases}
+
+\noindent $\omega = 2\pi f = {2 \pi \over T}$
