@@ -1,7 +1,5 @@
 package org.clase;
 
-import org.clase.Student;
-
 public class Curs {
     String nume;
     String descriere;
@@ -10,10 +8,10 @@ public class Curs {
     int[] note_studenti;
 
     public Curs(String nume, String descriere, Profesor profu, Student[] studenti) {
-        this.nume = nume;
-        this.descriere = descriere;
-        this.profu = profu;
-        this.studenti = studenti;
+        this.nume          = nume;
+        this.descriere     = descriere;
+        this.profu         = profu;
+        this.studenti      = studenti;
         this.note_studenti = new int[this.studenti.length];
     }
 
@@ -40,7 +38,7 @@ public class Curs {
         int tmp_indx = -1;
 
         for (int i = 0; i < studenti.length; i++) {
-            if (studenti[i].getNume.equals(nume)) {
+            if (studenti[i].getNume().equals(nume)) {
                 tmp_indx = i;
                 break;
             }
@@ -73,11 +71,12 @@ public class Curs {
 
     @Override
     public String toString() {
-        String str = "Curs: " + "nume=" + nume + ",descriere=" + descriere + ",\nprofu=" + profu + ",\nstudenti:\n" ;
+        String str = "Curs: " + "nume=" + nume + ", descriere=" + descriere + ",\nprofu=" + profu + ",\nstudenti:\n" ;
 
         for(Student s : studenti)
             str+= s + "\n";
 
         return str;
     }
+
 }

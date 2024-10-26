@@ -1,4 +1,10 @@
-package org.clase;
+package org;
+
+import org.clase.Curs;
+import org.clase.ManagerCursuri;
+import org.clase.Profesor;
+import org.clase.Student;
+
 public class Clase {
     public static void main(String[] args) {
         //definire studenti
