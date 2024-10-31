@@ -5,6 +5,7 @@ import org.clase.ManagerCursuri;
 import org.clase.Profesor;
 import org.clase.Student;
 
+
 public class Clase {
     public static void main(String[] args) {
         //definire studenti
@@ -19,6 +20,19 @@ public class Clase {
         //adaugare curs in lista de cursuri
         ManagerCursuri cursuri = new ManagerCursuri();
         cursuri.AddCurs(curs);
-        cursuri.AfiseazaCursuriLaConsola();
+
+        curs.AfiseazaStudentiLaConsola();   // OK
+        cursuri.AfiseazaCursuriLaConsola(); // OK
+
+        curs.AddStudentGrade(studenti[0], 10, prof);
+        curs.AddStudentGrade(studenti[1], 7.5f, prof);
+
+        curs.AfiseazaStudentiLaConsola();   // OK
+
+        curs.AfiseazaMedie(); // OK
+
+        cursuri.AfiseazaNoteStudenti(); //OK
+
+        cursuri.AfiseazaMedieProfesor(prof); //OK
     }
 }
