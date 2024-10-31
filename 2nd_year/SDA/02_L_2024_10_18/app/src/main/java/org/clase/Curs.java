@@ -5,14 +5,14 @@ public class Curs {
     String descriere;
     Profesor profu;
     Student[] studenti;
-    int[] note_studenti;
+    float[] note_studenti;
 
     public Curs(String nume, String descriere, Profesor profu, Student[] studenti) {
         this.nume          = nume;
         this.descriere     = descriere;
         this.profu         = profu;
         this.studenti      = studenti;
-        this.note_studenti = new int[this.studenti.length];
+        this.note_studenti = new float[this.studenti.length];
     }
 
     public void UpdateProfesor(Profesor profu) {
@@ -64,6 +64,38 @@ public class Curs {
         }
     }
 
+    public void AddStudentGrade(Student student, float grade, Profesor prof)  {
+        for(int i = 0; i < this.studenti.length; i++) {
+            if(this.studenti[i].equals(student)) {
+               this.note_studenti[i] = grade;
+            }
+        }
+    }
+
+    protected void AfiseazaNoteStudenti() {
+        for(int i = 0; i < this.studenti.length; i++) {
+            System.out.println("Curs:" + this.nume + ", Student: " + studenti[i] + ", Nota: " + note_studenti[i]);
+        }
+    }
+
+    protected float GetMedie() {
+        float suma = 0;
+        int i;
+        for(i = 0; i < this.studenti.length; i++)
+            suma += this.note_studenti[i];
+
+        return suma/i;
+    }
+
+
+    public void AfiseazaMedie() {
+        float suma = 0;
+        int i;
+        for(i = 0; i < this.studenti.length; i++)
+            suma += this.note_studenti[i];
+        System.out.println("Media: " + suma/i);
+    }
+
     public void AfiseazaStudentiLaConsola() {
         for(Student s : this.studenti)
             System.out.println(s);
@@ -77,6 +109,26 @@ public class Curs {
             str+= s + "\n";
 
         return str;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public String getDescriere() {
+        return descriere;
+    }
+
+    public Profesor getProfu() {
+        return profu;
+    }
+
+    public Student[] getStudenti() {
+        return studenti;
+    }
+
+    public float[] getNote_studenti() {
+        return note_studenti;
     }
 
 }

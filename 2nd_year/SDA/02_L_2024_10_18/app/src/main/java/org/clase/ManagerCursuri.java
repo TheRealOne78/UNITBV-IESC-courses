@@ -1,15 +1,8 @@
 package org.clase;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class ManagerCursuri {
     Curs[] cursuri;
     public ManagerCursuri() {
-        Connection conn = null;
         cursuri = new Curs[0];
     }
 
@@ -60,5 +53,20 @@ public class ManagerCursuri {
     public void AfiseazaCursuriLaConsola() {
         for(Curs c : cursuri)
             System.out.println(c);
+    }
+
+    public void AfiseazaNoteStudenti() {
+        for(Curs c: cursuri)
+            c.AfiseazaNoteStudenti();
+    }
+
+    public void AfiseazaMedieProfesor(Profesor profesor) {
+        float suma = 0;
+        int i;
+        for(i = 0; i < this.cursuri.length; i++)
+            if(cursuri[i].getProfu().equals(profesor))
+                suma += this.cursuri[i].GetMedie();
+
+        System.out.println("Medie profesor " + profesor.getNume() + " " + profesor.getPrenume() + ": " + suma/i);
     }
 }
