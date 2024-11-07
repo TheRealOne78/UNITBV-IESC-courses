@@ -1,6 +1,6 @@
 package org.clase;
 
-public class ManagerCursuri {
+public class ManagerCursuri implements OperatiiManagerCursuri {
     Curs[] cursuri;
     public ManagerCursuri() {
         cursuri = new Curs[0];
@@ -17,6 +17,30 @@ public class ManagerCursuri {
         //si realocam lista de curs cu aux;
         this.cursuri = new Curs[noualungime];
         System.arraycopy(aux, 0, cursuri, 0, noualungime);
+    }
+
+    public void DeleteCurs(Curs curs) {
+        int tmp_indx = -1;
+
+        for (int i = 0; i < cursuri.length; i++) {
+            if (cursuri[i].equals(curs)) {
+                tmp_indx = i;
+                break;
+            }
+        }
+
+        if (tmp_indx != -1) {
+            Curs[] aux = new Curs[cursuri.length - 1];
+            int index = 0;
+
+            for (int i = 0; i < cursuri.length; i++) {
+                if (i != tmp_indx) {
+                    aux[index++] = cursuri[i];
+                }
+            }
+
+            this.cursuri = aux;
+        }
     }
 
     public void DelCurs(String nume) {
