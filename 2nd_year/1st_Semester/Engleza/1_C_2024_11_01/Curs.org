@@ -1,0 +1,10 @@
+#+title: Curs Engleza
+
+*Centrul de cercetare ICDT - The "Transilvania Development and Research Insitute" research center*
+*Sisteme electronice integrate si comunicatii avansate - Integrated electronic systems and advanced communications*
+
+The concept of electronics, computers and telecommunications consists in the aimset of integrated electronics systems centered development.
+
+The outcome of the research materializes in the designing of computer +main board+ systems (embedded systems) & computational inteligence, radiocommunications and inteligent communication networks, along with image processing & analysis, signal aquisition & processing, integrated systems on chip and also power applications based on supercapacitors.
+
+R2 = vb + sf
