@@ -1,6 +1,6 @@
 package org.clase;
 
-public class Curs {
+public class Curs implements OperatiiCurs {
     String nume;
     String descriere;
     Profesor profu;
@@ -13,6 +13,34 @@ public class Curs {
         this.profu         = profu;
         this.studenti      = studenti;
         this.note_studenti = new float[this.studenti.length];
+    }
+
+    public void RemoveStudent(Student student) {
+        int tmp_indx = -1;
+
+        for (int i = 0; i < studenti.length; i++) {
+            if (studenti[i].equals(student)) {
+                tmp_indx = i;
+                break;
+            }
+        }
+
+        if (tmp_indx != -1) {
+            Student[] aux = new Student[studenti.length - 1];
+            int index = 0;
+
+            for (int i = 0; i < studenti.length; i++) {
+                if (i != tmp_indx)
+                    aux[index++] = studenti[i];
+
+                this.studenti = aux;
+            }
+        }
+    }
+
+    public void UpdateCurs(String nume, String descriere) {
+        this.nume = nume;
+        this.descriere = descriere;
     }
 
     public void UpdateProfesor(Profesor profu) {
