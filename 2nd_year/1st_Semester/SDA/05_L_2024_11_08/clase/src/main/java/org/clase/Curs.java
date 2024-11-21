@@ -1,4 +1,4 @@
-package org.clase;
+package org.
 
 public class Curs implements OperatiiCurs {
     String nume;
