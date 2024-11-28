@@ -1,0 +1,39 @@
+$A(db) = 20 \cdot log_{10} {V_ies \over V_in}$
+
+* Exercitiu
+R_1 = 100 \Omega \\
+C = 3.18 \\
+B = ? \\
+
+F = {1 \over 2 \cdot 3.14 \cdot 100 \cdot 3.18 \cdot 10^{-6}} = ~500Hz
+
+* Osciloscop
+Osciloscop analogic - este variat pe verticala proportional cu semnalul investigat.
+
+Pentru a stabiliza imaginea, perioada de oscilatie a bazei de timp trebuie sa fie un multiplu intreg al perioadei semnalului investigat.
+
+Sistemul vertical ajusteaza pozitia modul de cuplaj si amplitudinea pe placile verticale.
+
+Linia de interziere (L_î) intarzie semnalul aplicat placilor verticale cu 100-200 ns in urma semnalului aplicat placilor orizontale pentru a permite preconstructia semnalului.
+
+CD - Circuitul de declansare porneste afisajul in acelasi punct. Conditia de declansare este ca f_semnal sa fie ca n \cdot f_RT.
+BT - Baza de timp este generatorul tensiunii rampa/dinte de fierastrau
+
+F_semnal  = n
+A = k \cdot t
+
+CRT:
+1. Tubul catodic
+2. Placi de deviatie
+3. Placi de refractie
+4. Ecran
+
+Tubul catodic emite fasciculi de electroni, il accelereaza si il focalizeaza.
+Placide de deviatie regleaza pe orizontala si verticala deplasarea acestui fascicul in functie de semnalul investigat.
+Ecranul converteste energia cinetica in lumina.
+
+Declansarea semnalului - semnalul este declansat daca tensiunea de intrare este egala cu U_nt
+
+Sincronizarea bazei de timp.
+
+Sistemul orizontal se ocupa de variajul orizontal al semnalului, care inseamnca sincronizarea bazei de timp.
