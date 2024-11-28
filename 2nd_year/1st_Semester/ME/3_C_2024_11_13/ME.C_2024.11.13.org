@@ -1,0 +1,29 @@
+#+title: Curs ME 3
+
+O punte este formata din divizori de tensiune, diferenta dintre ele reprezentand tensiunea de iesire.
+
+Puntea este echilibrata daca V_ies este egala cu 0.
+
+Dioda functioneaza ca un stabilizator de tensiune.
+
+* Puntea de curent alternativ Maxwell-Wien
+R_x = (R_2 * R_3) / R2
+L_x = R_2 * R_3 * C_e
+
+* Osciloscop
+1. Semnalul este numarat cat timp poarta este inchisa
+2. Oscilatorul cu quartz generaza intervale de timp precize, care ajuta BT (baza de timp) cat timp este inchisa poarta.
+
+* Filtrul
+Filtrul permite separarea componentelor spectrale.
+** Filtre pasive (ordinul I)
+- gama larga
+- nu necesita alimentare
+- liniaritate buna
+- x nu orice caracteristica de filtrare poate fi obtinuta
+
+  F_taiere = 1 / (2 * pi * R * C)
+
+  A_DB = 20*log_10(V_ies / V_in)
+
+  Filtru A - Amplifica semnalul definit.
