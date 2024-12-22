@@ -21,4 +21,9 @@ public class Profesor extends Persoana {
     public void setPrenume(String prenume) {
         this.prenume = prenume;
     }
+
+
+    public String toString() {
+        return nume + ", " + prenume;
+    }
 }

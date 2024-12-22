@@ -3,7 +3,7 @@ package org.clase;
 import java.io.File;
 import java.util.*;
 
-public class ManagerCursCSV extends ManagerCursuri implements OperatiiManagerCursuri {
+public class ManagerCursCSV extends ManagerCursuri {
     File studenti, profesori, cursuri;
     public ManagerCursCSV() {
         try {
@@ -40,10 +40,12 @@ public class ManagerCursCSV extends ManagerCursuri implements OperatiiManagerCur
     }
 
     public ArrayList<Profesor> PopuleazaProfesori() {
+        //TODO
         return new ArrayList<>();
     }
 
     public ArrayList<Curs> PopuleazaCursuri(ArrayList<Profesor> proflist, ArrayList<Student> studentlist) {
+        //TODO
         return new ArrayList<>();
     }
 

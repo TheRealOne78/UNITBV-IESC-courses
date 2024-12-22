@@ -1,0 +1,15 @@
+#+title: Seminar
+
+Tranzistorii +sunt fabricați+ se fabrică din semiconductori. Acestea sunt materiale, precum siliciul ori germaniul, care sunt impurificate (au mici cantități de elemente străine adăugate) astfel încât există ori +o abundență+ un surplus sau lipsă de electroni liberi.
+
+În primul caz, semiconductorul este denumit "tip N", iar în +al doilea+ următorul caz "tip-P". Prin combinarea materialelor de tip N si tip P, se poate produce o diodă.
+
+Când o diodă este conectată la o baterie astfel încât materialul de tip-P este pozitiv iar cel de tip-P este negativ, electronii sunt respinși de la borna negativă a bateriei și trece neimpedat către aria-P, căruia îi lipsește electroni.
+
+Cu bateria polarizata invers, electronii sosiți în materialul P pot să treacă doar cu dificultate către materialul N, care este deja +umplut+ saturat cu electroni liberi, iar curentul este aproape zero.
+
+Tranzistorul bipolar s-a inventat in 1948 ca o înlocuire pentru triodele cu tub vidat. Acesta conține trei straturi de material impurificat, formând două joncțiuni P-N bipolare cu configurații pnp sau npn. O joncțiune se conectează la o baterie astfel încât să +lase+ permită fluxul de curent (polarizare directă), și cealaltă joncțiune are o baterie conectată în direcția inversă (polarizare inversă).
+
+Dacă curentul este variat în joncțiunea de polarizare directă de către adăugarea unui semnal, curentul în joncțiunea de polarizare inversă al tranzistorului va varia concomitent.
+
+Principiul poate fi utilizat pentru construirea aplificatoarelor în care un semnal mic aplicat în joncțiunea de polarizare directă cauzează o schimbare mare de curent în joncțiunea de polarizare inversă.
