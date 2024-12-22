@@ -7,3 +7,6 @@
 [submodule "2nd_year/1st_Semester/SDA/05_L_2024_11_08/Laborator-java-Spring-Boot"]
 	path = 2nd_year/1st_Semester/SDA/05_L_2024_11_08/Laborator-java-Spring-Boot
 	url = https://github.com/Patrascu-Nicolae-Adrian/Laborator-java-Spring-Boot
+[submodule "2nd_year/1st_Semester/SDA/Laborator-java-Spring-Boot"]
+	path = 2nd_year/1st_Semester/SDA/Laborator-java-Spring-Boot
+	url = https://github.com/Patrascu-Nicolae-Adrian/Laborator-java-Spring-Boot/

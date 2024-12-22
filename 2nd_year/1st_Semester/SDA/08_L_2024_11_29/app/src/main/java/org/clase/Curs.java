@@ -1,6 +1,9 @@
 package org.clase;
 
 import java.util.Set;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.HashMap;
 
 public class Curs implements OperatiiCurs {
@@ -82,14 +85,17 @@ public class Curs implements OperatiiCurs {
             System.out.println(s);
     }
 
-    @Override
+    //@Override
+    //public String toString() {
+    //    String str = "Curs: " + "nume=" + nume + ", descriere=" + descriere + ",\nprofu=" + profu + ",\nstudenti:\n" ;
+
+    //    for(Student s : studenti)
+    //        str+= s + "\n";
+
+    //    return str;
+    //}
     public String toString() {
-        String str = "Curs: " + "nume=" + nume + ", descriere=" + descriere + ",\nprofu=" + profu + ",\nstudenti:\n" ;
-
-        for(Student s : studenti)
-            str+= s + "\n";
-
-        return str;
+        return nume + "," + descriere + "," + profu;
     }
 
     public String getNume() {
@@ -110,6 +116,29 @@ public class Curs implements OperatiiCurs {
 
     public HashMap<Student, Float> getNote_studenti() {
         return note_studenti;
+    }
+
+    public void Citire(String filepath) {
+        try {
+            File f = new File(filepath);
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String line = br.readLine();
+
+            //ignor prima linie (antetul)
+            if (line != null) {
+                line = br.readLine();
+
+            }
+            while (line != null) {
+                String[] splituri = line.split(",");
+                Student s = new Student(splituri[0], splituri[1].trim(), Integer.parseInt(splituri[2].trim()));
+                studenti.add(s);
+                line = br.readLine();
+            }
+            br.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
 }

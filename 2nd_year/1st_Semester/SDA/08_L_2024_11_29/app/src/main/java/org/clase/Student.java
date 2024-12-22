@@ -30,4 +30,8 @@ public class Student extends Persoana {
     public void setGrupa(int grupa) {
         this.grupa = grupa;
     }
+
+    public String toString() {
+        return nume + ", " + prenume + ", " + grupa;
+    }
 }
