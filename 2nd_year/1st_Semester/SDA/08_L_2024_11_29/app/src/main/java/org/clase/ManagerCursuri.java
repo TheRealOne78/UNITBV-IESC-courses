@@ -3,9 +3,11 @@ package org.clase;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ManagerCursuri implements OperatiiManagerCursuri {
+public class ManagerCursuri extends ManagerCursCSV implements OperatiiManagerCursuri  {
     List<Curs> cursuri = new ArrayList<Curs>();
+
     public ManagerCursuri() {
+
     }
 
     public void AddCurs(Curs curs) {
@@ -33,7 +35,7 @@ public class ManagerCursuri implements OperatiiManagerCursuri {
 
     public void AfiseazaNoteStudenti() {
         for(Curs c: cursuri)
-            c.AfiseazaNoteStudenti();
+            c.afiseazaNoteStudenti();
     }
 
     public void AfiseazaMedieProfesor(Profesor profesor) {
@@ -41,8 +43,8 @@ public class ManagerCursuri implements OperatiiManagerCursuri {
         int i = 0;
 
         for(var tmp : cursuri) {
-            if(tmp.getProfu().equals(profesor)) {
-                suma += tmp.GetMedie();
+            if(tmp.getProfesor().equals(profesor)) {
+                suma += tmp.getMedie();
                 i++;
             }
         }

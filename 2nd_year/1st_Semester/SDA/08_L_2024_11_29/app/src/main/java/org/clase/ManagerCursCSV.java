@@ -3,53 +3,49 @@ package org.clase;
 import java.io.File;
 import java.util.*;
 
-public class ManagerCursCSV extends ManagerCursuri {
-    File studenti, profesori, cursuri;
+public class ManagerCursCSV extends FileDataManager {
+    File studenti, profesori, cursuri, note;
+
     public ManagerCursCSV() {
         try {
-            studenti  = new File("studenti.csv");
-            profesori = new File("profesori.csv");
-            cursuri   = new File("cursuri.csv");
+            studenti  = new File("studenti.txt");
+            profesori = new File("profesori.txt");
+            cursuri   = new File("cursuri.txt");
+            note      = new File("note.txt");
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
-    public ManagerCursCSV(File studenti, File profesori, File cursuri) {
+    public ManagerCursCSV(File studenti, File profesori, File cursuri, File note) {
         this.studenti  = studenti;
         this.profesori = profesori;
         this.cursuri   = cursuri;
+        this.note      = note;
     }
 
-    /*functia va aduce din fisiere, datele despre studenti, profesori, cursuri
-      si va popula colectia din clasa Manager: lista*/
+    /* functia va aduce din fisiere, datele despre studenti, profesori, cursuri
+       si va popula colectia din clasa Manager: lista*/
     public void CitesteDateDinFisiere() {
         try {
-            ArrayList<Student> studentlist = PopuleazaStudenti();
-            ArrayList<Profesor> proflist   = PopuleazaProfesori();
-            ArrayList<Curs> list           = PopuleazaCursuri(proflist, studentlist);
+            List<Student> studentList = populeazaStudenti();
+            List<Profesor> profList   = populeazaProfesori();
+            List<Curs> lista          = populeazaCursuri(studentList, profList);
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
-    public ArrayList<Student> PopuleazaStudenti() {
-        //TODO
-        return new ArrayList<>();
-
+    public List<Student> populeazaStudenti() {
+        return createStudentsData(studenti);
     }
 
-    public ArrayList<Profesor> PopuleazaProfesori() {
-        //TODO
-        return new ArrayList<>();
+    public List<Profesor> populeazaProfesori() {
+        return createProfesorData(profesori);
     }
 
-    public ArrayList<Curs> PopuleazaCursuri(ArrayList<Profesor> proflist, ArrayList<Student> studentlist) {
-        //TODO
-        return new ArrayList<>();
+    public List<Curs> populeazaCursuri(ArrayList<Student> studentlist, ArrayList<Profesor> proflist) {
+        return createCoursesData(proflist, studentlist, cursuri, note);
     }
 
-    public void ScrieCursuriInFisier() {
-
-    }
 }

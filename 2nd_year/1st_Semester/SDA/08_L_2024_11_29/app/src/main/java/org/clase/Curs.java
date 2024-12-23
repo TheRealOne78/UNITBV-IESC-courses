@@ -1,73 +1,80 @@
 package org.clase;
 
 import java.util.Set;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.HashMap;
 
 public class Curs implements OperatiiCurs {
-    String nume;
-    String descriere;
-    Profesor profu;
-    Set<Student> studenti;
-    HashMap<Student, Float> note_studenti;
+    private int id, an;
+    private String nume, descriere;
+    private Profesor profesor;
+    private Set<Student> studenti;
+    private HashMap<Student, Integer> nota;
 
-    public Curs(String nume, String descriere, Profesor profu, Set<Student> studenti) {
-        this.nume          = nume;
-        this.descriere     = descriere;
-        this.profu         = profu;
-        this.studenti      = studenti;
-        this.note_studenti = new HashMap<>();
-    }
+    public Curs(int id,
+                String nume,
+                String descriere,
+                Profesor profesor,
+                int an,
+                Set<Student> studenti,
+                HashMap<Student, Integer> nota) {
 
-    public void RemoveStudent(Student student) {
-        for (var tmp : studenti) {
-            if (tmp.equals(student))
-                studenti.remove(tmp);
-        }
-    }
-
-    public void UpdateCurs(String nume, String descriere) {
-        this.nume = nume;
+        this.id        = id;
+        this.an        = an;
+        this.nume      = nume;
         this.descriere = descriere;
+        this.profesor  = profesor;
+        this.studenti  = studenti;
+        this.nota      = nota;
     }
 
-    public void UpdateProfesor(Profesor profu) {
-        this.profu = profu;
-    }
 
-    public void AddStudent(Student student) {
+    public void addStudent(Student student) {
         studenti.add(student);
     }
 
-    public void DelStudent(Student student) {
-        RemoveStudent(student);
-    }
-
-    public void UpdateStudent(Student student_old, Student student_nou) {
+    public void updateStudent(Student student_old, Student student_nou) {
         for(Student s : this.studenti) {
             if(s.equals(student_old))
                 s = student_nou;
         }
     }
 
-    public void AddStudentGrade(Student student, float grade, Profesor prof) {
-        note_studenti.put(student, grade);
+    public void removeStudent(Student student) {
+        for (var tmp : studenti) {
+            if (tmp.equals(student))
+                studenti.remove(tmp);
+        }
     }
 
-    protected void AfiseazaNoteStudenti() {
+    public void delStudent(Student student) {
+        removeStudent(student); // NOTE: REDUNDANT
+    }
+
+
+    public void updateProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public void updateCurs(String nume, String descriere) {
+        this.nume = nume;
+        this.descriere = descriere;
+    }
+
+    public void addStudentGrade(Student student, int grade) {
+        nota.put(student, grade);
+    }
+
+    protected void afiseazaNoteStudenti() {
         for (Student student : studenti) {
-            Float grade = note_studenti.get(student);
+            int grade = nota.get(student);
             System.out.println("Student: " + student + ", Nota: " + grade);
         }
     }
 
-    protected float GetMedie() {
-        float sum = 0;
-        int cnt = 0;
+    protected float getMedie() {
+        int sum = 0, cnt = 0;
 
-        for (float grade : note_studenti.values()) {
+        for (int grade : nota.values()) {
             sum += grade;
             cnt++;
         }
@@ -75,70 +82,64 @@ public class Curs implements OperatiiCurs {
         return sum / cnt;
     }
 
-    public void AfiseazaMedie() {
-        float medie = GetMedie();
+    public void afiseazaMedie() {
+        float medie = getMedie();
         System.out.println("Media: " + medie);
     }
 
-    public void AfiseazaStudentiLaConsola() {
+    public void afiseazaStudentiLaConsola() {
         for(Student s : this.studenti)
             System.out.println(s);
     }
 
-    //@Override
-    //public String toString() {
-    //    String str = "Curs: " + "nume=" + nume + ", descriere=" + descriere + ",\nprofu=" + profu + ",\nstudenti:\n" ;
+    /*===========================*/
+    /*======Getters&Setters======*/
+    /*===========================*/
+    public int getId() {
+        return id;
+    }
 
-    //    for(Student s : studenti)
-    //        str+= s + "\n";
-
-    //    return str;
-    //}
-    public String toString() {
-        return nume + "," + descriere + "," + profu;
+    public int getAn() {
+        return an;
     }
 
     public String getNume() {
         return nume;
     }
 
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
     public String getDescriere() {
         return descriere;
     }
 
-    public Profesor getProfu() {
-        return profu;
+    public void setDescriere(String descriere) {
+        this.descriere = descriere;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 
     public Set<Student> getStudenti() {
         return studenti;
     }
 
-    public HashMap<Student, Float> getNote_studenti() {
-        return note_studenti;
+    public void setStudenti(Set<Student> studenti) {
+        this.studenti = studenti;
     }
 
-    public void Citire(String filepath) {
-        try {
-            File f = new File(filepath);
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            String line = br.readLine();
-
-            //ignor prima linie (antetul)
-            if (line != null) {
-                line = br.readLine();
-
-            }
-            while (line != null) {
-                String[] splituri = line.split(",");
-                Student s = new Student(splituri[0], splituri[1].trim(), Integer.parseInt(splituri[2].trim()));
-                studenti.add(s);
-                line = br.readLine();
-            }
-            br.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+    public HashMap<Student, Integer> getNota() {
+        return nota;
     }
 
+    public void setNota(HashMap<Student, Integer> nota) {
+        this.nota = nota;
+    }
 }
