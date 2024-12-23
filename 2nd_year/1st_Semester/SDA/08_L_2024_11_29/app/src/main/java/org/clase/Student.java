@@ -1,37 +1,34 @@
 package org.clase;
 
 public class Student extends Persoana {
-    int grupa;
-    public Student(String nume, String prenume, int grupa) {
-        super(nume, prenume);
-        this.grupa = grupa;
+    private int an;
+    private String grupa;
+
+    public Student(int id,
+                   String nume, String prenume,
+                   int an,
+                   String username, String password,
+                   String grupa) {
+
+        super(id, nume, prenume, username, password);
+        this.grupa    = grupa;
+        this.an       = an;
     }
 
-    public String getNume() {
-        return nume;
-    }
-
-    public void setNume(String nume) {
-        this.nume = nume;
-    }
-
-    public String getPrenume() {
-        return prenume;
-    }
-
-    public void setPrenume(String prenume) {
-        this.prenume = prenume;
-    }
-
-    public int getGrupa() {
+    /*===========================*/
+    /*======Getters&Setters======*/
+    /*===========================*/
+    public String getGrupa() {
         return grupa;
     }
 
-    public void setGrupa(int grupa) {
-        this.grupa = grupa;
+    public int getAn() {
+        return an;
     }
 
+    @Override
     public String toString() {
-        return nume + ", " + prenume + ", " + grupa;
+        return "Student [id=" + id + ", grupa=" + grupa + ", an=" + an + ", nume=" + nume + ", prenume=" + prenume
+                + ", username=" + username + "]";
     }
 }
