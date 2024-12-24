@@ -44,7 +44,7 @@ public class ManagerCursCSV extends FileDataManager {
         return createProfesorData(profesori);
     }
 
-    public List<Curs> populeazaCursuri(ArrayList<Student> studentlist, ArrayList<Profesor> proflist) {
+    public List<Curs> populeazaCursuri(List<Student> studentlist, List<Profesor> proflist) {
         return createCoursesData(proflist, studentlist, cursuri, note);
     }
 
