@@ -27,10 +27,17 @@ public class Curs implements OperatiiCurs {
         this.nota      = nota;
     }
 
+    //public void addAn(int an) {
+    //    this.an = an;
+    //}
 
     public void addStudent(Student student) {
         studenti.add(student);
     }
+
+    //public void addNota(Student student, int nota) {
+    //   this.nota.put(student, nota);
+    //}
 
     public void updateStudent(Student student_old, Student student_nou) {
         for(Student s : this.studenti) {
