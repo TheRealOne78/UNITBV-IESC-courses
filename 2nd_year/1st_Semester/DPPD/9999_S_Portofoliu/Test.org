@@ -1,0 +1,73 @@
+#+TITLE: Test de Evaluare Unitară 3
+#+SUBTITLE: Informatică și TIC
+#+AUTHOR: BAJCSI Elias-Robert
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=1.75cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-2cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
+
+\noindent
+NUME Prenume: $\rule{4cm}{0.4pt}$      \hfill      Nota: $\rule{.5cm}{0.4pt}$ ($\rule{3cm}{0.4pt}$) \\
+Clasa: a V-a $\rule{.5cm}{0.4pt}$                          \hfill      *COPIAT(nota 2)* $\Box$ \\
+Data susținerii: $\rule{3cm}{0.4pt}$ \\
+
+\scriptsize
+\noindent /Timpul de lucru este de 45 de minute.  Se acordă 20 de puncte din oficiu. Se acordă nota 2 fraudei sau tentativei de fraudă.  Punctajul se împarte la 10.  Toate subiectele sunt obligatorii./\\
+
+\normalsize
+
+\noindent Creează un nou director denumit <An-Lună-Zi-Oră-NUME-Prenume> în care îți vei salva tot progresul acestei evaluări. După terminarea evaluării, vei arhiva acest director în format ZIP, cu aceeași denumire, păstrând ".zip" la sfârșit.  Apoi vei apăsa click-dreapta pe arhivă, vei da click-stânga pe proprietăți și vei raporta mărimea arhivei aici $\rule{4cm}{0.4pt}$, apoi vei copia arhiva pe unitatea de stocare atribuită de profesor.
+
+* Subiectul I - Capătură de ecran
+1. Închide sau ascunde toate ferestrele și realizează o captură de ecran.  În programul Microsoft Paint, lipește această captură de ecran \hfill *[10 p]*
+2. După aceea, desenează o casă cu un acoperiș roșu, perete albastru (sau altă culoare dacă are o culoare asemănătoare cu fundalul), o grădiniță cu flori și două ferestre. \hfill *[20 p]*
+3. NU UITA să salvezi imaginea în directorul tău. \hfill *[0 p]*
+
+* Subiectul II - Comenzi principale
+1. Deschide un browser și prin navigarea internetului, descarcă în folderul tău o imagine cu o familie formată din doi părinți și cel puțin doi copii. Duplică imaginea, adăugând OG la începutul numelui fișierului. Deschide imaginea fără "OG" în MS Paint. \hfill *[5 p]*
+2. Selectează unul dintre copii și clonează-l o singură dată. \hfill *[10 p]*
+3. Selectează cea mai mare persoană și micșoreaz-o aproximativ lafel cât cea mai mică persoană. *[10 p]*
+4. NU UITA să salvezi imaginea în directorul tău. \hfill *[0 p]*
+
+* Subiectul III - Prelucrarea culorilor
+1. Deschide un browser și prin navigarea internetului, descarcă în folderul tău o imagine cu diferite culori. Duplică imaginea, adăugând OG la începutul numelui fișierului. Deschide imaginea fără "OG" în MS Paint.\hfill *[5 p]*
+2. Schimbă culoarea unei flori cu o culoare diferită, prin folosirea funcției de umplere. \hfill *[10 p]*
+3. Scrie numele tău prin folosirea funcției de adăugare a textului. Textul va îngroșat și subliniat, culoarea trebuie să difere de cea de fundal însă să nu fie negru, iar numele trebuie să fie suficient de mare/mic încât să fie vizibil în întregime. \hfill *[10 p]*
+4. NU UITA să salvezi imaginea în directorul tău. \hfill *[0 p]*
+
+* Barem de corectare pentru evaluare
+** Subiectul I - Captură de ecran
+- Realizarea capturii de ecran și lipirea în Microsoft Paint:
+  - Captură de ecran realizată corect și lipită în Paint \hfill *[10 p]*
+  - Captură de ecran lipsă sau greșită \hfill *[0 p]*
+- Desenarea unei case în Microsoft Paint:
+  - Acoperiș roșu \hfill *[5 p]*
+  - Perete albastru (sau altă culoare potrivită) \hfill *[5 p]*
+  - Grădiniță cu flori \hfill *[5 p]*
+  - Două ferestre \hfill *[5 p]*
+
+** Subiectul II - Comenzi principale
+- Deschiderea unui browser și descărcarea unei imagini cu o familie:
+  - Imagine descărcată corect \hfill *[5 p]*
+  - Duplicarea imaginii cu „OG” în numele fișierului \hfill *[5 p]*
+    - Editarea imaginii în Microsoft Paint dacă OG există:
+      - Clonarea unui copil o singură dată: \hfill *[5 p]*
+      - Micșorarea celei mai mari persoane la dimensiunea celei mai mici \hfill *[10 p]*
+
+** Subiectul III - Prelucrarea culorilor
+- Descărcarea unei imagini cu diferite culori:
+  - Imagine descărcată corect \hfill *[5 p]*
+  - Duplicarea imaginii cu „OG” în numele fișierului: \hfill *[5 p]*
+    - Editarea imaginii în Microsoft Paint dacă OG există:
+      - Schimbarea culorii unei flori: \hfill *[10 p]*
+      - Adăugarea numelui utilizând funcția de text:
+        - Textul este îngroșat și subliniat: \hfill *[5 p]*
+        - Culoarea textului este diferită de fundal, dar nu negru: \hfill *[5 p]*
+        - Numele este vizibil integral: \hfill *[5 p]*
+
+* Bibliografie
+- https://manuale.edu.ro/manuale/Clasa%20a%20V-a/Informatica%20si%20TIC/Q0QgUFJFU1M/A1225.pdf
