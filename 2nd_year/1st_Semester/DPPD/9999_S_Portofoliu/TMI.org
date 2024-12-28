@@ -1,0 +1,53 @@
+#+TITLE: Ilustrarea a 2 metode didactice
+#+SUBTITLE: Informatică și TIC
+#+AUTHOR: BAJCSI Elias-Robert
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=1.75cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-2cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
+
+* Situația de învățare
+Lecția are ca scop învățarea utilizării software-ului de prezentare (MS PowerPoint | LibreOffice Impress | WPS | Google Slideshows) pentru a crea o prezentare despre un subiect de ales de elevi, precum "Squid Game sezonul 2". Elevii vor învăța să utilizeze cep puțin funcții de bază precum inserarea unui slide, introducerea de text și imagini, utilizarea tranzițiilor și animațiilor, dar la alegerea lor vor utiliza și alte efecte pentru exersarea creativitații.
+
+** Metoda demonstrației
+- Aplicare: Profesorul începe lecția prin a demonstra utilizarea funcțiilor de bază din PowerPoint, folosind proiectorul.
+- Exemplu concret:
+  Profesorul creează un slide pe loc:
+  - Titlul: Se adaugă titlul "Mașini clasice"
+  - Diapozitive: Se creează diapozitive
+  - Imagini: Se adaugă fotografii cu mașini clasice preluate din internet
+  - Tranziție: Adaugă o tranziție simplă între slide-uri
+Elevii urmăresc demonstrația și repetă instrucțiunile.
+
+** Învățarea în echipe
+- Aplicare: Elevii lucrează în echipe de 2-3 persoane pentru a crea o prezentare despre un animal la alegere.
+- Cerințe:
+  - Diapozitivul 1: Titlul prezentării și numele participanților
+  - Diapozitivul 2: O imagine a animalului ales și câteva informații
+  - Diapozitive de mijloc: Exersarea creativității
+  - Ante-ultimul diapozitiv: O concluzie și efecte de tranziție
+  - Ultimul diapozitiv: Bibliografie selectivă
+- Exemplu concret:
+  O echipă alege subiectul "Anime-uri" și creează o prezentare care include:
+  - Imagini cu anime
+  - Text informativ despre anime-uri
+  - Efecte de tranziție pentru fiecare slide
+  - Animații de mișcare a imaginilor + textului
+
+* Concluzie
+La final, fiecare echipă își prezintă proiectul în fața clasei, în mai multe ore.
+Cele două metode:
+- Ajută elevii să înțeleagă funcțiile software-ului prin exemple vizuale
+- Permite exersarea practică într-un context colaborativ
+- Dezvoltă anumite competențe precum creativitatea, colaborareea și abilitățile de prezentare
+
+* Bibliografie
+- Stiluri de învãţare
+- Mijloace de învățământ
+- https://www.math.uaic.ro/~oanacon/depozit/Curs_8_StratII.pdf
+- http://paradigme.euroeducation.ro/wp-content/uploads/2019/02/Metode-%C8%99i-procedee-folosite-%C3%AEn-predare.-Ghid-Metodologic.pdf
+- https://manuale.edu.ro/manuale/Clasa%20a%20VI-a/Informatica%20si%20TIC/R1JVUCBFRElUT1JJQUwg/A1448.pdf
