@@ -11,4 +11,3 @@ plugins {
 }
 
 rootProject.name = "Clase"
-include("app")
