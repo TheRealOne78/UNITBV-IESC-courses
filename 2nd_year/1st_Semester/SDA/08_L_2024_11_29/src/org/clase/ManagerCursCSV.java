@@ -2,18 +2,18 @@ package org.clase;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * The ManagerCursCSV class is responsible for managing and handling data related to students, professors, and courses.
  * It reads data from CSV files and populates the necessary collections with that data.
  */
 public class ManagerCursCSV extends FileDataManager {
-    private HashMap<Integer, Curs>     coursesMap    = new HashMap<>();
-    private HashMap<Integer, Student>  studentsMap   = new HashMap<>();
-    private HashMap<Integer, Profesor> professorsMap = new HashMap<>();
-    private HashMap<Integer, Integer>  gradesMap     = new HashMap<>();
-    private File studentsFile, professorsFile, coursesFile, gradesFile;
+    protected HashMap<Integer, Curs>     coursesMap    = new HashMap<>();
+    protected HashMap<Integer, Student>  studentsMap   = new HashMap<>();
+    protected HashMap<Integer, Profesor> professorsMap = new HashMap<>();
+    protected HashMap<Integer, HashMap<Integer, Integer>> gradesMap = new HashMap<>();
+    protected File studentsFile, professorsFile, coursesFile, gradesFile;
+    protected FileDisplay csvwriter = new FileDisplay();
 
     /**
      * Default constructor. Initializes the file paths for students, professors, courses, and grades.
@@ -28,6 +28,8 @@ public class ManagerCursCSV extends FileDataManager {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
+        populeazaDate();
     }
 
     /**
@@ -48,15 +50,15 @@ public class ManagerCursCSV extends FileDataManager {
         this.professorsFile = professorsFile;
         this.coursesFile    = coursesFile;
         this.gradesFile     = gradesFile;
+
+        populeazaDate();
     }
 
 
     /**
      * Populates the required data from all the CSV files.
-     *
-     * @deprecated Deprecated in favor of populeazaDate.
      */
-    public void populeazaDate() {
+    private void populeazaDate() {
         createStudentsData(studentsMap, studentsFile);
         createProfesorData(professorsMap, professorsFile);
         createCoursesData(coursesMap,
@@ -73,7 +75,7 @@ public class ManagerCursCSV extends FileDataManager {
      * @deprecated Deprecated in favor of populeazaDate.
      */
     @Deprecated
-    public void populeazaStudenti() { // NOTE:DEPRECATED: REDUNDANT
+    private void populeazaStudenti() { // NOTE:DEPRECATED: REDUNDANT
         createStudentsData(studentsMap, studentsFile);
     }
 
@@ -83,7 +85,7 @@ public class ManagerCursCSV extends FileDataManager {
      * @deprecated Deprecated in favor of populeazaDate.
      */
     @Deprecated
-    public void populeazaProfesori() { // NOTE:DEPRECATED: REDUNDANT
+    private void populeazaProfesori() { // NOTE:DEPRECATED: REDUNDANT
         createProfesorData(professorsMap, professorsFile);
     }
 
@@ -93,8 +95,7 @@ public class ManagerCursCSV extends FileDataManager {
      * @deprecated Deprecated in favor of populeazaDate.
      */
     @Deprecated
-    public
-    void populeazaCursuri() { // NOTE:DEPRECATED: REDUNDANT
+    private void populeazaCursuri() { // NOTE:DEPRECATED: REDUNDANT
         createCoursesData(coursesMap,
                           gradesMap,
                           studentsMap,
@@ -106,21 +107,45 @@ public class ManagerCursCSV extends FileDataManager {
     /**
      * Method for writing student data back to the file.
      */
-    public void scrieStudenti() {
-        // TODO
+    public void writeStudents() {
+        this.csvwriter.displayStudents(studentsMap, studentsFile);
     }
 
     /**
      * Method for writing professor data back to the file.
      */
-    public void scrieProfesori() {
-        // TODO
+    public void writeProfessors() {
+        this.csvwriter.displayTeachers(professorsMap, professorsFile);
     }
 
     /**
      * Method for writing course data back to the file.
      */
-    public void scrieCursuri() {
-        // TODO
+    public void writeCourses() {
+        this.csvwriter.displayCoursesAndGrades(coursesMap, gradesMap, coursesFile, gradesFile);
     }
+
+    /**
+     * Method for writing grade data back to the file.
+     */
+    public void writeGrades() {
+        writeCourses();
+    }
+
+    public HashMap<Integer, Curs> getCoursesMap() {
+        return coursesMap;
+    }
+
+    public HashMap<Integer, Student> getStudentsMap() {
+        return studentsMap;
+    }
+
+    public HashMap<Integer, Profesor> getProfessorsMap() {
+        return professorsMap;
+    }
+
+    public HashMap<Integer, HashMap<Integer, Integer>> getGradesMap() {
+        return gradesMap;
+    }
+
 }

@@ -10,6 +10,6 @@ public class Clase {
         final TUI consola     = new TUI(mgr);
         final GUI gui         = new GUI(mgr);
         consola.start();
-        gui.start();
+        //gui.start();
     }
 }

@@ -34,7 +34,7 @@ public abstract class Persoana {
      *
      * @return The ID of the person.
      */
-    protected int getId() {
+    public int getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public abstract class Persoana {
      *
      * @return The first name of the person.
      */
-    protected String getNume() {
+    public String getNume() {
         return nume;
     }
 
@@ -52,7 +52,7 @@ public abstract class Persoana {
      *
      * @return The last name of the person.
      */
-    protected String getPrenume() {
+    public String getPrenume() {
         return prenume;
     }
 
@@ -61,7 +61,7 @@ public abstract class Persoana {
      *
      * @return The username of the person.
      */
-    protected String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -70,7 +70,7 @@ public abstract class Persoana {
      *
      * @param username The new username to set for the person.
      */
-    protected void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -79,7 +79,7 @@ public abstract class Persoana {
      *
      * @return The password of the person.
      */
-    protected String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -88,7 +88,7 @@ public abstract class Persoana {
      *
      * @param password The new password to set for the person.
      */
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

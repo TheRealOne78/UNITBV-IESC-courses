@@ -2,12 +2,12 @@ package org.clase;
 
 public interface OperatiiManagerCursuri {
 
-    /**
-     * Adds a new course to the system.
-     *
-     * @param curs The course to be added.
-     */
-    public void AddCurs(Curs curs);
+    ///** DEPRECATED
+    // * Adds a new course to the system.
+    // *
+    // * @param curs The course to be added.
+    // */
+    //public void AddCurs(Curs curs);
 
     /**
      * Updates an existing course with new details.
