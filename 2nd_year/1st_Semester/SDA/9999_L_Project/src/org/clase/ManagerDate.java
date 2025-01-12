@@ -6,11 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.passwd.PasswdHasher;
+
 public class ManagerDate {
     private ManagerCursuri managerCursuri;
+    private PasswdHasher ph;
 
     public ManagerDate() {
         managerCursuri = new ManagerCursuri();
+        ph = new PasswdHasher();
     }
 
     // Profesor
@@ -70,7 +74,12 @@ public class ManagerDate {
             }
         }
 
-        managerCursuri.AddCurs(courseName, description, profesor, year, enrolledStudents, new HashMap<>());
+        managerCursuri.AddCurs(courseName,
+                               description,
+                               profesor,
+                               year,
+                               enrolledStudents,
+                               new HashMap<>());
     }
 
     /**
@@ -84,8 +93,10 @@ public class ManagerDate {
     getStudentID(String username,
                  String password)
     {
+        String encryptedPasswd = ph.hashPassword(password);
+
         for (Student student : managerCursuri.getStudentsMap().values()) {
-            if (student.getUsername().equals(username) && student.getPassword().equals(password)) {
+            if (student.getUsername().equals(username) && student.getPassword().equals(encryptedPasswd)) {
                 return student.getId();
             }
         }
@@ -103,8 +114,10 @@ public class ManagerDate {
     getProfessorID(String username,
                    String password)
     {
+        String encryptedPasswd = ph.hashPassword(password);
+
         for (Profesor professor : managerCursuri.getProfessorsMap().values()) {
-            if (professor.getUsername().equals(username) && professor.getPassword().equals(password)) {
+            if (professor.getUsername().equals(username) && professor.getPassword().equals(encryptedPasswd)) {
                 return professor.getId();
             }
         }
@@ -122,9 +135,11 @@ public class ManagerDate {
     getAccountType(String username,
                    String password)
     {
-        if (getProfessorID(username, password) != -1) {
+        String encryptedPasswd = ph.hashPassword(password);
+
+        if (getProfessorID(username, encryptedPasswd) != -1) {
             return 'p'; // If it's a professor
-        } else if (getStudentID(username, password) != -1) {
+        } else if (getStudentID(username, encryptedPasswd) != -1) {
             return 's'; // If it's a student
         }
         return ' '; // Return space if no match found
@@ -185,8 +200,16 @@ public class ManagerDate {
                     String password,
                     String group)
     {
+        String encryptedPasswd = ph.hashPassword(password);
+
         int newId = generateNewStudentId();
-        Student newStudent = new Student(newId, surname, forename, year, username, password, group);
+        Student newStudent = new Student(newId,
+                                         surname,
+                                         forename,
+                                         year,
+                                         username,
+                                         encryptedPasswd,
+                                         group);
 
         managerCursuri.getStudentsMap().put(newId, newStudent);
         managerCursuri.writeStudents();
@@ -213,12 +236,14 @@ public class ManagerDate {
                       String username,
                       String password)
     {
+        String encryptedPasswd = ph.hashPassword(password);
+
         int newId = generateNewProfessorId();
         Profesor newProfessor = new Profesor(newId,
                                              surname,
                                              forename,
                                              username,
-                                             password);
+                                             encryptedPasswd);
 
         managerCursuri.getProfessorsMap().put(newId, newProfessor);
         managerCursuri.writeProfessors();
