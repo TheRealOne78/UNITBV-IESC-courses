@@ -10,3 +10,9 @@
 [submodule "2nd_year/1st_Semester/SDA/Laborator-java-Spring-Boot"]
 	path = 2nd_year/1st_Semester/SDA/Laborator-java-Spring-Boot
 	url = https://github.com/Patrascu-Nicolae-Adrian/Laborator-java-Spring-Boot/
+[submodule "2nd_year/2nd_Semester/PC/Laborator-PC"]
+	path = 2nd_year/2nd_Semester/PC/Laborator-PC
+	url = https://github.com/alex2kameboss/Laborator-PC
+[submodule "2nd_year/2nd_Semester/PC/9999_Laborator-PC"]
+	path = 2nd_year/2nd_Semester/PC/9999_Laborator-PC
+	url = https://github.com/alex2kameboss/Laborator-PC
