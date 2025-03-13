@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+    <head>
+        <meta charset="utf-8">
+        <title>My profile page :P</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <div id="header-title">My profile page ⋆˚✿˖°</div>
+        </header>
+        <nav>
+            <a href="" id="navbar-first">Home</a><a href="">Contact</a><a href="">⟳</a><a id="theme-toggle" onclick="toggleTheme()">⋆⁺☾₊</a>
+        </nav>
+
+        <!--Profile info-->
+        <section id="profile-section">
+            <a href="./assets/img/PFP.jpg" target="_blank"><img src="./assets/img/PFP.jpg" id="pfp"></a><!--Source: WallHaven, Uploader: Stepbro, https://whvn.cc/28wrdx -->
+
+            <!-- Description -->
+            <p>Hi! I'm <b>Rhinestone89</b>, an 18 years old girl from Stormholt, a small city in Karethia. I'm currently studying art at the art highschool of Stormholt.</p>
+
+            <p id="changing-paragraph">I like cute things, drawing, watching anime, reading manga, and baking sweet things 𓎩‧₊°𓐐⋅
+            <p>I'm looking forward to be a certified pro artist in the future, however I also do commissions from time to time.</p>
+
+            <details open>
+                <summary class="ab-summary">What <u>can</u> I draw?</summary>
+                    <ul>
+                        <li>Anime characters w/ or w/o soft shadows</li>
+                        <li>Animals</li>
+                        <li>Highly detailed eyes</li>
+                    </ul>
+            </details><br/>
+
+            <details open>
+                <summary class="ab-summary">What I <u>struggle</u> to draw</summary>
+                    <ol>
+                        <li>Highly detailed hairs</li>
+                        <li>Realistic portraits</li>
+                        <li>More than three dynamic objects (humans, animals, robots, etc.) at once</li>
+                        <li>Fancy clothing</li>
+                    </ol>
+            </details>
+
+            <h3>Commission requests</h3>
+            <form>
+                <p>Did I convice you? If so, fill this form in order to request a commission:</p>
+
+                <b>Contact data</b><br/>
+                <label class="required" for="fname">First name</label><br>
+                <input class="textbox" type="text" id="fname" name="fname" placeholder="Foo" required><br>
+                <label class="required" for="lname">Last name</label><br>
+                <input class="textbox" type="text" id="lname" name="lname" placeholder="BAR" required><br>
+                <label class="required" for="email">E-Mail</label><br>
+                <input class="textbox" type="email" id="email" name="email" placeholder="foobar@example.com" required><br>
+                <label for="legalage">Over 18 years old?</label>
+                <input class="checkbox" type="checkbox" id="legalage" name="legalage"><br><br>
+
+                <b>Request info</b><br/>
+                <label class="required" for="description">Please describe the image(s) you want</label><br>
+                <textarea class="textarea" id="description" name="description" rows="10" cols="50" placeholder="I'd like an image of ..." required></textarea><br/>
+
+                <label class="required" for="price">The price you offer (in EUR)</label><br/>
+                <input class="textbox" type="number" min="0.00" step="0.01" placeholder="€ 0.00" id="price" name="price" required><br/>
+                <small>
+                    <i><span class="required">Entries with </span> are required</i>
+                </small>
+                <br/>
+
+                <input type="submit" value="Submit request" id="submit">
+            </form>
+
+            You can also reach me via E-Mail at <a href="mailto:rhinestone89@skymail.io">rhinestone89@skymail.io</a>
+
+            <h3>A random table that contains my personal data</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Hobby</th>
+                    <th>Country</th>
+                    <th>City</th>
+                </tr>
+                <tr>
+                    <td>Rhinestone89</td>
+                    <td>18</td>
+                    <td>Drawing</td>
+                    <td>Karethia</td>
+                    <td>Stormholt</td>
+                </tr>
+            </table>
+
+            <h3>Some random buttons IDK</h3>
+
+            <button id="toggle-paragraph" onclick="toggleParagraphColor()">Toggle paragraph color</button>
+            <button id="toggle-theme2" onclick="toggleTheme()">Toggle page theme</button>
+            <button id="reset" onclick=resetChanges()>Reset changes</button>
+
+        </section>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
