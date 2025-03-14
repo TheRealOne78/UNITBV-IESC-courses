@@ -1,0 +1,12 @@
+ {signal: [
+  {name:'clk',         wave: 'P.....................' },
+  {name:'val',         wave: '01..0..10.1....0..10..', data: 'a b c' },
+  {name:'rdy',         wave: '0..101........0101010.', data: 'a b c' },
+  {name:'data',        wave: 'x2..x..2x.2222.x..2x..', data: 'D0 D1 D2 D3 D4 D5 D6' },
+],
+ head:{
+   tock:1,
+   every:1
+ },
+     config: { hscale: 2 }
+}
