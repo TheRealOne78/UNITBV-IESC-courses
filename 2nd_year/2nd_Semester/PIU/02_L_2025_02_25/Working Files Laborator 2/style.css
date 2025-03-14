@@ -1,0 +1,86 @@
+/* Resetare stil */
+html {
+    background-color: lightblue;
+    font-family: "Times New Roman";
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Navigație */
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    background-color: #333;
+}
+
+nav ul li {
+    display: inline;
+    margin: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+/* Conținut */
+.container {
+    padding: 20px;
+}
+
+.highlight {
+    color: red;
+    font-weight: bold;
+}
+
+.element {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+li {
+    font-size: 20px;
+}
+
+a {
+    color: green;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

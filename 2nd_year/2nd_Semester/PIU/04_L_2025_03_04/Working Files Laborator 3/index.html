@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fructele Delicioase</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1 id="header-title">Fructele Delicioase</h1>
+            <nav id="menu">
+                <ul>
+                    <li><a href="#">Acasă</a></li>
+                    <li><a href="#">Despre</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="introducere">
+                <h2>Bun venit!</h2>
+                <p>Fructele sunt sursa ideală de vitamine și minerale. Descoperă varietăți delicioase și beneficiile lor.</p>
+            </section>
+
+            <article>
+                <h1>Beneficiile fructelor</h1>
+                <p>Fructele sunt o sursă esențială de vitamine, minerale și antioxidanți, contribuind la menținerea sănătății organismului. Consumul regulat de fructe ajută la întărirea sistemului imunitar, îmbunătățirea digestiei datorită conținutului ridicat de fibre și reducerea riscului de boli cronice, precum diabetul sau afecțiunile cardiovasculare. De asemenea, acestea hidratează organismul, susțin sănătatea pielii și oferă energie naturală, fiind o alternativă sănătoasă la gustările procesate.</p>
+            </article>
+
+            <section class="galerie">
+                <h2>Galerie de Fructe</h2>
+                <div class="grid-container">
+
+                    <!--fir0002  flagstaffotos [at] gmail.com		Canon 20D + Sigma 150mm f/2.8, GFDL 1.2 <http://www.gnu.org/licenses/old-licenses/fdl-1.2.html>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/apple.jpg" class="item">Măr</img>
+
+                    <!--Rhododendrites, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/pear.jpg" class="item">Pere</img>
+
+                    <!--Filo gèn', CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/banana.jpg" class="item">Banane</img>
+
+                    <!--Evan-Amos, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/orange.jpg" class="item">Portocale</img>
+
+                    <!--I, Luc Viatour, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/kiwi.jpg" class="item">Kiwi</img>
+
+                    <!--W.carter, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons-->
+                    <img src="./assets/fruits/strawberries.jpg" class="item">Căpșuni</img>
+                </div>
+            </section>
+
+            <section class="feedback">
+                <h2>Lasă-ne un feedback!</h2>
+                <form id="feedbackForm">
+                    <label for="nume">Nume:</label>
+                    <input type="text" id="nume" required>
+
+                    <label for="fruct">Fructul preferat:</label>
+                    <input type="text" id="fruct" list="fructe">
+                    <datalist id="fructe">
+                        <option value="Măr"></option>
+                        <option value="Pere"></option>
+                        <option value="Banane"></option>
+                        <option value="Portocale"></option>
+                        <option value="Kiwi"></option>
+                        <option value="Căpșuni"></option>
+                    </datalist>
+
+                    <label for="rating">Cât de mult îți plac fructele? (0-100)</label>
+                    <input type="range" id="rating" min="0" max="100" value="50">
+                    <output id="ratingOutput">50</output>%
+
+                    <label for="color-pref">Culoarea preferată</label>
+                    <select name="color-pref" id="color-pref">
+                        <option value="red">Roșu</option>
+                        <option value="yellow">Galben</option>
+                        <option value="orange">Portocaliu</option>
+                        <option value="green">Verde</option>
+                    </select>
+
+                    <button type="submit">Trimite</button>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <p>Copyright &copy; 2025 Fructele Delicioase</p>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+#+title: Curs ED
+#+DATE: 2025-03-14 Fri
+
+* Depistarea si remedierea hazardului static
+- Exista suprafete disjuncte adiacente
+- In expresia logica, prin particularizarea unei variabile, se reduce la `x * ~x' sau `x + ~x'.
+- Glitch (spike) - stare logica de scurta durata
+
+* Parametrii portilor logice
+- Fan-in - numar de intrari *DISPONIBILE* pentru o porta
+- Fan-out - numar maxim de porti de acelasi tip posibil de comandat de iesirea unei porti
+- Nivele logice - LOL (Level Of Logic): numarul de porti logice prin care se propaga semnalul de la intrare la iesire
+- Margine de zgomot - amplitudinea maxima a tensiunii de zgomot ce se poate suprapune peste semnal fara a-i modifica valoarea logica
+- Cost pentru o poarta - masura a contributiei portii la costul total al circuitului integrat
+- Timp de propagare - Timpul necesar pentru propagarea unei schimbari a valorii semnalului intre intrare si iesire
+
+* DEMO: Operatori de reductie
+Descrieti urmatoarele condtii ale unui bus de 8 biti
+a) Toate intrarile sunt 1
+   assign a = &x;
+b) Toate intrarile sunt 0
+   assign b = ~&x;
+c) Exista cel putin o intrare 1
+   assign c = |x;
+d) Exista cel putin o intrare 0
+   assign d = ~&x;
+e) Exista un numar impar de intrari egale cu 1
+   assign e = ^x;
+f) Exista un numar par de intrari egale cu 0
+   assign f = ^(~x);
+
+* Asocierea valorilor logice cu nivelele de tensiune
++ V_OL - Voltage Low
++ V_IL - Tensiunea acceptată
+
+* Decodificatorul
+Primeste un cod binar intr-o condiguratie de 2^n biti
+Iesirea prezinta un singur bit
+Decodorul este un generator de mintermi
+
+* Declaratie de bus/magistrala
+
+  a[15:0]      /--- a[15] = Msb
+--------------------------------------
+       \--- a[0] = Lsb
+
+* Decodificator 2:4 cu validare
+X - Don't care
+
+* Codificator
+Multe intrari, putine iesiri
+
+* Multiplexor
+- n biti, se selecteaza unda dintre cele 2^n intrari pentru a se transmite la unica iesire
+- *NU SE LASA INTRARI IN AER*
+- Orice functie de n intrari se poate implementa cu mux 2^n:1
+  - Cu un mix 2^{n-1} si un NOT
+
+* Mux
+- O singura intrare de selectie S:
+- S = 0 selecteraza intrarea I_0
+- S = 1 selecteaza intrarea I_1
+
+* Reguli de alocare a numelor de porturi si semnale
+- Denumirile porturilor unui modul se vor scrie IN INTERIORUL SIMBOLULUI. Acestea vo aparea identic in toate instantele modulului. Numele porturilor sunt sugestive pentru modul.
+- Denumirile semnalelor conectate la porturi se vor scrie in afara simbolului. Numele semnalelor sunt sugestive pentru proiect.
+- Porturile/semnalele de bus-uri (magistrale) vor preciza DIMENSIUNEA acestora in biti
+
+* Exercitiu
+Determinati o poarta logica echivalenta pentru un circuit cu multiplexor
