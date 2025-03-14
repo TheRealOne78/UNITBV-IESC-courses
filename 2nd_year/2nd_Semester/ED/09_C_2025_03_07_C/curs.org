@@ -1,0 +1,30 @@
+#+TITLE: Curs ED
+#+DATE: 2025-03-07 Fri
+
+Bus (Magistrala) - manunchi de fire, cu semnificatie globala
+BIT - Binary digit
+
+* Circuite logice combinationale (CLC)
+CLC = (X, Y, f)
++ X - Multimea combinatilor de intrare
++ Y - Multimea combinatilor de iesire
++ f - Functie de transfer
+
+
+* Minterm/Maxterm
+** Minterm
+O functie AND cu toate variabilele, negate sau ne-negate
+** Maxterm
+O functie OR cu toate variabilele, negate sau ne-negate
+
+* BOM - Bill Of Materials
+Ex:     5 AND * 3 in + 15 in
+        1 OR  * 5 in
+        3 NOT * 1
+TOTAL:  9 porti 23 in
+
+* Implicant prim
+Termen produs asociat unei surafete avand toate campurile cu valoarea 1
+
+* Sinteza CLC
+Analizarea circuitului electronic de la 0

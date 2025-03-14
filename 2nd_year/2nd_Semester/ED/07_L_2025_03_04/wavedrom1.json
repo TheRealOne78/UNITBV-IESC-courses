@@ -1,0 +1,14 @@
+ {signal: [
+  {name:'clk',         wave: 'P...............' },
+  {name:'req',         wave: '01|.01.0.1...0..', data: 'a b c' },
+  {name:'ack',         wave: '0.|10.10..1010..', data: 'a b c' },
+  {name:'reqdata',     wave: 'x2..x2.x.2.2.x..', data: 'req_D0 req_D1 req_D2 req_D3' },
+  {name:'ackdata',     wave: 'x..2x.2x..2x2x..', data: 'ack_D0 ack_D1 ack_D2 ack_D3' },
+
+],
+ head:{
+   tock:1,
+   every:1
+ },
+     config: { hscale: 2 }
+}
