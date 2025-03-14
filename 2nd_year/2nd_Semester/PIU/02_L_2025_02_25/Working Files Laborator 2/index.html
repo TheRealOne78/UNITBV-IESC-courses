@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laborator Web</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1 id="titlu">Bine ai venit la laborator!</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Acasă</a></li>
+            <li><a href="#">Despre</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="border-style: 2px solid black">
+        <h2 id="sectiune">Exemple de elemente HTML</h2>
+        
+        <div class="container">
+            <p class="text">Acesta este un paragraf.</p>
+            <p class="highlight">Acest paragraf are un stil diferit.</p>
+            <button id="schimbaText">Schimbă textul</button>
+        </div>
+
+        <h3>Listă de elemente:</h3>
+        <ul>
+            <li class="element">Element 1</li>
+            <li class="element">Element 2</li>
+            <li class="element">Element 3</li>
+        </ul>
+
+        <table border="1" id="table-id">
+            <tr>
+                <th>Nume</th>
+                <th>Vârstă</th>
+            </tr>
+            <tr>
+                <td>Maria</td>
+                <td>25</td>
+            </tr>
+            <tr>
+                <td>Alex</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>Petrică</td>
+                <td>35</td>
+            </tr>
+        </table>
+        <button onclick="tableColorSwitcher()"/>
+        <h3 stryle="color: blue">Exercițiu CSS</h3>
+        <button onclick="hideBtn()" class="hidden">Hide me! >:(</button>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2025 Laborator HTML, CSS, JS</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
