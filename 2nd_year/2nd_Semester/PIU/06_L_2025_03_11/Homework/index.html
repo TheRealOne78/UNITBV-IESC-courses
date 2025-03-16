@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="utf-8">
+        <title>Explorarea Universului</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            Explorarea universului
+        </header>
+        <nav>
+            <a>Acasă</a><a>Contact</a>
+        </nav>
+
+        <div id="page-container">
+            <main>
+                <h2 id="cookies-link">Cookies</h2>
+                <b>This site uses cookies!</b>
+                <p>However I'm too lazy right now to create a cookies popup that you can close, but at the same time I'm <i>probably</i> legally required to tell you that this site uses cookies.</p>
+                <p>The reason there are cookies is so that the form inputs get saved. Nothing more, nothing less.
+                <p>So by continuing to browse this page, you agree with cookies.</p>
+                <p>If you want more details (or just feel like reading legal stuff), check <a href="https://gdpr.eu/cookies" target="_blank">https://gdpr.eu/cookies</a>.</p>
+
+                <h2 id="form-link">Formular</h2>
+                <form>
+                    <label for="prefplanet">Planeta preferată</label><br>
+                    <select name="prefplanet" id="prefplanet">
+                        <option value="Mercur">Mercur</option>
+                        <option value="Venus">Venus</option>
+                        <option value="Pământ">Pământ</option>
+                        <option value="Marte">Marte</option>
+                        <option value="Jupiter">Jupiter</option>
+                        <option value="Saturn">Saturn</option>
+                        <option value="Uranus">Uranus</option>
+                        <option value="Neptun">Neptun</option>
+
+                        <option value="Proxima Centauri b">Proxima Centauri b</option>
+                        <option value="Proxima Centauri d">Proxima Centauri d</option>
+                        <option value="Kepler-22b">Kepler-22b</option>
+                        <option value="Kepler-442b">Kepler-442b</option>
+                        <option value="Kepler-452b">Kepler-452b</option>
+                        <option value="Kepler-186f">Kepler-186f</option>
+                        <option value="Kepler-62f">Kepler-62f</option>
+                        <option value="Kepler-62e">Kepler-62e</option>
+                        <option value="Kepler-69c">Kepler-69c</option>
+                        <option value="LHS 1140b">LHS 1140b</option>
+                        <option value="LHS 1140c">LHS 1140c</option>
+                        <option value="Gliese 581d">Gliese 581d</option>
+                        <option value="Gliese 581g">Gliese 581g</option>
+                        <option value="Gliese 667Cc">Gliese 667Cc</option>
+                        <option value="TOI-700d">TOI-700d</option>
+
+                        <option value="TRAPPIST-1b">TRAPPIST-1b</option>
+                        <option value="TRAPPIST-1c">TRAPPIST-1c</option>
+                        <option value="TRAPPIST-1d">TRAPPIST-1d</option>
+                        <option value="TRAPPIST-1e">TRAPPIST-1e</option>
+                        <option value="TRAPPIST-1f">TRAPPIST-1f</option>
+                        <option value="TRAPPIST-1g">TRAPPIST-1g</option>
+                        <option value="TRAPPIST-1h">TRAPPIST-1h</option>
+
+                        <option value="51 Pegasi b">51 Pegasi b</option>
+                        <option value="HD 209458 b">HD 209458 b</option>
+                        <option value="GJ 1214b">GJ 1214b</option>
+                        <option value="WASP-12b">WASP-12b</option>
+                        <option value="HD 189733 b">HD 189733 b</option>
+                        <option value="HR 8799 b">HR 8799 b</option>
+                        <option value="HR 8799 c">HR 8799 c</option>
+                        <option value="HR 8799 d">HR 8799 d</option>
+                        <option value="HR 8799 e">HR 8799 e</option>
+                        <option value="K2-18b">K2-18b</option>
+                        <option value="GJ 357 d">GJ 357 d</option>
+                        <option value="Ross 128b">Ross 128b</option>
+                        <option value="Kapteyn b">Kapteyn b</option>
+                    </select><br/>
+
+                    <label for="loi">Cât de interesat(ă) sunteți de explorarea planetei?</label><br>
+                    <input type="range" name="loi" id="loi" min="1" max="100" value="50"><br/>
+
+                    Selectați misiunile spațiale la care ați participa<br/><br/>
+                    <input class="checkbox" type="checkbox" id="apollo11" name="missions" value="Apollo 11">
+                    <label for="apollo11">Apollo 11</label><br>
+
+                    <input class="checkbox" type="checkbox" id="voyager1" name="missions" value="Voyager 1">
+                    <label for="voyager1">Voyager 1</label><br>
+
+                    <input class="checkbox" type="checkbox" id="voyager2" name="missions" value="Voyager 2">
+                    <label for="voyager2">Voyager 2</label><br>
+
+                    <input class="checkbox" type="checkbox" id="marsrover" name="missions" value="Mars Rover">
+                    <label for="marsrover">Mars Rover (Curiosity, Perseverance)</label><br>
+
+                    <input class="checkbox" type="checkbox" id="iss" name="missions" value="ISS">
+                    <label for="iss">International Space Station (ISS)</label><br>
+
+                    <input class="checkbox" type="checkbox" id="jameswebb" name="missions" value="James Webb">
+                    <label for="jameswebb">James Webb Space Telescope</label><br>
+
+                    <input class="checkbox" type="checkbox" id="artemis" name="missions" value="Artemis">
+                    <label for="artemis">Artemis Program</label><br>
+
+                    <input class="checkbox" type="checkbox" id="spacexmars" name="missions" value="SpaceX Mars">
+                    <label for="spacexmars">SpaceX Mars Mission</label><br>
+
+                    <input class="checkbox" type="checkbox" id="hubble" name="missions" value="Hubble">
+                    <label for="hubble">Hubble Space Telescope</label><br>
+
+                    <input class="checkbox" type="checkbox" id="newhorizons" name="missions" value="New Horizons">
+                    <label for="newhorizons">New Horizons (Pluto and Beyond)</label><br>
+
+                    <input class="checkbox" type="checkbox" id="exomars" name="missions" value="ExoMars">
+                    <label for="exomars">ExoMars</label><br>
+
+                    <input class="checkbox" type="checkbox" id="bepicolombo" name="missions" value="BepiColombo">
+                    <label for="bepicolombo">BepiColombo (Mercury Mission)</label><br>
+
+                    <label for="description">Feedback</label><br>
+                    <textarea class="textarea" id="description" name="description" rows="7" cols="30"></textarea><br/>
+
+                    <button id="submit" type="button" onclick="send()">Trimite</button>
+                    <span id="status"></span>
+                </form>
+
+                <article>
+                    <h2 id="gallery-link">Galerie</h2>
+                    <section id="gallery">
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/KSC-2009-6563/KSC-2009-6563~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/KSC-2009-6563/KSC-2009-6563~orig.jpg">
+                            </a>
+                            <figcaption>KSC-2009-6563 - VANDENBERG AIR FORCE BASE, Calif</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/KSC-99padig003/KSC-99padig003~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/KSC-99padig003/KSC-99padig003~orig.jpg">
+                            </a>
+                            <figcaption>KSC-99padig003 - KENNEDY SPACE CENTER, FLA.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/KSC-2009-5388/KSC-2009-5388~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/KSC-2009-5388/KSC-2009-5388~orig.jpg">
+                            </a>
+                            <figcaption>KSC-2009-5388 - VANDENBERG AIR FORCE BASE, Calif.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/KSC-2009-4746/KSC-2009-4746~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/KSC-2009-4746/KSC-2009-4746~orig.jpg">
+                            </a>
+                            <figcaption>KSC-2009-4746 - VANDENBERG AIR FORCE BASE, Calif.</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/PIA26542/PIA26542~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/PIA26542/PIA26542~orig.jpg">
+                            </a>
+                            <figcaption>SPHEREx in Horizontal Orientation</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/hubble-peeks-at-a-spiral-galaxy_18961260104_o/hubble-peeks-at-a-spiral-galaxy_18961260104_o~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/hubble-peeks-at-a-spiral-galaxy_18961260104_o/hubble-peeks-at-a-spiral-galaxy_18961260104_o~orig.jpg">
+                            </a>
+                            <figcaption>Galaxy with a view</figcaption>
+                        </figure>
+                        <figure>
+                            <a href="https://images-assets.nasa.gov/image/KSC-2012-4717/KSC-2012-4717~orig.jpg" target="_blank">
+                                <img src="https://images-assets.nasa.gov/image/KSC-2012-4717/KSC-2012-4717~orig.jpg">
+                            </a>
+                            <figcaption>KSC-2012-4717 - CAPE CANAVERAL, Fla.</figcaption>
+                        </figure>
+                    </section>
+                </article>
+
+                <h2 id="sources-link">Surse</h2>
+                <section>
+                    <ul>
+                        <li><a href="https://commons.wikimedia.org/wiki/File:Hubble_ultra_deep_field.jpg" target="_blank">NASA and the European Space Agency.</a>, Public domain, via Wikimedia Commons</li>
+                        <li><a href="https://images-assets.nasa.gov/image/KSC-2009-6563/KSC-2009-6563~orig.jpg" target="_blank">KSC-2009-6563 - VANDENBERG AIR FORCE BASE, Calif.</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/KSC-99padig003/KSC-99padig003~orig.jpg" target="_blank">KSC-99padig003 - KENNEDY SPACE CENTER, FLA.</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/KSC-2009-5388/KSC-2009-5388~orig.jpg" target="_blank">KSC-2009-5388 - VANDENBERG AIR FORCE BASE, Calif.</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/KSC-2009-4746/KSC-2009-4746~orig.jpg" target="_blank">KSC-2009-4746 - VANDENBERG AIR FORCE BASE, Calif.</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/PIA26542/PIA26542~orig.jpg" target="_blank">PIA26542 - SPHEREx in Horizontal Orientation</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/hubble-peeks-at-a-spiral-galaxy_18961260104_o/hubble-peeks-at-a-spiral-galaxy_18961260104_o~orig.jpg" target="_blank">Galaxy with a view - Hubble Space Telescope</a> - NASA</li>
+                        <li><a href="https://images-assets.nasa.gov/image/KSC-2012-4717/KSC-2012-4717~orig.jpg" target="_blank">KSC-2012-4717 - CAPE CANAVERAL, Fla.</a> - NASA</li>
+                    </ul>
+                </section>
+            </main>
+            <aside>
+                <h4>Linkuri pagină</h4>
+                <section>
+                    <ul>
+                        <li><a href="#cookies-link">Cookies</a></li>
+                        <li><a href="#form-link">Formular</a></li>
+                        <li><a href="#gallery-link">Galerie</a></li>
+                        <li><a href="#sources-link">Surse</a></li>
+                    </ul>
+                </section>
+
+                <hr/>
+
+                <h4>Statistici în timp real</h4>
+                <section>
+                    <ul>
+                        <li>În momentul de față există <span id="ppl-in-space">N/A</span> oameni în spațiu</li>
+                        <li>Stația Spațială Internațională (ISS) se află la <span id="iss-coords">N/A</span></li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+
+        <footer>
+            Copyright &copy; 2025 BAJCSI Elias-Robert
+        </footer>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
