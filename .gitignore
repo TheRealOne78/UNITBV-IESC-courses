@@ -9,13 +9,16 @@ _region_*
 1st_year/2nd_Semester/FPSE/
 
 # ModelSim
-*/debug/sim/sim.tcl
-*/debug/sim/modelsim.ini
-*/debug/sim/vsim.wlf
-*/debug/sim/transcript
-*/debug/sim/vish_stacktrace.vstf
-*/debug/sim/tcl_stacktrace.txt
-*/debug/sim/vlog.opt
-*/debug/sim/work/
-*/debug/sim/output_data/*.*
-*/debug/sim/input_data/*.bak
+**/debug/sim/sim.tcl
+**/debug/sim/modelsim.ini
+**/debug/sim/vsim.wlf
+**/debug/sim/transcript
+**/debug/sim/vish_stacktrace.vstf
+**/debug/sim/tcl_stacktrace.txt
+**/debug/sim/vlog.opt
+**/debug/sim/work/
+**/debug/sim/output_data/*.*
+**/debug/sim/input_data/*.bak
+
+# Node
+node_modules/
