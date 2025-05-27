@@ -1,0 +1,23 @@
+#+title: Tema 1 - Proiectarea Activității Didactice
+#+subtitle: Didactica Specializării
+#+author: BAJCSI Elias-Robert
+
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=2.5cm]{geometry}
+
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-3cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
+
+* Programa școlară aferentă disciplinei "Educație tehnologică"
+** Extrageți minim cinci recomandări didactice pe care le oferă programa școlară
+
+* Planificarea calendaristică și Proiectul unității de învățare
+** Asemănări și deosebiri (minim trei asemănări/deosebiri)
+
+* Bibliografie:
+- \texttt{02\_proiectarea activitatii didactice.pdf} --- PERNIU Dana
+- Programa şcolară pentru disciplina **Educaţie tehnologică şi aplicaţii practice**, Clasele a V-a - a VIII-a --- Bucureşti, 2017 --- MINISTERUL EDUCAŢIEI NAŢIONALE

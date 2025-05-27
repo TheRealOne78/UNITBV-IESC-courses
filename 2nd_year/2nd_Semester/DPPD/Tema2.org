@@ -1,0 +1,24 @@
+#+title: Tema 2 - Propuneti activitati didactice dedicate zilei apei
+#+subtitle: Didactica Specializării
+#+author: BAJCSI Elias-Robert
+
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=2.5cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-3cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
+
+* Propuneti activități didactice dedicate zilei apei
+** Activitatea:
+- se încadrează în disciplina studiată
+- se adresează formării unor competențe generale/specifice prevazute de programa școlară
+- Discipline:
+  - Educație Tehnologică și Aplicații Practice: clasa a VI-a
+  - Informatică și TIC: clasa a VI-a
+
+* Bibliografie:
+- \texttt{aplicatia\_02.pdf} --- 22 Martie - ziua mondiala a apei --- PERNIU Dana
+- Programa școlară pentru disciplina **INFORMATICĂ ȘI TIC CLASELE a V-a - a VIII-a** --- Bucureşti, 2017 --- MINISTERUL EDUCAŢIEI NAŢIONALE
