@@ -14,9 +14,50 @@
 
 * Programa școlară aferentă disciplinei "Educație tehnologică"
 ** Extrageți minim cinci recomandări didactice pe care le oferă programa școlară
+1. Centrarea pe elev și pe formarea _competențelor generale și specifice_
+   Activitățiile trebuie să accentueze implicarea elevului în realizarea fizică de produse, cu scopul dezvoltării gândirii logice deschise și creative
+2. Utilizarea _metodei proiectului_
+3. _Diversificarea_ metodelor de predare-învățare împreună cu utilizarea metodei proiectului
+   - investigația
+   - dezbateri
+   - jocuri de rol
+   - brainstorming
+   - studii de caz
+   - modelări
+   - simulări
+   - problematizări
+   - scenarii
+   - sondaje
+   - excursii
+   - activități în mijlocul naturii
+   - analiza bunelor practici
+   - experiența la locul de muncă și rezolvarea de probleme (specific educației tehnologice)
+   - vizita de explorare
+4. Alegerea temelor relevante pentru _viața reală_
+5. Amenajarea unui _spațiu dotat adecvat_
+   - unelte de grădinărit
+   - mănuși de protecție
+   - ghivece
+   - cântar de bucătărie
+   - foarfece
+   - planșe
+   - hărți rutiere
+   - bancuri de lucru
+   - machete de scheme electrice
+   - becuri
+   - prize
+   - etc.
 
 * Planificarea calendaristică și Proiectul unității de învățare
 ** Asemănări și deosebiri (minim trei asemănări/deosebiri)
+*** Deosebiri
+1. Planificarea calendaristică organizează activități didactice pe tot anul școlar, în mod rezumativ, dar proiectul de unitate detaliază o singură unitate cu obiective clare și bine definite.
+2. Planificarea calendaristică este generală, ce include doar competențe, teme și produse de realizat. Planul de lecție, în schimb, detaliează întreaga activitate didactică pas-cu-pas cu timpi, metode specifice, resurse, forme de evaluare și surse bibliografice
+3. Durata pe care planificarea calendaristică se întinde pe tot anul școlar, în timp ce proiectul unității acoperă secțiune din planificarea calendaristică, mai limitat, expre pentru un singur capitol/unitate.
+*** Asemănări
+1. Competențe specifice din programa școlară.
+2. Activități de învățare adaptate nivelului de vârstă a elevilor.
+3. Forme de evaluare pentru competențele obținute.
 
 * Bibliografie:
 - \texttt{02\_proiectarea activitatii didactice.pdf} --- PERNIU Dana
