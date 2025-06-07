@@ -3,14 +3,13 @@
 #+author: BAJCSI Elias-Robert
 
 #+OPTIONS: toc:nil date:nil
-#+LATEX_HEADER: \usepackage[a4paper,margin=2.5cm]{geometry}
+#+LATEX_HEADER: \usepackage[a4paper,twoside,inner=3cm,outer=2.5cm]{geometry}
 
 #+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-3cm}
 #+LATEX_HEADER: \usepackage{fancyhdr}
 #+LATEX_HEADER: \pagestyle{fancyplain}
 #+LATEX_HEADER: \usepackage{lastpage}
 #+LATEX_HEADER: \fancyhf{}
-#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
 
 * Programa școlară aferentă disciplinei "Educație tehnologică"
 ** Extrageți minim cinci recomandări didactice pe care le oferă programa școlară
@@ -58,6 +57,10 @@
 1. Competențe specifice din programa școlară.
 2. Activități de învățare adaptate nivelului de vârstă a elevilor.
 3. Forme de evaluare pentru competențele obținute.
+
+* Capturi de ecran
+[[./assets/1_1.png]]
+[[./assets/1_2.png]]
 
 * Bibliografie:
 - \texttt{02\_proiectarea activitatii didactice.pdf} --- PERNIU Dana
