@@ -1,0 +1,32 @@
+#+title: Curs Circuite logice secventiale
+
+CLS = (X, W, Y, f, g)
+f: X x Q -> Q
+g: X x Q -> Y
+
+* Structura
+ - Semi-automat
+ - Automat Moore (imediat)
+ - Automat Mealy (imediat)
+* Reprezentare
+*Tabel cu 4 sectiuni:*
+- Stare curenta
+- Intrari
+- Stare urmatoare
+- Iesiri
+
+| Intrare |     | Stare prezenta |     | Stare unit | Iesire |
+|    X    |     | Q_1 Q_0        |     | D_1 D_0    |   Y    |
+|    /    |   < |                |   < |            |   <    |
+|   <c>   | <r> | <l>            | <r> | <l>        |  <c>   |
+|---------+-----+----------------+-----+------------+--------|
+|    0    | S_0 | 0  0           | S_0 | 0  0       |   1    |
+|    1    |     | 0  0           | S_1 | 0  1       |        |
+|---------+-----+----------------+-----+------------+--------|
+|    0    | S_1 | 0  1           | S_0 | 0  1       |   0    |
+|    1    |     | 0  1           | S_1 | 1  0       |        |
+|---------+-----+----------------+-----+------------+--------|
+|    0    | S_2 | 1  0           | S_0 | 1  0       |   0    |
+|    1    |     | 1  0           | S_1 | 0  0       |        |
+|---------+-----+----------------+-----+------------+--------|
+|    -    | S_3 | 1  1           | S_0 | 0  0       |   0    |

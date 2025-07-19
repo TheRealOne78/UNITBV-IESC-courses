@@ -1,0 +1,171 @@
+#+TITLE: Colocviu de laborator Electronică Digitală
+#+SUBTITLE: Biletul 4\\
+#+SUBTITLE: Grupa: 4LF731, Semigrupa: A --- [4LF731-A]
+#+AUTHOR: BAJCSI A.L. Elias-Robert
+
+#+OPTIONS: toc:nil
+
+#+LATEX_HEADER: \usepackage[a4paper,margin=2.5cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-3cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \cfoot{\thepage/\pageref{LastPage}}
+
+* WaveDrom
+1. JSON WaveDrom
+  #+BEGIN_SRC json
+{ "signal": [
+  { "name": "rst_n",   "wave": "10............" },
+  { "name": "clk",     "wave": "xp............" },
+  { "name": "dataIn",  "wave": "x101.0.1..0..." },
+  { "name": "Q1",      "wave": "x0101.0.1..0.." },
+  { "name": "~Q1",     "wave": "x1010.1.0..1.." },
+  { "name": "D2",      "wave": "x1010..10....." },
+  { "name": "Q2",      "wave": "x01010..10...." },
+  { "name": "Q3",      "wave": "x0.1010..10..." },
+  { "name": "Q4",      "wave": "x0..1010..10.." },
+  { "name": "dataOut", "wave": "x01....01..0.." },
+]}
+  #+END_SRC
+2. Imagine forme de undă:
+  [[./wavedrom.png]]
+
+* Model verilog
+  #+BEGIN_SRC verilog
+// Proiect    : Electronica Digitala - colocviu
+// Autor      : BAJCSI Elias-Robert
+// An         : 2025
+//---------------------------------------------------------------
+// Descriere  : Model Verilog RTL pentru biletul 4
+//---------------------------------------------------------------
+
+module colocviu (
+                 input  clk,
+                 input  rst_n,
+                 input  dataIn,
+                 output dataOut
+                 );
+
+   reg Q1, Q2, Q3, Q4; // Registers for all 4 flip-flops
+   wire D2;            // wires for the 1st gate
+
+   /*
+    * Q1 - D-type flip-flop
+    * Delays dataIn by one clock tick
+    */
+   always@ (posedge clk or negedge rst_n) begin
+      if(~rst_n)
+        Q1 <= 1'b0;
+      else
+        Q1 <= dataIn;
+   end
+
+   // D2 - AND logic gate, with negated output of the 1st flip-flop
+   assign D2 = (~Q1) & dataIn;
+
+   /*
+    * Add three D flip-flops (Q2, Q3 and Q4) in order to extend the HIGH signal
+    * from D2 by 3 ticks later at the `dataOut' OR gate
+    */
+   always@ (posedge clk or negedge rst_n) begin // Q2
+      if(~rst_n)
+        Q2 <= 1'b0;
+      else
+        Q2 <= D2;
+   end
+   always@ (posedge clk or negedge rst_n) begin // Q3
+      if(~rst_n)
+        Q3 <= 1'b0;
+      else
+        Q3 <= Q2;
+   end
+   always@ (posedge clk or negedge rst_n) begin // Q4
+      if(~rst_n)
+        Q4 <= 1'b0;
+      else
+        Q4 <= Q3;
+   end
+
+   // Output: dataOut
+   assign dataOut = Q2 | Q3 | Q4;
+endmodule
+  #+END_SRC
+
+* Mediu de testare
+#+BEGIN_SRC verilog
+// Proiect    : Electronica Digitala - colocviu
+// Autor      : BAJCSI Elias-Robert
+// An         : 2025
+//---------------------------------------------------------------
+// Descriere  : Mediu de testare verilog pentru biletul 4
+//---------------------------------------------------------------
+
+module colocviu_tb;
+   wire clk;
+   wire rst_n;
+   reg  dataIn;
+   wire dataOut;
+
+   /* Instantiate a clock and an active-low reset signal */
+   ck_rst_tb #(
+               .CK_SEMIPERIOD ('d10)
+               ) i_ck_rst_tb (
+                              .clk    (clk),
+                              .rst_n  (rst_n)
+                              );
+
+   /* Instantiate the design under test */
+   colocviu DUT (.clk    (clk),
+                 .rst_n  (rst_n),
+                 .dataIn (dataIn),
+                 .dataOut(dataOut)
+                 );
+
+
+   /* Send some data through dataIn */
+   initial begin
+      // -- Initiate values
+      dataIn <= 1'bx;
+      @(negedge rst_n);
+      @(posedge rst_n);
+
+      // -- Start sending data
+      dataIn <= 1'b1;
+      @(posedge clk);
+
+      dataIn <= 1'b0;
+      @(posedge clk);
+
+      dataIn  <= 1'b1;
+      repeat(2) @(posedge clk);
+
+      dataIn <= 1'b0;
+      repeat(2) @(posedge clk);
+
+      dataIn <= 1'b1;
+      repeat(3) @(posedge clk);
+
+      dataIn <= 1'b0;
+      repeat(4) @(posedge clk);
+
+      $display ("%M %0t INFO: Final simulare.", $time);
+      $stop;
+   end
+
+endmodule
+#+END_SRC
+
+* Captură forme de undă ModelSIM
+[[./wave.png]]
+
+* Explicații
+Circuitul din biletul 4 prezintă:
+1. Un detector de edge-uri pozitive (posedge), care este format dintr-un bistabil D și o poartă ȘI ce primește:
+   - Ieșirea negată bistabilului D
+   - Intrarea blocului
+2. Un prelungitor de semnale pozitive, format din:
+   - 3 bistabile D legate în serie
+   - o poartă sau care combină semnalele de ieșire a celor 3 bistabile
+În final, ieșirea porții SAU este și ieșirea blocului

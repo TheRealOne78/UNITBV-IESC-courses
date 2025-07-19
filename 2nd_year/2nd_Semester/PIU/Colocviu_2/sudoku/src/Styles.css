@@ -1,0 +1,32 @@
+.sudoku-board {
+  display: grid;
+  margin: 20px auto;
+  width: fit-content;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.sudoku-cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  font-size: 20px;
+}
+
+.sudoku-cell-immutable {
+  background-color: gray;
+}
+
+.sudoku-cell-conflict {
+  background-color: red;
+  background: white;
+}
+
+.sudoku-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 2px solid black;
+}
+
