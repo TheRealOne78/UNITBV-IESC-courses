@@ -1,0 +1,16 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    height: 100%;
+}
+
+.hangman-figure {
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+
+.word-display {
+    font-size: 50px;
+}
