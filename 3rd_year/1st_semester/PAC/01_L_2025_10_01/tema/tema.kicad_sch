@@ -724,6 +724,56 @@
 		)
 		(uuid "f8fc024d-ba41-4f7d-9c23-387e0ce67d7c")
 	)
+	(label "V1"
+		(at 121.92 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "18eb680d-ce49-4b66-9f2e-7330bf641c12")
+	)
+	(label "V4"
+		(at 166.37 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1cf9eddd-0260-4542-b6cf-909896b18eb0")
+	)
+	(label "V3"
+		(at 153.67 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "38d4fe97-9e35-47fc-b99c-199ada763047")
+	)
+	(label "V5"
+		(at 181.61 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6fac87f2-85f7-4b46-989a-f0eb2c3baf83")
+	)
+	(label "V2"
+		(at 137.16 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cc5ce242-b3de-494e-a5da-89cd2aa313ea")
+	)
 	(symbol
 		(lib_id "Simulation_SPICE:0")
 		(at 181.61 130.81 0)
