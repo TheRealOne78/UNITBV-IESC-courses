@@ -1,0 +1,30 @@
+#+title: Seminar AMP
+
+* Notare
+- 20% Laborator (minim nota 5, nicio absență)
+- 80%
+  - 30% teste in demersul semestrului
+  - 70% examen
+    - 30% teorie [1 oră], 15 întrebări
+    - 70% probleme [1 oră], 2 probleme
+
+* Seminar
+
+| Dec | Hex |  Bin |
+|-----+-----+------|
+|   0 |   0 | 0000 |
+|   1 |   1 | 0001 |
+|   2 |   2 | 0010 |
+|   3 |   3 | 0011 |
+|   4 |   4 | 0100 |
+|   5 |   5 | 0101 |
+|   6 |   6 | 0110 |
+|   7 |   7 | 0111 |
+|   8 |   8 | 1000 |
+|   9 |   9 | 1001 |
+|  10 |   A | 1010 |
+|  11 |   B | 1011 |
+|  12 |   C | 1100 |
+|  13 |   D | 1101 |
+|  14 |   E | 1110 |
+|  15 |   F | 1111 |
