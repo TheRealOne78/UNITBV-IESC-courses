@@ -1,0 +1,1642 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "1d72cb73-6e65-406d-b77a-57d6cfea4500")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Device:D_Zener"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_Zener"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Zener diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_Zener_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_Zener_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Diode:1N4002"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1N4002"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+				(at 0 -4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "100V 1A General Purpose Rectifier Diode, DO-41"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Device" "D"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D*DO?41*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "1N4002_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "1N4002_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Simulation_SPICE:0"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#GND"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "0"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "0V reference potential for simulation"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "simulation"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0_0_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 0 -1.27) (xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "0_1_1"
+				(pin power_in line
+					(at 0 0 0)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Simulation_SPICE:VDC"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.0254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "V"
+				(at 2.54 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1"
+				(at 2.54 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Voltage source, DC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=+ 2=-"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Type" "DC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Device" "V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "simulation"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VDC_0_0"
+				(polyline
+					(pts
+						(xy -1.27 0.254) (xy 1.27 0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.762 -0.254) (xy -1.27 -0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 -0.254) (xy -0.254 -0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -0.254) (xy 0.762 -0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "+"
+					(at 0 1.905 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(symbol "VDC_0_1"
+				(circle
+					(center 0 0)
+					(radius 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "VDC_1_1"
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(junction
+		(at 92.71 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a2006a5e-f566-4aa6-bf32-e74399d97579")
+	)
+	(wire
+		(pts
+			(xy 127 101.6) (xy 127 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d79bf65-0539-4a2e-afa0-5d32b04bea4b")
+	)
+	(wire
+		(pts
+			(xy 111.76 101.6) (xy 111.76 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14ff91b7-c4ee-45b0-bc64-deb8f2fd0507")
+	)
+	(wire
+		(pts
+			(xy 92.71 104.14) (xy 92.71 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2799df60-2d06-475a-80e0-4114418f903d")
+	)
+	(wire
+		(pts
+			(xy 111.76 93.98) (xy 111.76 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c18bc48-3761-4d71-b99b-9bc31b5c0a44")
+	)
+	(wire
+		(pts
+			(xy 92.71 86.36) (xy 92.71 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63532aef-0e91-417d-b951-9fe5f6891b4a")
+	)
+	(wire
+		(pts
+			(xy 92.71 86.36) (xy 99.06 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e3cef03-11b2-4279-a199-e186cb949ab2")
+	)
+	(wire
+		(pts
+			(xy 127 76.2) (xy 106.68 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f1e13ce-0248-42f9-a56a-ff79f43c45ad")
+	)
+	(wire
+		(pts
+			(xy 111.76 86.36) (xy 106.68 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3e9ffe9-103c-46e8-b8c6-30b35513e81b")
+	)
+	(wire
+		(pts
+			(xy 99.06 76.2) (xy 92.71 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d88fcfb5-03e7-4528-90a4-c3b42573870b")
+	)
+	(wire
+		(pts
+			(xy 127 76.2) (xy 127 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9a969d6-ec88-4fd7-a827-1ca91e7f228d")
+	)
+	(wire
+		(pts
+			(xy 92.71 76.2) (xy 92.71 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd0b14f5-f35c-41a6-83f0-119407a6470c")
+	)
+	(image
+		(at 59.69 99.06)
+		(uuid "a254b89e-c9cb-4bf1-ab87-423d96fd9c80")
+		(data "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"
+			"gg=="
+		)
+	)
+	(label "n1"
+		(at 92.71 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "73313b67-b2b3-4cd1-9562-34d5a6465eac")
+	)
+	(label "n2"
+		(at 111.76 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "786dd3cd-0c4d-4575-a81a-ae22356cc6d1")
+	)
+	(label "n3"
+		(at 127 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "af5312f7-fc94-41c5-93e9-4a64b2c10110")
+	)
+	(symbol
+		(lib_id "Diode:1N4002")
+		(at 111.76 97.79 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4942d703-6825-4dd3-a838-940a9dc41f8c")
+		(property "Reference" "D1"
+			(at 114.3 96.5199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "1N4002"
+			(at 114.3 99.0599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+			(at 116.205 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
+			(at 111.76 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "100V 1A General Purpose Rectifier Diode, DO-41"
+			(at 111.76 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 111.76 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 111.76 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "96770837-4262-4478-890c-c8f198b04278")
+		)
+		(pin "2"
+			(uuid "ed6cb479-ce5e-4605-a24a-72a18a628fa1")
+		)
+		(instances
+			(project ""
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:VDC")
+		(at 92.71 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "560ad103-3c8f-4b2b-a54a-8f94fce9394f")
+		(property "Reference" "V1"
+			(at 96.52 95.1201 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10V"
+			(at 96.52 97.6601 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Voltage source, DC"
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=+ 2=-"
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "DC"
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "V"
+			(at 92.71 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2b984480-9834-457d-a5fa-4b376e7d9128")
+		)
+		(pin "1"
+			(uuid "9127a9d4-9609-4e89-bd03-697d002da07c")
+		)
+		(instances
+			(project ""
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "V1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 111.76 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "609d67ff-a498-49bf-bc80-ee30f4b4af67")
+		(property "Reference" "#GND02"
+			(at 111.76 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "0"
+			(at 113.792 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 111.76 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 111.76 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "327e017f-3a86-4c85-b661-a0bb6f4b2929")
+		)
+		(instances
+			(project "T2"
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "#GND02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 102.87 86.36 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "921f5a84-2479-4d88-bd87-ba357aae1cf3")
+		(property "Reference" "R1"
+			(at 102.87 80.01 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1k"
+			(at 102.87 82.55 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 88.138 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.87 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 102.87 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f373bfc6-f2e7-4fa7-a544-7d3c7866efac")
+		)
+		(pin "1"
+			(uuid "f88c2707-c67c-403f-b177-30f592ecd7cf")
+		)
+		(instances
+			(project ""
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 92.71 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c1bd5321-5cdf-49dc-b035-9321b5cfd4b8")
+		(property "Reference" "#GND01"
+			(at 92.71 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "0"
+			(at 94.996 102.616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.71 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 92.71 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 92.71 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d295afd0-b497-480b-b026-9f0bc66a5c33")
+		)
+		(instances
+			(project ""
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "#GND01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 127 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d39d736b-9aaf-4221-8c2f-6117e93b9184")
+		(property "Reference" "#GND03"
+			(at 127 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "0"
+			(at 129.794 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 127 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 127 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4361c467-a17b-4fec-95e6-8151ac40e6f8")
+		)
+		(instances
+			(project "T2"
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "#GND03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D_Zener")
+		(at 127 97.79 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d9a3385a-0ae0-4813-8cba-b43417bdbb00")
+		(property "Reference" "D2"
+			(at 129.54 96.5199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "D1N750"
+			(at 129.54 99.0599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Zener diode"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Library" "mylib/d1n750.lib"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Name" "D1N750"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 127 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3bc822c5-22c1-44e9-82f9-40a7bfb46a54")
+		)
+		(pin "2"
+			(uuid "28afa135-9396-4656-a70a-ee85442f9e83")
+		)
+		(instances
+			(project ""
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 102.87 76.2 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e55f04e5-4910-481c-9b34-357c6cb39555")
+		(property "Reference" "R2"
+			(at 102.87 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1k"
+			(at 102.87 72.39 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 77.978 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.87 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 102.87 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "685767b6-3ee3-43f5-a20b-c7985c82f266")
+		)
+		(pin "1"
+			(uuid "fd4f0bca-0dd1-41b4-afac-78ef3a16cd14")
+		)
+		(instances
+			(project "T2"
+				(path "/1d72cb73-6e65-406d-b77a-57d6cfea4500"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
