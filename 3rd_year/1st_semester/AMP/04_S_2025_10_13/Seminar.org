@@ -1,0 +1,70 @@
+#+title: Seminar AMP 
+#+date: 2025-10-13
+
+* Codificarea în binar a numerelor întregi
+- MS (Marime si semn)
+- C1 (Complement fata de 1)
+- C2 (Complement fata de 2)
+
+** MS
+#+begin_src
+b_{n-1} b_{n-2} b_{n-3} ... b_1 b_0
+ ^        ^                      ^
+ |        |-- MSB          LSB --|
+ |
+ ----bit de semn
+#+end_src
+
+b_{n-1} b_{n-2} b_{n-3} ... b_1 b_0 = marimea = val in modul in baza 2
+
++70|_{10} = ?|_{M.S.}
+70 = 2^6 + 2^2 + 2^1 = 1000110|_2
++70|_{10} = 0100_0110|_{MS}
+
+-70|_{10} = 1100_0110|_{MS}
+
+n = 8 => [-127, +127]
+
+*** 0
+- 0000_0000 [0_+]
+- 1000_0000 [0_-]
+  
+** C1
+if m < 0; then se ia valoarea pozitiva si se ~ bit cu bit
+
++70|_{10} = 1000110|_2
++70|_{10} = 0111001|_{C1}
+
+-70|_{10} = ?|_{C1}
+-70|_{10} = 1011_1001|_{C1}
+
+n = 8 => [-127, +127]
+
+*** 0
+- 0000_0000 [0_+]
+- 1111_1111 [0_-]
+  
+** C2
+*** M1
+if m < 0; then se calculeaza C1 + 1
+
++70|_{10} = 100_0110|_2
++70|_{10} = 0100_0110|_{C2}
+
+-70|_{10} = ?|_{C1}
+-70|_{10} = 1011_1010|_{C1}
+
+n = 8 => [-127, +127]
+
+*** M2
+Se parcurg biti de la LSB la MSB (dr->st) si se copiaza pana cand se intalneste un bit de 1, inclusiv, dupa care se neaga
+
+-70|_{10} = 1011_1010|_{C2} 
+
+*** 0
+- 0000_0000 [0_+]
+  
+*** Scaderea
+Scaderea poate fi realizata prin adunare
+
+A-B = A + (-B) = A + ~B + 1
