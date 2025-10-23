@@ -24,14 +24,6 @@ for i in range(n_images):
     images[i] = np.array([[int(ch) for ch in row] for row in img_lines], dtype=int)
     labels[i] = int(label)
 
-#def scale_down_np(img):
-#    a = img[0::2, 0::2]
-#    b = img[0::2, 1::2]
-#    c = img[1::2, 0::2]
-#    d = img[1::2, 1::2]
-#    zeros = (a == 0) + (b == 0) + (c == 0) + (d == 0)
-#    return np.where(zeros >= 3, 0, 1)
-
 def scale_down_np(img):
     n      = img.shape[0]
     blocks = img.reshape(n//2, 2, n//2, 2).transpose(0, 2, 1, 3)
