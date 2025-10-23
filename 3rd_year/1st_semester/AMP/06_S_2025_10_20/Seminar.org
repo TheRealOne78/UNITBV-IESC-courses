@@ -1,0 +1,11 @@
+#+title: Seminar
+
+* Exercitii
+T_bench = 100s - T_CPU + T_I/O
+                  80s     20s
+
+n_1an = 1.5   k = 80s/100s = T_CPU_neimb / T_bench
+n_5an = 1.5*5 = 7.5
+
+T_imb,5ani = 100 [(1 - 0.8) + (0.8/7.5)] =
+           = 100 [0.2 + 0.107] = 30.7s
