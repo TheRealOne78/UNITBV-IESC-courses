@@ -1,6 +1,27 @@
 [package]
 name = "lab"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
+rand = "0.9.2"
+
+[lib]
+name = "lib_lab"
+path = "src/lib.rs"
+
+#[[bin]]
+#name = "ex1_vectors"
+#path = "src/bin/ex1_vectors.rs"
+#
+#[[bin]]
+#name = "ex2_single_unit"
+#path = "src/bin/ex2_single_unit.rs"
+#
+#[[bin]]
+#name = "ex3_digit_classifier"
+#path = "src/bin/ex3_digit_classifier.rs"
+#
+#[[bin]]
+#name = "ex4_memory_network"
+#path = "src/bin/ex4_memory_network.rs"
