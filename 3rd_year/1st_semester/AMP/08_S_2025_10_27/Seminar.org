@@ -1,0 +1,32 @@
+#+title: Seminar
+
+1. f_folling_keyboard = 10Hz => T_polling_keyboard = 1/f = 0.1s = 100ms
+   f_clk_CPU = 1 GHz => T_clk = 1/f_CLK = 1ns
+   T_transfer = 800T_clk = 800ns
+   
+2. v_transfer_maxim = 3MB/s = 3 * 10^6 B/s = 24 * 10^6 b/s = 24Mb/s
+   T_ACC_buffer = 800Tck
+   f_clk = 1GHz => T_clk = 1ns
+   
+   Pas 1. Stabilire rata de citire/scriere in buffer
+   f_ACC_BUFFER_MAX = v_transfer_MAXIMA / 4 = (3MB/s)/4B = .75 * 10^6 Hz = 750 kHZz
+
+   Pas 2. Calculez perioada unui transfer
+   1/f_ACC_BUFFER_MAX = 1/750 000 = 133.(3) ns
+
+   Pas 3. Usage CPU = 800ns / 1333ns = 0.6 = 60%
+
+3. V_transfer_max_HDD = 3MB/s = 3*10^6 B/s
+   T_~IRQ + ACC = 1200 Tclk
+   T_clk = 1ns
+   Usage_HDD = 5% = .05
+
+   Usage_CPU = ?
+
+   f_transactiilor = V_transfer_max_HDD/4 = 750 kHz
+   Usage_CPU = Usage_HDD * f_transactiilor * T_~IRQ + ACC
+   = .05 * .75 * +10^6Hz+ * 1200 * +10^{-9}+ =
+   = .05 * .75 * 1.2 = .045 = 4.5%
+
+4. w = 32b = 4B
+   f_ck = 20 MHz => T_ck = 1/f_ck = 50ns
