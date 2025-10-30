@@ -3058,7 +3058,7 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Device" "SUBCKT"
+		(property "Sim.Device" "K"
 			(at 67.31 114.3 0)
 			(effects
 				(font
@@ -3067,34 +3067,7 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Library" "libs/xfmr_4pin.lib"
-			(at 67.31 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Name" "XFMR_4PIN"
-			(at 67.31 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4"
-			(at 67.31 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Params" "L1_VALUE=100m L2_VALUE=0.1m K_COUPLING=1"
+		(property "Sim.Params" "l1=100m l2=0.1m k=1"
 			(at 67.31 114.3 0)
 			(effects
 				(font
