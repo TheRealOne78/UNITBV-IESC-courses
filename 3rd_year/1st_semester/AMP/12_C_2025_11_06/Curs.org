@@ -1,0 +1,8 @@
+#+title: Curs AMP
+
+1. Mapare directă
+   1 bloc din memorie = 1/2/4/.../2^k cuvinte
+   1 cuvânt = 1/2/4/8 byte = cuvânt dintr-un regim intern la uP
+   1 intrare (line) cache = o zonă din cache capabilă să stocheze un bloc
+   Memoria cache = număr de 2^i intrări, unde i aparține numerelor Naturale
+   Adun intrării la bloc = Nr. de blocuri din Mem RAM % Nr. de intrări în cache
