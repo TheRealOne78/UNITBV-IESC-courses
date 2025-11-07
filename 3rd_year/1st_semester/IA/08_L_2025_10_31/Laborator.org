@@ -1,0 +1,5 @@
+#+title: Inteligenţă computaţională - laborator
+
+* Regula Hebb
+1. Scrieţi un program care implementează învăţarea hebbiană din exemplul 4, secţiunea 2.5, pagina 43.
+2. Folosind implementarea de mai sus, repetaţi invăţarea hebbiană pentru pattern-urile de la exerciţiul 7, pagina 49.

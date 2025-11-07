@@ -2,11 +2,10 @@
 
 * Notare
 - 20% Laborator (minim nota 5, nicio absență)
-- 80%
-  - 30% teste in demersul semestrului
-  - 70% examen
-    - 30% teorie [1 oră], 15 întrebări
-    - 70% probleme [1 oră], 2 probleme
+- Examen
+  - 20% teorie [1 oră], 15 întrebări, closed books
+  - 40% probleme [1 oră], 2 probleme, hartie
+- 20% teste in demersul semestrului
 
 * Seminar
 
