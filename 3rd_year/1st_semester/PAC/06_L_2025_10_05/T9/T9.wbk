@@ -17,7 +17,24 @@
         "right": 70,
         "top": 30
       },
-      "measurements": [],
+      "measurements": [
+        {
+          "expr": "MIN vdb(/n1)",
+          "format": "3~dB"
+        },
+        {
+          "expr": "MAX vdb(/n1)",
+          "format": "3~dB"
+        },
+        {
+          "expr": "MIN vdb(/n2)",
+          "format": "3~dB"
+        },
+        {
+          "expr": "MAX vdb(/n2)",
+          "format": "3~dB"
+        }
+      ],
       "showGrid": true,
       "traces": [
         {
@@ -39,20 +56,12 @@
           "color": "rgb(247, 129, 191)",
           "signal": "V(/n2) (gain)",
           "trace_type": 521
-        },
-        {
-          "color": "rgb(77, 175, 74)",
-          "signal": "V(0) (phase)",
-          "trace_type": 517
-        },
-        {
-          "color": "rgb(77, 175, 74)",
-          "signal": "V(0) (gain)",
-          "trace_type": 521
         }
       ]
     }
   ],
-  "user_defined_signals": [],
+  "user_defined_signals": [
+    "20 * ln(abs(V(/n2)) / abs(V(/n1))) / ln(10)"
+  ],
   "version": 6
 }

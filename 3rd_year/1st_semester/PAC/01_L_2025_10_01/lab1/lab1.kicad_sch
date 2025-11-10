@@ -783,7 +783,7 @@
 		(uuid "eaa2dd62-bb44-4f5f-932e-971707ddb90e")
 	)
 	(label "A"
-		(at 72.39 88.9 0)
+		(at 72.39 90.17 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -793,7 +793,7 @@
 		(uuid "1156aa64-22b4-4882-b058-799fee45847a")
 	)
 	(label "B"
-		(at 72.39 105.41 0)
+		(at 72.39 106.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -803,7 +803,7 @@
 		(uuid "53c19daa-92eb-446c-941f-8b74583d70b2")
 	)
 	(label "A"
-		(at 72.39 54.61 0)
+		(at 72.39 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -813,7 +813,7 @@
 		(uuid "97e42fac-4dcd-4b84-b61b-a8af1c9b7812")
 	)
 	(label "B"
-		(at 72.39 71.12 0)
+		(at 72.39 72.39 0)
 		(effects
 			(font
 				(size 1.27 1.27)
