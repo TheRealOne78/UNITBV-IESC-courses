@@ -250,7 +250,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "T10.kicad_pro",
+    "filename": "Tema.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -402,7 +402,7 @@
         "version": 0
       },
       "model_mode": 4,
-      "workbook_filename": "T10.wbk"
+      "workbook_filename": "Tema.wbk"
     },
     "page_layout_descr_file": "",
     "plot_directory": "",
@@ -418,7 +418,7 @@
   },
   "sheets": [
     [
-      "c9d8f4f7-8f7a-4bc9-a267-2c02d8790a25",
+      "8b64dfe6-4311-44f6-af7f-b48a3046b042",
       "Root"
     ]
   ],

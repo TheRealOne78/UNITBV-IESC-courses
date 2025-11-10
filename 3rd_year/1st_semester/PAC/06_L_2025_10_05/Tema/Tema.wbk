@@ -4,7 +4,7 @@
     {
       "analysis": "AC",
       "commands": [
-        ".ac dec 10 1 10Meg",
+        ".ac dec 10 1 100Meg",
         ".kicad adjustpaths",
         ".save all",
         ".probe alli",
@@ -17,35 +17,18 @@
         "right": 70,
         "top": 30
       },
-      "measurements": [
-        {
-          "expr": "MIN vdb(/n1)",
-          "format": "3~dB"
-        },
-        {
-          "expr": "MAX vdb(/n1)",
-          "format": "3~dB"
-        },
-        {
-          "expr": "MIN vdb(/n2)",
-          "format": "3~dB"
-        },
-        {
-          "expr": "MAX vdb(/n2)",
-          "format": "3~dB"
-        }
-      ],
+      "measurements": [],
       "showGrid": true,
       "traces": [
         {
-          "color": "rgb(247, 129, 191)",
+          "color": "rgb(77, 175, 74)",
           "cursor1": {
-            "position": 2.95,
+            "position": 32.745491628777316,
             "x_format": "3~Hz",
             "y_format": "3~dB"
           },
           "cursor2": {
-            "position": 1156461.8567470491,
+            "position": 10000000.000000041,
             "x_format": "3~Hz",
             "y_format": "3~dB"
           },
@@ -53,14 +36,14 @@
             "x_format": "3~Hz",
             "y_format": "3~dB"
           },
-          "signal": "V(/n2) (gain)",
+          "signal": "V(/out) (gain)",
           "trace_type": 521
         }
       ]
     }
   ],
   "user_defined_signals": [
-    "( (20 * (ln(max(abs(V(/n1)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/n2)), 1e-12))) ) / (ln(10)) )"
+    "( (20 * (ln(max(abs(V(/out)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/in)), 1e-12))) ) / (ln(10)) )"
   ],
   "version": 6
 }

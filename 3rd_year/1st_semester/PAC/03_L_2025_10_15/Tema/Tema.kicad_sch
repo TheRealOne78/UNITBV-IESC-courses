@@ -866,6 +866,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text ".TF V(/in) V1"
+		(exclude_from_sim no)
+		(at 228.6 120.142 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "289c7101-d643-4ce8-bf59-1a694fc3c14e")
+	)
 	(junction
 		(at 250.19 110.49)
 		(diameter 0)
@@ -1007,6 +1017,16 @@
 			(type default)
 		)
 		(uuid "ee4bdabc-72e6-4fad-8cf6-2a6cb7f1d4e0")
+	)
+	(label "C"
+		(at 236.22 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "47b777ab-60dc-4d53-864d-9c688b5a2715")
 	)
 	(label "VCC"
 		(at 250.19 68.58 0)
