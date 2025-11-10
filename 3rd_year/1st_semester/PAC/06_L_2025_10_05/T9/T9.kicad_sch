@@ -2990,7 +2990,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "1.5uF"
 			(at 181.61 116.84 90)
 			(effects
 				(font
@@ -3309,7 +3309,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "1.5uF"
 			(at 135.89 134.62 90)
 			(effects
 				(font
