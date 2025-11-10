@@ -1,0 +1,6 @@
+* xfmr_4pin.lib
+.subckt XFMR_4PIN 1 2 3 4 params: L1_VALUE=1m L2_VALUE=1m K_COUPLING=1
+Lpri 1 2 {L1_VALUE}
+Lsec 3 4 {L2_VALUE}
+K1 Lpri Lsec {K_COUPLING}
+.ends XFMR_4PIN

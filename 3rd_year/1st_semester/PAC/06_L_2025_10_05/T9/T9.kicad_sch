@@ -1238,6 +1238,14 @@
 		(color 0 0 0 0)
 		(uuid "8a1e8a7c-29eb-453d-a578-26e05bc7d646")
 	)
+	(no_connect
+		(at 165.1 129.54)
+		(uuid "14aa6570-6a03-4f13-845b-32a894ca8035")
+	)
+	(no_connect
+		(at 162.56 129.54)
+		(uuid "e7020e04-fedb-4ff3-bd13-81428c60cfa7")
+	)
 	(wire
 		(pts
 			(xy 198.12 121.92) (xy 205.74 121.92)
@@ -2982,7 +2990,7 @@
 				)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 181.61 116.84 90)
 			(effects
 				(font
@@ -3301,7 +3309,7 @@
 				)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "100nF"
 			(at 135.89 134.62 90)
 			(effects
 				(font

@@ -1,36 +1,10 @@
 {
-  "last_sch_text_sim_command": "",
+  "last_sch_text_sim_command": ".tran 10u 5m 0 10u\n.four 1k v(/out)\n.meas tran THD_OUT param thd(v(/out))",
   "tabs": [
     {
       "analysis": "TRAN",
       "commands": [
-        ".tran 5m 50m 0 10u",
-        ".kicad adjustpaths",
-        ".save all",
-        ".probe alli",
-        ".probe allp"
-      ],
-      "dottedSecondary": true,
-      "margins": {
-        "bottom": 45,
-        "left": 70,
-        "right": 140,
-        "top": 30
-      },
-      "measurements": [],
-      "showGrid": true,
-      "traces": [
-        {
-          "color": "rgb(55, 126, 184)",
-          "signal": "V(/out)",
-          "trace_type": 257
-        }
-      ]
-    },
-    {
-      "analysis": "FFT",
-      "commands": [
-        "linearize V(/out)\nfft V(/out)",
+        ".tran 10u 5m 0 10u\n.four 1k v(/out)\n.meas tran THD_OUT param thd(v(/out))",
         ".kicad adjustpaths",
         ".save all",
         ".probe alli",
@@ -47,9 +21,9 @@
       "showGrid": true,
       "traces": [
         {
-          "color": "rgb(228, 26, 28)",
+          "color": "rgb(55, 126, 184)",
           "signal": "V(/out)",
-          "trace_type": 513
+          "trace_type": 257
         }
       ]
     }
