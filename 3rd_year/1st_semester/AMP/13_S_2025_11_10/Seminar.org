@@ -1,0 +1,36 @@
+#+title: Seminar AMP
+
+* Recapitulare
+Memoria SDRAM este organizată pe Byte
+
+Un cuvânt = 1 sau mai multe bytes, tipic o putere a lui 2: 2^x
+1 bloc = 1 sau mai multe cuvinte, tipic o putere a lui 2: 2^y
+1 intrare/linie cache = 1 bloc + regie (tag + v)
+
+* Rezolvare
+** 1
+1 cuv = 32b = 4B => w_b = ceil(log_2 4) = 2b
+
+Mem cache cu mapare directă
+N_1 intrari cache = 32 => w_i = ceil(log_2 32) = 5b
+
+A = A_{15} A_{14} ... A_{2} A_{1} A_{0}
+
+C_{SDRAM} = 2^{16} B = 2^6 * 2^{10} B (kB) = 64 kB
+
+1 bloc = 4 cuvinte => W_c = ceil(log_2 4) = 2b
+
+Lb = Lungimea unui bloc
+
+Nab = ?
+
+Nab = C_{SDRAM} / L_b = 2^16 B/ 2^4 {B/64} = 4036 blocuri
+
+** 2
+4245|_10
+
+4245/16 = 265 + 5
+
+4245 = 16*265 + 5
+
+
