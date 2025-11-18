@@ -1,0 +1,27 @@
+#+title: Seminar AMP
+
+A[i] = A[i] + h
+
+   R - type [opcode(6) | rs(5) | rt(5) | rd(5) | shamt(5) | funct(6)]
+   I - type [opcode(6) | rs(5) | rt(5) | imm(16)]
+   J - type [opcode(6) | address(26)]
+   
+   opcode - portion of a machine or assembly instruction that specifies which operation the CPU should perform (e.g., add, move, jump). It tells the processor what to do, while the remaining fields (operands) tell it with what data.
+
+   
+   
+A[i] = A[i] + h
+|       |     |
+v       v     v
+A[0]    i     h
+|       |     |
+v       v     v
+$t0     $s1   $s2
+
+
+add $t0, $s1, $s1
+add $t0, $t0, $t0
+add $t0, $s0, $s2
+lw $t1, 0($t0)
+add $t1, $s2, $t1
+sw $t1, 0($t0)
