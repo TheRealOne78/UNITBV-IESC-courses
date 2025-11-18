@@ -3,17 +3,20 @@ use ndarray::Array1;
 
 fn main() {
     let patterns = vec![
-        vec![1.0, -2.0, 1.5, 0.0],
-        vec![1.0, -0.5, -2.0, -1.5],
-        vec![0.0, 1.0, -1.0, 1.5],
+        vec![1.0, -2.0],
+        vec![0.0, 1.0],
+        vec![2.0, 3.0],
+        vec![1.0, -1.0],
     ];
 
-    let initial_weights = vec![1.0, -1.0, 0.0, 0.5];
+    let initial_weights = vec![1.0, -1.0];
     
     println!("\nInitial weights: w0 = {}", format_vector(&initial_weights));
     println!("Learning rate: c = 1\n");
 
-    // a) BipolarBinary
+    // a) BipolarBinary 
+    println!("=== Part a: Bipolar Binary (sgn) ===\n");
+    
     let mut neuron_binary = HebbianNeuron::new(
         initial_weights.clone(),
         ActivationFunction::BipolarBinary,
@@ -34,7 +37,7 @@ fn main() {
 
     // b) BipolarContinuous
     println!("\n=== BipolarContinuous ==================\n\n");
-
+    
     let mut neuron_continuous = HebbianNeuron::new(
         initial_weights.clone(),
         ActivationFunction::BipolarContinuous(1.0),
