@@ -1,6 +1,12 @@
 [package]
 name = "lab"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
+ndarray = "0.15"
+rand = "0.8"
+
+[lib]
+name = "perceptron_learning"
+path = "src/lib.rs"
