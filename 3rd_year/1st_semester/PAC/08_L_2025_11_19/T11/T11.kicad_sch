@@ -1,0 +1,98 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "56bcd992-0cf9-4a9e-928d-6660546a5ab1")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 133.096 107.188)
+		(size 65.532 40.894)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "0e14ddcc-7a0c-48e8-ba9a-7bcef799bb2a")
+		(property "Sheetname" "FOB"
+			(at 133.096 106.4764 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "FOB.kicad_sch"
+			(at 133.096 148.6666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "T11"
+				(path "/56bcd992-0cf9-4a9e-928d-6660546a5ab1"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 55.118 107.188)
+		(size 59.182 39.624)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c9f23f16-db4a-4a7e-9d0f-c698d4d3054d")
+		(property "Sheetname" "FTB"
+			(at 55.118 106.4764 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "FTB.kicad_sch"
+			(at 55.118 147.3966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "T11"
+				(path "/56bcd992-0cf9-4a9e-928d-6660546a5ab1"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
