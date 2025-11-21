@@ -1,0 +1,20 @@
+.title KiCad schematic
+.include "/usr/share/kicad/symbols/Simulation_SPICE.sp"
+V1 /FTB/in 0 DC 0 SIN( 0 1 1k 0 0 0 ) AC 1  
+XU1 /FTB/U2/OUT /FTB/out unconnected-_U1-V+-Pad3_ unconnected-_U1-V--Pad4_ /FTB/out kicad_builtin_opamp
+R3 Net-_U4--_ /FOB/out 1k
+R2 Net-_U3--_ Net-_U4--_ 1k
+R1 Net-_U2--_ Net-_U4--_ 1k
+XU4 0 Net-_U4--_ unconnected-_U4-V+-Pad3_ unconnected-_U4-V--Pad4_ /FOB/out kicad_builtin_opamp
+XU2 /FOB/U1/OUT Net-_U2--_ unconnected-_U2-V+-Pad3_ unconnected-_U2-V--Pad4_ Net-_U2--_ kicad_builtin_opamp
+XU3 /FOB/U2/OUT Net-_U3--_ unconnected-_U3-V+-Pad3_ unconnected-_U3-V--Pad4_ Net-_U3--_ kicad_builtin_opamp
+V2 /FOB/in 0 DC 0 SIN( 0 1 1k 0 0 0 ) AC 1  
+C1 /FTB/in /FTB/U1/OUT 100n
+R4 0 /FTB/U1/OUT 10k
+C2 /FTB/U2/OUT 0 1n
+R5 /FTB/U1/OUT /FTB/U2/OUT 10k
+R6 /FOB/in /FOB/U1/OUT 10k
+C3 /FOB/U1/OUT 0 100n
+R7 0 /FOB/U2/OUT 10k
+C4 /FOB/in /FOB/U2/OUT 1n
+.end

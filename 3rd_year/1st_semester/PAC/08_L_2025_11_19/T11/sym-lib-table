@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "New_Library")(type "KiCad")(uri "${KIPRJMOD}/New_Library.kicad_sym")(options "")(descr ""))
+  (lib (name "FTJ")(type "KiCad")(uri "${KIPRJMOD}/FTJ.kicad_sym")(options "")(descr ""))
+  (lib (name "T11_Filters")(type "KiCad")(uri "${KIPRJMOD}/T11_Filters.kicad_sym")(options "")(descr ""))
+)

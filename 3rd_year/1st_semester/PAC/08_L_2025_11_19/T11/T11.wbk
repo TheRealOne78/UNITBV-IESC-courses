@@ -1,0 +1,51 @@
+{
+  "last_sch_text_sim_command": "",
+  "tabs": [
+    {
+      "analysis": "AC",
+      "commands": [
+        ".ac dec 101 1 1Meg",
+        ".kicad adjustpaths",
+        ".save all",
+        ".probe alli",
+        ".probe allp"
+      ],
+      "dottedSecondary": true,
+      "margins": {
+        "bottom": 45,
+        "left": 70,
+        "right": 70,
+        "top": 30
+      },
+      "measurements": [
+        {
+          "expr": "MIN vdb(/FTB/out)",
+          "format": "3~dB"
+        },
+        {
+          "expr": "MIN_AT vdb(/FTB/out)",
+          "format": "3~Hz"
+        },
+        {
+          "expr": "MIN_AT ( (20 * (ln(max(abs(V(/FTB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FTB/out)), 1e-12))) ) / (ln(10)) )",
+          "format": "3~Hz"
+        },
+        {
+          "expr": "MAX vdb(/FTB/out)",
+          "format": "3~dB"
+        },
+        {
+          "expr": "MAX_AT vdb(/FTB/out)",
+          "format": "3~Hz"
+        }
+      ],
+      "showGrid": true,
+      "traces": []
+    }
+  ],
+  "user_defined_signals": [
+    "( (20 * (ln(max(abs(V(/FTB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FTB/out)), 1e-12))) ) / (ln(10)) )",
+    "( (20 * (ln(max(abs(V(/FOB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FOB/out)), 1e-12))) ) / (ln(10)) )"
+  ],
+  "version": 6
+}
