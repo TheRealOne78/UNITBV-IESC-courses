@@ -1,0 +1,8 @@
+#+title: Inteligenţă artificială - laborator
+
+Învăţarea unui neuron prin regula perceptronului este descrisă la pagina 34 și este exemplificată la pagina 46.
+
+Aplicați această regulă pentru instruirea unui neuron cu 4 intrări folosind un subset al setului de date Iris astfel:
+- Selectați pentru instruire 5 variante ale speciei Iris-setosa pentru care răspunsul dorit este +1 și 5 variante ale speciei Iris-versicolor pentru care răspunsul dorit este -1.
+- Instruiți neuronul prin parcurgerea repetată a acestui subset de date până când eroarea cumulată a ieșirilor este 0. Opriți instruirea după 100 de epoci dacă eroarea nu a devenit 0 între timp. O epocă reprezintă o parcurgere completă setului de date. Resetați valoarea erorii după fiecare epocă.
+- După încheierea instruirii, testați neuronul cu cele 45 de variante ale speciei Iris-setosa și cu cele 45 de variante ale speciei Iris-versicolor care nu au fost folosite la instruire și calculați procentul de clasificare corectă.
