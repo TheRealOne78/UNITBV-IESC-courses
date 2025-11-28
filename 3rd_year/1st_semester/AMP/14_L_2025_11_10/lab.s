@@ -48,7 +48,7 @@ result:
     li $v0, 4
     syscall
 
-    move $a0, $t1     # add $a0, $0, $t1
+    move $a0, $t1     # add $a0, $t1
     li $v0, 1
     syscall
 

@@ -40,12 +40,19 @@
         }
       ],
       "showGrid": true,
-      "traces": []
+      "traces": [
+        {
+          "color": "rgb(77, 175, 74)",
+          "signal": "20*log(-V(/FOB/out)/V(/FOB/in)) (gain)",
+          "trace_type": 520
+        }
+      ]
     }
   ],
   "user_defined_signals": [
     "( (20 * (ln(max(abs(V(/FTB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FTB/out)), 1e-12))) ) / (ln(10)) )",
-    "( (20 * (ln(max(abs(V(/FOB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FOB/out)), 1e-12))) ) / (ln(10)) )"
+    "( (20 * (ln(max(abs(V(/FOB/in)), 1e-12))) ) / (ln(10)) ) - ( (20 * (ln(max(abs(V(/FOB/out)), 1e-12))) ) / (ln(10)) )",
+    "20*log(-V(/FOB/out)/V(/FOB/in))"
   ],
   "version": 6
 }

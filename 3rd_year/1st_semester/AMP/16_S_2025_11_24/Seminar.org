@@ -1,0 +1,5 @@
+#+title: Seminar AMP
+
+* 22: MIPS R2000 - 32 bits
+C_RAM_MAX = 2^32B = 4 GB
+PC = Program Counter
