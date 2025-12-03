@@ -1,0 +1,25 @@
+** Drc report for T13.kicad_pcb **
+** Created on 2025-12-01T19:33:38+0200 **
+
+** Found 1 DRC violations **
+[lib_footprint_mismatch]: Footprint 'MountingHole_2.5mm_Pad' does not match copy in library 'MountingHole'.
+    Local override; warning
+    @(161.5000 mm, 91.5000 mm): Footprint REF1
+
+** Found 0 unconnected pads **
+
+** Found 4 Footprint errors **
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(161.5000 mm, 91.5000 mm): Footprint REF1
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(161.5000 mm, 64.0000 mm): Footprint REF0
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(123.0000 mm, 64.0000 mm): Footprint REF3
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(123.0000 mm, 91.5000 mm): Footprint REF2
+
+** End of Report **
