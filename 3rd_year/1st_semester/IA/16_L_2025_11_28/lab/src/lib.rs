@@ -69,7 +69,7 @@ pub mod genetic {
         }
 
         pub fn evaluate_chromosome(&self, chromosome: &Chromosome) -> f64 {
-            let mut sum_packet = 0;
+            let mut sum_packet     = 0;
             let mut product_packet = 1;
 
             for (i, &gene) in chromosome.genes.iter().enumerate() {
@@ -81,10 +81,9 @@ pub mod genetic {
                 }
             }
 
-            let sum_error = (sum_packet - self.target_sum).abs();
+            let sum_error     = (sum_packet - self.target_sum).abs();
             let product_error = (product_packet - self.target_product).abs();
-            
-            let total_error = sum_error + product_error;
+            let total_error   = sum_error + product_error;
 
             1.0 / (1.0 + total_error as f64)
         }
@@ -111,7 +110,7 @@ pub mod genetic {
 
         pub fn select_parent(&self, probabilities: &[f64]) -> usize {
             let mut rng = rand::thread_rng();
-            let r: f64 = rng.gen();
+            let r: f64  = rng.gen();
             
             let mut cumulative = 0.0;
             for (i, &prob) in probabilities.iter().enumerate() {

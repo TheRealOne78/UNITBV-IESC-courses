@@ -1,0 +1,13 @@
+[package]
+name = "lab"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ndarray = "0.15"
+csv = "1.3"
+
+
+[lib]
+name = "lib_lab"
+path = "src/lib.rs"
