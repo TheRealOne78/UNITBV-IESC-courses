@@ -1,0 +1,13 @@
+.data
+m:   .half 17     # 16-bit signed integer (halfword)
+n:   .word 36     # 32-bit signed integer (word)
+
+.text
+.globl main
+
+main:
+    lh $t0, m     # Load halfword from label m into $t0 (value = 17)
+    lw $t1, n     # Load word from label n into $t1 
+
+    li $t0, 17    # Overwrite $t0 with immediate value 17
+    li $t0, 36    # Overwrite $t0 again with immediate value 36

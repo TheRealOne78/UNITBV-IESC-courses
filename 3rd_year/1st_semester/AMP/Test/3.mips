@@ -1,0 +1,38 @@
+vect:      .word 6, 9, 4, -18, 18, -6, -9, 0
+vect_leng: .half 8
+prop:      .asciiz "Numar elemente impare din vectooor = "
+
+.text
+.globl main
+
+main:
+    la $t0, vect           # pointer to current element
+    lh $t1, vect_leng      # vector len
+    li $t2, 0              # counter negatives
+    li $t3, 0              # index
+
+loop:
+    beq $t3, $t1, print
+
+    lw $t4, 0($t0)        # load element
+    slt $t5, $t4, $zero
+    beq $t5, $zero, skip
+    addi $t2, $t2, 1      # inceremnt counter for negatives
+
+skip:
+    addi $t0, $t0, 4
+    addi $t3, $t3, 1
+    j loop
+
+print:
+    la $a0, prop
+    li $v0, 4
+    syscall
+
+    move $a0, $t2
+    li $v0, 1
+    syscall
+
+exit:
+    li $v0, 10
+    syscall

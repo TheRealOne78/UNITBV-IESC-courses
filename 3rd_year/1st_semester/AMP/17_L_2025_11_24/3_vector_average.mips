@@ -1,0 +1,58 @@
+# Program: Compute average of numbers in a vector
+# Description: Sums the elements of a vector and prints their average.
+
+.data
+numere:  .word 10, 20, 30, 40, 50     # Vector of integers
+len:     .word 5                      # Number of elements in the vector
+prop:    .asciiz "Media numerelor din vector: "  # Message to print
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Initialize registers
+    # -------------------------------
+    li $t0, 0              # $t0 = sum accumulator
+    lw $t1, len            # $t1 = vector length
+    la $t2, numere         # $t2 = pointer to vector elements
+    li $t3, 0              # $t3 = index / loop counter
+
+loop:
+    bge $t3, $t1, calc_media   # If index >= length, go compute average
+
+    lw $t4, 0($t2)         # Load current element into $t4
+    add $t0, $t0, $t4      # Add element to sum
+
+    addi $t2, $t2, 4       # Move pointer to next element (word = 4 bytes)
+    addi $t3, $t3, 1       # Increment index
+    j loop                 # Repeat loop
+
+# -------------------------------
+# Compute average
+# -------------------------------
+calc_media:
+    move $t5, $t0          # Copy sum into $t5
+    div $t5, $t1           # Divide sum by length
+    mflo $t7               # $t7 = quotient (integer average)
+
+# -------------------------------
+# Print message
+# -------------------------------
+    la $a0, prop
+    li $v0, 4              # Syscall 4: print string
+    syscall
+
+# -------------------------------
+# Print average
+# -------------------------------
+    move $a0, $t7
+    li $v0, 1              # Syscall 1: print integer
+    syscall
+
+# -------------------------------
+# Exit program
+# -------------------------------
+exit:   
+    li $v0, 10
+    syscall

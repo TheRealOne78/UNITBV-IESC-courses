@@ -1,0 +1,13 @@
+.data
+
+.text
+.globl main
+main:
+
+    j exit      # End program
+
+
+### PROGRAM EXIT ROUTINE ###
+exit:
+    li $v0, 10  # syscall 10: exit
+    syscall

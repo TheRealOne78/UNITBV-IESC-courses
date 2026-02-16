@@ -1,0 +1,81 @@
+# Program: Factorial calculator
+# Description: Reads an integer from the user, computes its factorial, and prints the result.
+# Author: (optional)
+
+.data
+prop:    .asciiz "Introdu un nr pentru a calcula factorialul lui 1: "
+                                   # Prompt message for the user
+rasp:    .asciiz "\nRezultatul este: "
+                                   # Message printed before displaying factorial result
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Print prompt for input
+    # -------------------------------
+    la $a0, prop                  # Load address of prompt string
+    li $v0, 4                     # Syscall 4: print string
+    syscall
+
+    # -------------------------------
+    # Read integer input from user
+    # -------------------------------
+    li $v0, 5                     # Syscall 5: read integer
+    syscall
+    move $t0, $v0                 # Store input in $t0
+
+    # -------------------------------
+    # If input is 0, factorial = 1
+    # -------------------------------
+    beq $t0, $0, display
+
+    # -------------------------------
+    # Initialize factorial computation
+    # -------------------------------
+    li $t1, 1                     # $t1 will hold factorial result (product)
+    li $t2, 1                     # $t2 is counter (multiplier)
+
+# -------------------------------
+# product:
+# Iteratively multiply $t1 by $t2 until $t2 = input
+# -------------------------------
+product:
+    addi $t2, $t2, 1              # Increment counter
+    mul  $t1, $t1, $t2            # Multiply accumulator by counter
+    blt  $t2, $t0, product        # Repeat until counter >= input
+
+    j result                       # Jump to result display
+
+# -------------------------------
+# display:
+# Handles the special case input = 0
+# -------------------------------
+display:
+    la $a0, rasp                  # Load "Rezultatul este: " message
+    li $v0, 4                     # Syscall 4: print string
+    syscall
+
+    li $a0, 1                     # Print 1 (0! = 1)
+    li $v0, 1                     # Syscall 1: print integer
+    syscall
+
+    li $v0, 10                    # Exit program
+    syscall
+
+# -------------------------------
+# result:
+# Print the computed factorial
+# -------------------------------
+result:
+    la $a0, rasp                  # Print message
+    li $v0, 4
+    syscall
+
+    move $a0, $t1                 # Move factorial result into $a0
+    li $v0, 1                     # Syscall 1: print integer
+    syscall
+
+    li $v0, 10                    # Exit program
+    syscall

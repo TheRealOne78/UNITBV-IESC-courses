@@ -1,0 +1,7 @@
+"#","Reference","Qty","Value","Footprint","DNP"
+"1","C1, C2, C3","3","100n","Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm",""
+"2","C4","1","10uF","Capacitor_THT:CP_Radial_D5.0mm_P2.50mm",""
+"3","J1, J2, J3","3","Conn_01x01","Connector_PinSocket_2.54mm:PinSocket_1x01_P2.54mm_Vertical",""
+"4","Q1, Q2","2","2N3904","Package_TO_SOT_THT:TO-92_Inline",""
+"5","R1, R4","2","2.2k","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",""
+"6","R2, R3","2","33k","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",""

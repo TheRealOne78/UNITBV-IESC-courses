@@ -1,0 +1,83 @@
+# Program: Compare two numbers read from keyboard
+# Description: Reads two integers a and b from standard input and prints:
+#              - "a > b" if a is greater than b
+#              - "a < b" if a is less than b
+#              - "a == b" if a is equal to b
+
+.data
+prompt1:    .asciiz "Introdu un numar a: "   # Prompt for first number
+prompt2:    .asciiz "Introdu un numar b: "   # Prompt for second number
+    
+result1:    .asciiz "a > b"                  # a greater than b
+result2:    .asciiz "a < b"                  # a less than b
+result3:    .asciiz "a == b"                 # a equal to b
+    
+num1:       .word 0                          # Storage for first number
+num2:       .word 0                          # Storage for second number
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Read first number (a)
+    # -------------------------------
+    la $a0, prompt1          # Print prompt for a
+    li $v0, 4                # Syscall 4: print string
+    syscall
+
+    li $v0, 5                # Syscall 5: read integer
+    syscall
+    sw $v0, num1             # Store a in memory
+
+    # -------------------------------
+    # Read second number (b)
+    # -------------------------------
+    la $a0, prompt2          # Print prompt for b
+    li $v0, 4
+    syscall
+
+    li $v0, 5                # Read integer
+    syscall
+    sw $v0, num2             # Store b in memory
+
+    # -------------------------------
+    # Load values and compare
+    # -------------------------------
+    lw $t1, num1             # $t1 = a
+    lw $t2, num2             # $t2 = b
+
+    bgt $t1, $t2, greater    # If a > b
+    beq $t1, $t2, equal      # If a == b
+
+    # -------------------------------
+    # Case: a < b
+    # -------------------------------
+    la $a0, result2
+    li $v0, 4
+    syscall
+    j end
+
+# -------------------------------
+# Case: a > b
+# -------------------------------
+greater:
+    la $a0, result1
+    li $v0, 4
+    syscall
+    j end
+
+# -------------------------------
+# Case: a == b
+# -------------------------------
+equal:
+    la $a0, result3
+    li $v0, 4
+    syscall
+
+# -------------------------------
+# Program exit
+# -------------------------------
+end:
+    li $v0, 10               # Syscall 10: exit
+    syscall

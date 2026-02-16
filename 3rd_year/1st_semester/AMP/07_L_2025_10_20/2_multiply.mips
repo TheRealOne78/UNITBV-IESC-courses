@@ -1,0 +1,43 @@
+# Program: Multiply two 16-bit numbers and print the result
+# Architecture: MIPS32 (SPIM / MARS)
+
+.data
+m:     .half 10                    # First operand (16-bit signed integer)
+n:     .half 20                    # Second operand (16-bit signed integer)
+prop:  .asciiz "Produsul numerelor este: "
+                                   # Message string (null-terminated)
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Load operands
+    # -------------------------------
+    lh $s0, m            # $s0 = m (10)
+    lh $s1, n            # $s1 = n (20)
+
+    # -------------------------------
+    # Multiply values
+    # -------------------------------
+    mul $s2, $s0, $s1    # $s2 = m * n = 200
+
+    # -------------------------------
+    # Print message
+    # -------------------------------
+    la  $a0, prop        # Load address of message
+    li  $v0, 4           # Syscall 4: print string
+    syscall
+
+    # -------------------------------
+    # Print result
+    # -------------------------------
+    move $a0, $s2        # Argument: product
+    li   $v0, 1          # Syscall 1: print integer
+    syscall
+
+    # -------------------------------
+    # Exit program (REQUIRED)
+    # -------------------------------
+    li $v0, 10           # Syscall 10: exit
+    syscall
