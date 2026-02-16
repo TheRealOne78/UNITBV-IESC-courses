@@ -1,0 +1,13 @@
+#+title: Seminar AMP
+
+Infixata: A+B, CxD, CxD+F
+Postfixata: AB+, CDx, CDxF+
+
+1. Se parcurge expresia st->dr
+2. Operanzii se copieaza la iesire (A, B, C, ... 1, 2, 3)
+3. Cand se intalneste un operator (+, /, -, x, ^) -> push intr-o stiva
+   Daca stiva nu e goala, se compara cu operandul din varf
+   1. Noul operand are prioritate mai mare -> doar push
+   2. --\--\-- nu are --\--\-- se face pop -> push
+4. Cand se intalneste ( -> push in stiva
+5. Cand se intalneste ) -> pop pana la prima

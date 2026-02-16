@@ -1,0 +1,197 @@
+#+title: Generic cheatsheet
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=3cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-2cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+
+* Multiplication Table (1–10)
+|  × |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  10 |
+|  / | <  |    |    |    |    |    |    |    |    |     |
+|----+----+----+----+----+----+----+----+----+----+-----|
+|  1 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  10 |
+|  2 |  2 |  4 |  6 |  8 | 10 | 12 | 14 | 16 | 18 |  20 |
+|  3 |  3 |  6 |  9 | 12 | 15 | 18 | 21 | 24 | 27 |  30 |
+|  4 |  4 |  8 | 12 | 16 | 20 | 24 | 28 | 32 | 36 |  40 |
+|  5 |  5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 |  50 |
+|  6 |  6 | 12 | 18 | 24 | 30 | 36 | 42 | 48 | 54 |  60 |
+|  7 |  7 | 14 | 21 | 28 | 35 | 42 | 49 | 56 | 63 |  70 |
+|  8 |  8 | 16 | 24 | 32 | 40 | 48 | 56 | 64 | 72 |  80 |
+|  9 |  9 | 18 | 27 | 36 | 45 | 54 | 63 | 72 | 81 |  90 |
+| 10 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 |
+
+* Division Table (÷1–10)
+|  ÷ |  1 |  2 |   3 |   4 | 5 |   6 |   7 |    8 |   9 | 10 |
+|  / |  < |    |     |     |   |     |     |      |     |    |
+|----+----+----+-----+-----+---+-----+-----+------+-----+----|
+| 10 | 10 |  5 | 3.3 | 2.5 | 2 | 1.6 | 1.4 | 1.25 | 1.1 |  1 |
+| 20 | 20 | 10 | 6.6 |   5 | 4 | 3.3 | 2.8 |  2.5 | 2.2 |  2 |
+| 30 | 30 | 15 |  10 | 7.5 | 6 |   5 | 4.2 | 3.75 | 3.3 |  3 |
+
+* Powers of Two
+
+| n | Bytes | Size  |   |  n | Bytes   | Size   |
+| / |     < |       |   |  / | <       |        |
+|---+-------+-------+---+----+---------+--------|
+| 0 |     1 | 1 B   |   |  9 | 512     | 512 B  |
+| 1 |     2 | 2 B   |   | 10 | 1,024   | 1 KB   |
+| 2 |     4 | 4 B   |   | 11 | 2,048   | 2 KB   |
+| 3 |     8 | 8 B   |   | 12 | 4,096   | 4 KB   |
+| 4 |    16 | 16 B  |   | 13 | 8,192   | 8 KB   |
+| 5 |    32 | 32 B  |   | 14 | 16,384  | 16 KB  |
+| 6 |    64 | 64 B  |   | 15 | 32,768  | 32 KB  |
+| 7 |   128 | 128 B |   | 16 | 65,536  | 64 KB  |
+| 8 |   256 | 256 B |   | 17 | 131,072 | 128 KB |
+
+* Hexadecimal Table
+| Dec |  Bin | Hex | Dec |  Bin | Hex |
+|   / |      |   > | <   |      |     |
+|-----+------+-----+-----+------+-----|
+|   0 | 0000 |   0 |   8 | 1000 | 8   |
+|   1 | 0001 |   1 |   9 | 1001 | 9   |
+|   2 | 0010 |   2 |  10 | 1010 | A   |
+|   3 | 0011 |   3 |  11 | 1011 | B   |
+|   4 | 0100 |   4 |  12 | 1100 | C   |
+|   5 | 0101 |   5 |  13 | 1101 | D   |
+|   6 | 0110 |   6 |  14 | 1110 | E   |
+|   7 | 0111 |   7 |  15 | 1111 | F   |
+
+* One's Complement
+- Invert all bits
+- Two zeros exist: +0 = 0000, −0 = 1111
+- Example (4 bits):
+  | Number | Binary |
+  |--------+--------|
+  |  5     | 0101   |
+  | −5     | 1010   |
+
+* Two's Complement
+- Standard method:
+  1. Invert all bits
+  2. Add 1
+- Fast method (manual shortcut):
+  1. Start from the right (LSB)
+  2. Copy all bits up to and including the first 1
+  3. Flip all remaining bits to the left
+- Rule: MSB = 1 → negative
+
+  * Decimal → Binary Conversion Rules
+
+* Conversion
+** Integer Part
+- Repeated division by 2
+- Steps:
+  1. Divide the integer by 2
+  2. Record the remainder (0 or 1)
+  3. Use the quotient for the next division
+  4. Repeat until quotient = 0
+- Binary result: write remainders **from last to first** (top to bottom)
+- Example:
+  - Decimal 13 → divide by 2: 13/2=6 r1, 6/2=3 r0, 3/2=1 r1, 1/2=0 r1  
+  - Binary: `1101`
+
+** Fractional Part
+- Repeated multiplication by 2
+- Steps:
+  1. Multiply fraction by 2
+  2. Record the integer part (0 or 1) → next binary digit
+  3. Use the fractional part of the result for the next multiplication
+  4. Repeat until fraction = 0 or desired precision is reached
+- Binary fraction: write digits in order of calculation
+- Example:
+  - Decimal 0.25 → 0.25×2=0.5 → 0, 0.5×2=1.0 → 1 → Binary: `0.01`
+  - Decimal 0.625 → 0.625×2=1.25 → 1, 0.25×2=0.5 → 0, 0.5×2=1 → 1 → Binary: `0.101`
+
+** Combine Integer + Fraction
+- Write integer part first, then binary point, then fraction part
+- Example: 5.25 → integer 5 = 101, fraction 0.25 = 01 → Binary: `101.01`
+
+** Negative Numbers
+- Add a minus sign: −5.25 → `-101.01`
+- Or, for fixed-width binary: use **two's complement** (integers only)
+
+  
+* Floating Point (General)
+
+** Value formula
+- Number = (-1)^S × M × 2^E
+  - S = sign bit (0 = positive, 1 = negative)
+  - M = mantissa / significand
+    - The “significant digits” of the number
+    - After normalization: 1.xxxxx
+    - Stores precision; defines the exact digits
+  - E = exponent
+    - Determines the scale of the number
+    - Counts how many positions the binary point was shifted during normalization
+    - Positive E → large number, negative E → small number
+
+** Normalization
+- Shift binary point so that number = 1.xxxxx × 2^E
+- Mantissa stores fractional bits after leading 1
+- Exponent counts shifts:
+  - Right shift → positive E
+  - Left shift → negative E
+    
+Normalized:
+1.xxxxx × 2^E
+
+** Examples
+| Decimal |  Binary | Normalized  | S | Mantissa (M) | Exponent (E) |
+|---------+---------+-------------+---+--------------+--------------|
+|    5.25 |  101.01 | 1.0101×2^2  | 0 |       1.0101 |            2 |
+|   0.625 |   0.101 | 1.01×2^-1   | 0 |         1.01 |           -1 |
+|  -12.75 | 1100.11 | 1.10011×2^3 | 1 |      1.10011 |            3 |
+
+* IEEE 754 Floating Point
+*Decimal → IEEE 754 32-bit:*
+1. Determine S (sign)
+2. Convert decimal to binary and normalize → 1.xxxxx × 2^e
+3. Compute biased exponent: E = e + 127
+4. Extract fraction F from normalized mantissa (drop leading 1)
+5. Combine bits: S | E | F → 32-bit float
+
+
+*IEEE 754 32-bit → Decimal:*
+Decimal value = (-1)^S × (1 + F) × 2^(E - 127)
+
+** Single Precision (32-bit)
+| Field  | Bits | Description                                      |
+|--------+------+--------------------------------------------------|
+| Sign   | 1    | 0 = positive, 1 = negative                       |
+| Exp    | 8    | Exponent, biased by 127                          |
+| Frac   | 23   | Fraction / mantissa (after leading 1)           |
+
+- Value formula: (-1)^S × 1.F × 2^(E−127)
+- Special cases:
+  - E = 0 → Denormalized numbers, value = (-1)^S × 0.F × 2^(-126)
+  - E = 255 → ±∞ if F=0, NaN if F≠0
+
+** Examples (32-bit)**
+| Decimal | Normalized       | S | Exp (biased) | Fraction (F)               | 32-bit Binary                       |
+|---------+----------------+---+--------------+----------------------------+------------------------------------|
+| 5.25    | 1.0101×2^2      | 0 | 10000001     | 01010000000000000000000    | 0 10000001 01010000000000000000000  |
+| 0.625   | 1.01×2^-1       | 0 | 01111110     | 01000000000000000000000    | 0 01111110 01000000000000000000000  |
+| -12.75  | 1.10011×2^3     | 1 | 10000010     | 10011000000000000000000    | 1 10000010 10011000000000000000000  |
+
+- Special cases:
+  - E = 0 → Denormalized numbers, value = (-1)^S × 0.F × 2^(-1022)
+  - E = 2047 → ±∞ if F=0, NaN if F≠0
+
+* Memory Units & Conversion
+RAM uses *binary*, storage marketed as *decimal*
+
+** Decimal (SI):
+- 1 KB = 10^3 B
+- 1 MB = 10^6 B
+- 1 GB = 10^9 B
+
+** Binary (IEC):
+- 1 KiB = 2^10 B = 1024 B
+- 1 MiB = 2^20 B
+- 1 GiB = 2^30 B
+
+** Quick rules:
+- bits → bytes: ÷8
+- KB → MB → GB: ÷1024 (RAM)
+- Address space = 2^{address bits}

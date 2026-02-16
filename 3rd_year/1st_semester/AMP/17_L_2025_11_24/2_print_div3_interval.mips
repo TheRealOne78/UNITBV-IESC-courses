@@ -1,0 +1,69 @@
+# Program: Print numbers divisible by 3 in a given interval
+# Description: Reads two numbers N and M from memory, prints all numbers in [N:M] 
+#              (or [M:N] if N > M) that are divisible by 3. Numbers are printed 
+#              on the console separated by spaces.
+
+
+.data
+n:  .word 8       # Start of interval
+m:  .word 22      # End of interval
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Load interval endpoints and divisor
+    # -------------------------------
+    lw $a1, n          # $a1 = N
+    lw $a2, m          # $a2 = M
+    li $a3, 3          # $a3 = divisor (3)
+    li $a0, 1          # temporary use for comparison (slt result)
+
+    # -------------------------------
+    # Swap N and M if N > M
+    # -------------------------------
+    slt $s1, $a1, $a2      # $s1 = 1 if $a1 < $a2
+    beq $s1, $a0, loop      # If N < M, skip swap
+
+    # Swap routine
+    move $a0, $a1           # $a0 = N (temporary)
+    move $a1, $a2           # $a1 = M
+    move $a2, $a0           # $a2 = temporary (original N)
+
+# -------------------------------
+# loop: Check divisibility
+# -------------------------------
+loop:
+    div $a1, $a3            # Divide current number by 3
+    mfhi $s1                # Remainder stored in $s1
+    beq $s1, $0, print       # If remainder == 0, divisible by 3
+
+# -------------------------------
+# loop_incr: Increment and check end
+# -------------------------------
+loop_incr:
+    addi $a1, $a1, 1         # Increment current number
+    beq $a1, $a2, exit       # If reached end, exit
+    j loop                   # Repeat loop
+
+# -------------------------------
+# print: Print current number and space
+# -------------------------------
+print:
+    move $a0, $a1            # Move number to $a0 for printing
+    li $v0, 1                # Syscall 1: print integer
+    syscall
+
+    li $a0, 32               # ASCII 32 = space
+    li $v0, 11               # Syscall 11: print character
+    syscall
+
+    j loop_incr              # Continue loop
+
+# -------------------------------
+# exit: Terminate program
+# -------------------------------
+exit:
+    li $v0, 10               # Syscall 10: exit
+    syscall

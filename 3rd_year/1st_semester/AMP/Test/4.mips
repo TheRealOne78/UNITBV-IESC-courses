@@ -1,0 +1,41 @@
+.data
+prop: .asciiz "Introdu un numar: "
+rasp: .asciiz "\nSuma numerelor divizibile cu 5 este: "
+
+.text
+.globl main
+
+main:
+    la $a0, prop        # la prop str N
+    li $v0, 4           # Syscall 4: print str
+    syscall
+
+    # Read int input 
+    li $v0, 5           # Syscall 5: read integer
+    syscall
+    move $t0, $v0       # mv ressult to t0 temporarily
+
+    li $t1, 0           # current
+    li $t2, 0           # sum
+
+
+loop:
+    bgt $t1, $t0, print
+    add $t2, $t2, $t1   # sum += current
+    addi $t1, $t1, 5    # next multiple of 5
+    j loop
+
+
+print:
+    la $a0, rasp
+    li $v0, 4
+    syscall
+
+    move $a0, $t2
+    li $v0, 1
+    syscall
+
+
+exit:
+    li $v0, 10
+    syscall

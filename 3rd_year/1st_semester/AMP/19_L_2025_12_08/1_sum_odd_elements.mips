@@ -1,0 +1,55 @@
+# Program: Sum odd elements in a vector
+# Description: Iterates through a vector of integers, sums only the odd numbers,
+#              and prints the result along with a message.
+
+.data
+vect:   .word 3, 8, 11, -5, 4, 7, 2     # Vector of integers
+len:    .half 7                         # Number of elements in the vector
+prop:   .asciiz "Suma elementelor 2k + 1 = "   # Message to print
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Initialize pointers and counters
+    # -------------------------------
+    la $t0, vect           # Pointer to current element in vector
+    lh $t1, len            # Vector length
+    li $t2, 0              # Sum accumulator
+    li $t3, 0              # Index / loop counter
+
+# -------------------------------
+# loop: iterate over vector elements
+# -------------------------------
+loop:
+    beq $t3, $t1, done     # If index == length, exit loop
+
+    lw $t4, 0($t0)         # Load current element into $t4
+    andi $t5, $t4, 1       # Test if element is odd (bitwise AND with 1)
+    beq $t5, $0, skip      # If even, skip addition
+
+    add $t2, $t2, $t4      # Add odd element to sum
+
+skip:
+    addi $t0, $t0, 4       # Move pointer to next element (word = 4 bytes)
+    addi $t3, $t3, 1       # Increment index
+    j loop                 # Repeat loop
+
+# -------------------------------
+# done: print sum
+# -------------------------------
+done:
+    la $a0, prop           # Load message string
+    li $v0, 4              # Syscall 4: print string
+    syscall
+
+    move $a0, $t2          # Mov
+    li $v0, 1              # Syscall 1: print integer
+    syscall
+
+# -------------------------------
+# exit program
+# -------------------------------
+    li $v0, 10             # Syscall 10: exit
+    syscall

@@ -1,0 +1,372 @@
+===== ./01_C_2025_10_02 / Curs.org =====
+#+title: Curs
+
+NOTE: View this file using a standard ASCII / UTF-8 editor with a mono font
+
+* Transformari baze
+** Transformari intregi baza 10 -> baza 2
+*** idk
+1. 45/2 = 22, 1 ^
+2. 22/2 = 11, 0 |
+3. 11/2 = 5,  1 |
+4. 5/2  = 2,  1 |
+5. 2/2  = 1,  0 |
+6. 1/2  = 0,  1 |
+=> 101101
+
+*** Rational 47 (impartiri succesive), 125 -> inmultiri
+47_10 = 101111_2
+47_10 = 32 +  8 +  4 +  2 +  1
+        2^5  2^3  2^2  2^1  2^0
+
+0.125 * 2 = 0.25 |
+0.25  * 2 = 0.5  |
+0.5   * 2 = 1.   v  => 001_2
+
+- Partea intreaga -> impartire, jos-sus
+- Partea fractionara -> inmultire, sus-jos
+** Transformari dec - hex
+1. 97.125_10 = 0110 0001,0010_2
+             6    1    2
+= 61,2_16
+
+2. 2FA_16 = 0010 1111,1010_2
+
+
+3. 13 = 1101
+        0010 + neg biti
+        ____
+        0011
+* Assembly
+.data
+.global main
+.text => instructiuni (logica de program)
+
+
+if      (instruction fetch)
+id      (instruction decode)
+e [Ex]  (execute)
+m [Mem] (memorate)
+wr      (write back) [se rescrie in memorie rezultatul operatiei]
+
+
+
+.data
+        sir: .asciiz "calcuatoare"
+        raspuns: .asciiz "coduri ascii corespunzatoare: "
+
+.text
+.globl main
+
+la - load address
+li - load immediate
+lb - load byte
+lw - load word (32b)
+lh - load half (16b)
+
+Dimensiunea fiecarui registru este de 32 de biti
+
+** .asciiz vs .ascii
+.asciiz - NULL terminator
+.ascii - no terminator
+
+** la
+`la $a0 (registru de destinatie), sir`
+** lb
+`lb $t0 0($a0)`
+** beq - brench and equal
+`beq $t0, $0, exit` - Daca un character este null, redirectioneaza la exit
+** exit
+exit: li $v0, 10
+        syscall
+10 - exit
+4 - print-str
+1 - print-int
+5 - read_int
+
+
+===== ./02_S_2025_10_06 / Seminar.org =====
+#+title: Seminar AMP
+
+* Notare
+- 20% Laborator (minim nota 5, nicio absență)
+- Examen
+  - 20% teorie [1 oră], 15 întrebări, closed books
+  - 40% probleme [1 oră], 2 probleme, hartie
+- 20% teste in demersul semestrului
+
+* Seminar
+
+| Dec | Hex |  Bin |
+|-----+-----+------|
+|   0 |   0 | 0000 |
+|   1 |   1 | 0001 |
+|   2 |   2 | 0010 |
+|   3 |   3 | 0011 |
+|   4 |   4 | 0100 |
+|   5 |   5 | 0101 |
+|   6 |   6 | 0110 |
+|   7 |   7 | 0111 |
+|   8 |   8 | 1000 |
+|   9 |   9 | 1001 |
+|  10 |   A | 1010 |
+|  11 |   B | 1011 |
+|  12 |   C | 1100 |
+|  13 |   D | 1101 |
+|  14 |   E | 1110 |
+|  15 |   F | 1111 |
+
+
+===== ./04_S_2025_10_13 / Seminar.org =====
+#+title: Seminar AMP 
+#+date: 2025-10-13
+
+* Codificarea în binar a numerelor întregi
+- MS (Marime si semn)
+- C1 (Complement fata de 1)
+- C2 (Complement fata de 2)
+
+** MS
+#+begin_src
+b_{n-1} b_{n-2} b_{n-3} ... b_1 b_0
+ ^        ^                      ^
+ |        |-- MSB          LSB --|
+ |
+ ----bit de semn
+#+end_src
+
+b_{n-1} b_{n-2} b_{n-3} ... b_1 b_0 = marimea = val in modul in baza 2
+
++70|_{10} = ?|_{M.S.}
+70 = 2^6 + 2^2 + 2^1 = 1000110|_2
++70|_{10} = 0100_0110|_{MS}
+
+-70|_{10} = 1100_0110|_{MS}
+
+n = 8 => [-127, +127]
+
+*** 0
+- 0000_0000 [0_+]
+- 1000_0000 [0_-]
+  
+** C1
+if m < 0; then se ia valoarea pozitiva si se ~ bit cu bit
+
++70|_{10} = 1000110|_2
++70|_{10} = 0111001|_{C1}
+
+-70|_{10} = ?|_{C1}
+-70|_{10} = 1011_1001|_{C1}
+
+n = 8 => [-127, +127]
+
+*** 0
+- 0000_0000 [0_+]
+- 1111_1111 [0_-]
+  
+** C2
+*** M1
+if m < 0; then se calculeaza C1 + 1
+
++70|_{10} = 100_0110|_2
++70|_{10} = 0100_0110|_{C2}
+
+-70|_{10} = ?|_{C1}
+-70|_{10} = 1011_1010|_{C1}
+
+n = 8 => [-127, +127]
+
+*** M2
+Se parcurg biti de la LSB la MSB (dr->st) si se copiaza pana cand se intalneste un bit de 1, inclusiv, dupa care se neaga
+
+-70|_{10} = 1011_1010|_{C2} 
+
+*** 0
+- 0000_0000 [0_+]
+  
+*** Scaderea
+Scaderea poate fi realizata prin adunare
+
+A-B = A + (-B) = A + ~B + 1
+
+
+===== ./06_S_2025_10_20 / Seminar.org =====
+#+title: Seminar
+
+* Exercitii
+T_bench = 100s - T_CPU + T_I/O
+                  80s     20s
+
+n_1an = 1.5   k = 80s/100s = T_CPU_neimb / T_bench
+n_5an = 1.5*5 = 7.5
+
+T_imb,5ani = 100 [(1 - 0.8) + (0.8/7.5)] =
+           = 100 [0.2 + 0.107] = 30.7s
+
+
+===== ./08_S_2025_10_27 / Seminar.org =====
+#+title: Seminar
+
+1. f_folling_keyboard = 10Hz => T_polling_keyboard = 1/f = 0.1s = 100ms
+   f_clk_CPU = 1 GHz => T_clk = 1/f_CLK = 1ns
+   T_transfer = 800T_clk = 800ns
+   
+2. v_transfer_maxim = 3MB/s = 3 * 10^6 B/s = 24 * 10^6 b/s = 24Mb/s
+   T_ACC_buffer = 800Tck
+   f_clk = 1GHz => T_clk = 1ns
+   
+   Pas 1. Stabilire rata de citire/scriere in buffer
+   f_ACC_BUFFER_MAX = v_transfer_MAXIMA / 4 = (3MB/s)/4B = .75 * 10^6 Hz = 750 kHZz
+
+   Pas 2. Calculez perioada unui transfer
+   1/f_ACC_BUFFER_MAX = 1/750 000 = 133.(3) ns
+
+   Pas 3. Usage CPU = 800ns / 1333ns = 0.6 = 60%
+
+3. V_transfer_max_HDD = 3MB/s = 3*10^6 B/s
+   T_~IRQ + ACC = 1200 Tclk
+   T_clk = 1ns
+   Usage_HDD = 5% = .05
+
+   Usage_CPU = ?
+
+   f_transactiilor = V_transfer_max_HDD/4 = 750 kHz
+   Usage_CPU = Usage_HDD * f_transactiilor * T_~IRQ + ACC
+   = .05 * .75 * +10^6Hz+ * 1200 * +10^{-9}+ =
+   = .05 * .75 * 1.2 = .045 = 4.5%
+
+4. w = 32b = 4B
+   f_ck = 20 MHz => T_ck = 1/f_ck = 50ns
+
+
+===== ./11_S_2025_11_03 / Seminar.org =====
+#+title: Seminar
+
+* 9. Registrii de 32 de biti
+ 32 +------------+
+ ---|D   REG0   Q|-
+    |CK          |
+    +------------+
+         
+   +------------+
+   |D   REG0   Q|
+   |CK          |
+   +------------+
+   
+   +------------+
+   |D   REG0   Q|
+   |CK          |
+   +------------+
+   
+   
+   +------------+
+   |D   REG0   Q|
+   |CK          |
+   +------------+
+
+   
+   
+
+
+===== ./12_C_2025_11_06 / Curs.org =====
+#+title: Curs AMP
+
+1. Mapare directă
+   1 bloc din memorie = 1/2/4/.../2^k cuvinte
+   1 cuvânt = 1/2/4/8 byte = cuvânt dintr-un regim intern la uP
+   1 intrare (line) cache = o zonă din cache capabilă să stocheze un bloc
+   Memoria cache = număr de 2^i intrări, unde i aparține numerelor Naturale
+   Adun intrării la bloc = Nr. de blocuri din Mem RAM % Nr. de intrări în cache
+
+
+===== ./13_S_2025_11_10 / Seminar.org =====
+#+title: Seminar AMP
+
+* Recapitulare
+Memoria SDRAM este organizată pe Byte
+
+Un cuvânt = 1 sau mai multe bytes, tipic o putere a lui 2: 2^x
+1 bloc = 1 sau mai multe cuvinte, tipic o putere a lui 2: 2^y
+1 intrare/linie cache = 1 bloc + regie (tag + v)
+
+* Rezolvare
+** 1
+1 cuv = 32b = 4B => w_b = ceil(log_2 4) = 2b
+
+Mem cache cu mapare directă
+N_1 intrari cache = 32 => w_i = ceil(log_2 32) = 5b
+
+A = A_{15} A_{14} ... A_{2} A_{1} A_{0}
+
+C_{SDRAM} = 2^{16} B = 2^6 * 2^{10} B (kB) = 64 kB
+
+1 bloc = 4 cuvinte => W_c = ceil(log_2 4) = 2b
+
+Lb = Lungimea unui bloc
+
+Nab = ?
+
+Nab = C_{SDRAM} / L_b = 2^16 B/ 2^4 {B/64} = 4036 blocuri
+
+** 2
+4245|_10
+
+4245/16 = 265 + 5
+
+4245 = 16*265 + 5
+
+
+
+
+===== ./15_S_2025_11_17 / Seminar.org =====
+#+title: Seminar AMP
+
+A[i] = A[i] + h
+
+   R - type [opcode(6) | rs(5) | rt(5) | rd(5) | shamt(5) | funct(6)]
+   I - type [opcode(6) | rs(5) | rt(5) | imm(16)]
+   J - type [opcode(6) | address(26)]
+   
+   opcode - portion of a machine or assembly instruction that specifies which operation the CPU should perform (e.g., add, move, jump). It tells the processor what to do, while the remaining fields (operands) tell it with what data.
+
+   
+   
+A[i] = A[i] + h
+|       |     |
+v       v     v
+A[0]    i     h
+|       |     |
+v       v     v
+$t0     $s1   $s2
+
+
+add $t0, $s1, $s1
+add $t0, $t0, $t0
+add $t0, $s0, $s2
+lw $t1, 0($t0)
+add $t1, $s2, $t1
+sw $t1, 0($t0)
+
+
+===== ./16_S_2025_11_24 / Seminar.org =====
+#+title: Seminar AMP
+
+* 22: MIPS R2000 - 32 bits
+C_RAM_MAX = 2^32B = 4 GB
+PC = Program Counter
+
+
+===== ./21_S_2025_12_15 / Seminar.org =====
+#+title: Seminar AMP
+
+Infixata: A+B, CxD, CxD+F
+Postfixata: AB+, CDx, CDxF+
+
+1. Se parcurge expresia st->dr
+2. Operanzii se copieaza la iesire (A, B, C, ... 1, 2, 3)
+3. Cand se intalneste un operator (+, /, -, x, ^) -> push intr-o stiva
+   Daca stiva nu e goala, se compara cu operandul din varf
+   1. Noul operand are prioritate mai mare -> doar push
+   2. --\--\-- nu are --\--\-- se face pop -> push
+4. Cand se intalneste ( -> push in stiva
+5. Cand se intalneste ) -> pop pana la prima

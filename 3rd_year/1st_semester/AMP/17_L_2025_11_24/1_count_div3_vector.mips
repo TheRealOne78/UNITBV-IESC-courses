@@ -1,0 +1,54 @@
+# Program: Count elements divisible by 3 in a vector
+# Description: Iterates over a vector of integers, counts how many are divisible by 3,
+#              and prints the count along with a descriptive message.
+
+.data
+vect:  .word 1, 2, 3, 5, 9, 21, 27, 300, 104, 33
+len:   .word 10                     # Number of elements in the vector
+prop:  .asciiz "Numarul elementelor div cu 3 sunt: "  # Message to print
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Initialize pointers and counters
+    # -------------------------------
+    la $a0, vect         # Load address of vector into $a0
+    lw $a1, len          # Load vector length into $a1
+    li $t0, 3            # Divisor (3)
+    li $t1, 0            # Counter for index (current element)
+    li $t2, 0            # Counter for number of elements divisible by 3
+
+# -------------------------------
+# loop: iterate through vector
+# -------------------------------
+loop:
+    beq $t1, $a1, exit   # If counter == length, exit loop
+
+    lw $a3, 0($a0)       # Load current element of vector into $a3
+    div $a3, $t0         # Divide element by 3
+    mfhi $t3             # Remainder stored in $t3
+
+    bne $t3, $0, end     # If remainder != 0, not divisible by 3
+    addi $t2, $t2, 1     # Else, increment divisible counter
+
+end:
+    addi $a0, $a0, 4     # Move pointer to next vector element (word = 4 bytes)
+    addi $t1, $t1, 1     # Increment index
+    j loop               # Repeat loop
+
+# -------------------------------
+# exit: print message and result
+# -------------------------------
+exit:
+    la $a0, prop         # Load message string
+    li $v0, 4            # Syscall 4: print string
+    syscall
+
+    move $a0, $t2        # Move divisible count to $a0
+    li $v0, 1            # Syscall 1: print integer
+    syscall
+
+    li $v0, 10           # Syscall 10: exit
+    syscall

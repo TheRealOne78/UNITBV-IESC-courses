@@ -1,0 +1,82 @@
+# Program: Print a message and then the length of given strings
+# Architecture: MIPS32 (SPIM / MARS)
+
+.data
+sir0:   .asciiz ">:3"                          # String whose length is counted
+sir1:   .asciiz "Nr. de caractere din sir: "   # Message to be printed
+sir2:   .asciiz "UWU nyaa~"                    # Another string to count
+
+.text
+.globl main
+
+main:
+    # ---------------------------------
+    # Print message (sir1)
+    # ---------------------------------
+    la  $a0, sir1          # Load address of message
+    li  $v0, 4             # Syscall 4: print string
+    syscall
+
+    # ---------------------------------
+    # Count characters in sir0
+    # ---------------------------------
+    la  $a0, sir0          # $a0 = address of string to count
+    li  $t0, 0             # Counter = 0
+    jal loop               # Count and print length
+
+    # ---------------------------------
+    # Print message again
+    # ---------------------------------
+    la  $a0, sir1
+    li  $v0, 4
+    syscall
+
+    # ---------------------------------
+    # Count characters in sir2
+    # ---------------------------------
+    la  $a0, sir2
+    li  $t0, 0
+    jal loop
+
+    j exit                 # Terminate program
+
+
+# -------------------------------------------------
+# loop:
+# Counts characters in a null-terminated string
+# Input:
+#   $a0 = address of string
+# Uses:
+#   $t0 = character counter
+# -------------------------------------------------
+loop:
+    lb   $a1, 0($a0)       # Load current character
+    beq  $a1, $0, output   # If '\0', end of string
+    addi $a0, $a0, 1       # Advance pointer
+    addi $t0, $t0, 1       # Increment counter
+    j    loop
+
+
+# -------------------------------------------------
+# output:
+# Prints the value in $t0 followed by newline
+# -------------------------------------------------
+output:
+    move $a0, $t0          # Load count
+    li   $v0, 1            # Syscall 1: print integer
+    syscall
+
+    li   $a0, 10           # ASCII 10 = '\n'
+    li   $v0, 11           # Syscall 11: print character
+    syscall
+
+    jr   $ra               # Return to caller
+
+
+# -------------------------------------------------
+# exit:
+# Program termination
+# -------------------------------------------------
+exit:
+    li $v0, 10             # Syscall 10: exit
+    syscall

@@ -1,0 +1,375 @@
+#+title: MIPS ISA
+#+OPTIONS: toc:nil date:nil
+#+LATEX_HEADER: \usepackage[a4paper,margin=1.5cm]{geometry}
+#+LATEX_HEADER: \usepackage{titling} \setlength{\droptitle}{-2cm}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \usepackage{lastpage}
+#+OPTIONS: tex:t
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_SRC_BLOCKS: minted
+
+
+* Template
+#+begin_src c
+.data
+
+.text
+.globl main
+main:
+
+    j exit      # End program
+
+
+### PROGRAM EXIT ROUTINE ###
+exit:
+    li $v0, 10  # syscall 10: exit
+    syscall
+#+end_src
+
+
+* Data section
+#+begin_src mips
+.data
+# Integers
+var_word:  .word 10
+var_half:  .half 5
+var_byte:  .byte 7
+
+# Strings
+str_msg:   .asciiz "Hello MIPS" # NULL-terminated
+
+# Arrays
+arr:       .word 1, 2, 3, 4, 5
+arr_len:   .word 5
+#+end_src
+
+
+* Registers
+#+begin_src text
+$t0-$t9 : temporary / scratch (caller-saved)
+$s0-$s7 : saved registers (callee-saved)
+$a0-$a3 : argument registers / syscall arguments
+$v0-$v1 : syscall return / return values
+$ra     : return address
+$sp     : stack pointer
+$fp     : frame pointer (optional)
+$zero   : always zero
+#+end_src
+
+
+* Loading / Storing
+#+begin_src mips
+lw   $t0, var_word      # load word
+sw   $t0, var_word      # store word
+lh   $t0, var_half      # load half
+sh   $t0, var_half      # store half
+lb   $t0, var_byte      # load byte
+sb   $t0, var_byte      # store byte
+la   $a0, str_msg       # load address of string
+#+end_src
+
+
+* Arithmetic / Logic
+#+begin_src mips
+add   $t0, $t1, $t2     # $t0 = $t1 + $t2
+addi  $t0, $t1, 5       # $t0 = $t1 + 5
+sub   $t0, $t1, $t2
+mul   $t0, $t1, $t2
+div   $t1, $t2          # quotient in LO, remainder in HI
+mflo  $t0               # move LO to $t0
+mfhi  $t0               # move HI to $t0
+and   $t0, $t1, $t2
+or    $t0, $t1, $t2
+xor   $t0, $t1, $t2
+andi  $t0, $t1, 0xFF
+slt   $t0, $t1, $t2     # $t0 = 1 if $t1 < $t2 else 0
+#+end_src
+
+
+* Branching / Jump
+#+begin_src mips
+beq  $t0, $t1, label      # branch if equal
+bne  $t0, $t1, label      # branch if not equal
+bgt  $t0, $t1, label      # pseudo-branch if greater
+blt  $t0, $t1, label      # pseudo-branch if less
+j    label                # unconditional jump
+jal  label                # jump and link (function call)
+jr   $ra                  # return from function
+#+end_src
+
+
+* Syscalls
+#+begin_src mips
+# $v0 = 1 : print integer ($a0 = value)
+# $v0 = 4 : print string ($a0 = address)
+# $v0 = 5 : read integer (result in $v0)
+# $v0 = 8 : read string ($a0 = buffer, $a1 = max length)
+# $v0 = 10: exit
+# $v0 = 11: print character ($a0 = ASCII)
+
+li $v0, 1
+move $a0, $t0
+syscall
+#+end_src
+
+
+* Loops
+#+begin_src mips
+# Simple loop
+li $t0, 0   # counter
+li $t1, 10
+loop:
+    bge $t0, $t1, end_loop
+    addi $t0, $t0, 1
+    j loop
+end_loop:
+
+# Loop through array
+la $t0, arr       # pointer
+lw $t1, arr_len   # length
+li $t2, 0         # index
+loop_array:
+    bge $t2, $t1, end_array
+    lw $t3, 0($t0)
+    # do something with $t3
+    addi $t0, $t0, 4
+    addi $t2, $t2, 1
+    j loop_array
+end_array:
+#+end_src
+
+
+* String handling
+#+begin_src mips
+# String length
+# $a0 = string address, result in $t0
+li $t0, 0
+strlen_loop:
+    lb $t1, 0($a0)
+    beq $t1, $0, strlen_done
+    addi $t0, $t0, 1
+    addi $a0, $a0, 1
+    j strlen_loop
+strlen_done:
+#+end_src
+
+
+* Factorial
+#+begin_src mips
+# Input: $t0 = n, output: $t1 = factorial
+li $t1, 1
+li $t2, 1
+fact_loop:
+    bgt $t2, $t0, fact_done
+    mul $t1, $t1, $t2
+    addi $t2, $t2, 1
+    j fact_loop
+fact_done:
+#+end_src
+
+
+* Maximum of array
+#+begin_src mips
+# $a0 = array, $t1 = length, $t2 = initial max
+li $t0, 0
+max_loop:
+    bge $t0, $t1, max_done
+    lh $t3, 0($a0)
+    addi $a0, $a0, 2
+    addi $t0, $t0, 1
+    slt $s0, $t2, $t3
+    beq $s0, $0, max_loop
+    add $t2, $0, $t3
+    j max_loop
+max_done:
+#+end_src
+
+
+* Count divisible by k
+#+begin_src mips
+# $a0 = array pointer, $t1 = length, $t3 = divisor, result in $t2
+li $t0, 0
+li $t2, 0
+div_loop:
+    bge $t0, $t1, div_done
+    lw $t4, 0($a0)
+    div $t4, $t3
+    mfhi $t5
+    bne $t5, $0, skip_div
+    addi $t2, $t2, 1
+skip_div:
+    addi $t0, $t0, 4
+    j div_loop
+div_done:
+#+end_src
+
+
+* Search in array
+#+begin_src mips
+# $a0 = pointer, $t1 = length, $t2 = value
+# result: index in $t3 or not found
+li $t3, 0
+search_loop:
+    bge $t3, $t1, not_found
+    lw $t4, 0($a0)
+    beq $t4, $t2, found
+    addi $a0, $a0, 4
+    addi $t3, $t3, 1
+    j search_loop
+found:
+    # $t3 = index
+    j end_search
+not_found:
+    # value not found
+end_search:
+#+end_src
+
+
+* Function call / stack
+#+begin_src mips
+subu $sp, $sp, 16
+sw $ra, 12($sp)
+sw $s0, 8($sp)
+# function body
+lw $ra, 12($sp)
+lw $s0, 8($sp)
+addu $sp, $sp, 16
+jr $ra
+#+end_src
+
+* Max Pooling 2 (maxpool_2)
+** Pseudocode / C
+#+begin_src c
+// A[0..N-1], N odd, B[0..N/2-1]
+void maxpool_2(int *A, unsigned N, int *B) {
+    for (unsigned i = 0; i < N/2; i++) {
+        int idx = 2*i;
+        B[i] = (A[idx] > A[idx+1]) ? A[idx] : A[idx+1];
+    }
+}
+#+end_src
+
+** MIPS calling code (example)
+#+begin_src mips
+# $a0 = address of A, $a1 = N, $a2 = address of B
+jal maxpool_2
+#+end_src
+
+** MIPS subroutine
+#+begin_src mips
+maxpool_2:
+    add $t0, $zero, $zero   # i = 0
+    srl $t1, $a1, 1         # t1 = N / 2
+loop_maxpool:
+    bge $t0, $t1, end_maxpool
+    sll $t2, $t0, 1         # idx = 2*i
+    sll $t3, $t2, 2         # byte offset = idx*4
+    add $t4, $a0, $t3
+    lw  $t5, 0($t4)         # A[idx]
+    lw  $t6, 4($t4)         # A[idx+1]
+    slt $t7, $t5, $t6       # t7=1 if t5<t6
+    beq $t7, $zero, store_t5
+    add $t5, $zero, $t6     # t5=max
+store_t5:
+    sll $t8, $t0, 2         # offset for B[i] = i*4
+    add $t9, $a2, $t8
+    sw  $t5, 0($t9)
+    addi $t0, $t0, 1
+    j loop_maxpool
+end_maxpool:
+    jr $ra
+#+end_src
+
+
+* Moving Average 4 (filtru_mediere_4)
+** Pseudocode / C
+#+begin_src c
+// A[0..N-1], B[0..N-4]
+void filtru_mediere_4(int *A, unsigned N, int *B) {
+    for (unsigned i=0; i <= N-4; i++) {
+        B[i] = (A[i] + A[i+1] + A[i+2] + A[i+3])/4;
+    }
+}
+#+end_src
+
+** MIPS calling code (example)
+#+begin_src mips
+# $a0 = address of A, $a1 = N, $a2 = address of B
+jal filtru_mediere_4
+#+end_src
+
+** MIPS subroutine
+#+begin_src mips
+filtru_mediere_4:
+    add $t0, $zero, $zero       # i=0
+    add $t1, $a1, -4            # N-4
+loop_avg4:
+    bgt $t0, $t1, end_avg4
+    sll $t2, $t0, 2             # offset = i*4
+    add $t3, $a0, $t2           # A+i
+    lw  $t4, 0($t3)
+    lw  $t5, 4($t3)
+    lw  $t6, 8($t3)
+    lw  $t7, 12($t3)
+    add $t8, $t4, $t5
+    add $t8, $t8, $t6
+    add $t8, $t8, $t7
+    sra $t8, $t8, 2              # divide by 4
+    add $t9, $a2, $t2            # B[i]
+    sw  $t8, 0($t9)
+    addi $t0, $t0, 1
+    j loop_avg4
+end_avg4:
+    jr $ra
+#+end_src
+
+
+* String Uppercase (strupr)
+** Pseudocode / C
+#+begin_src c
+// S = null-terminated string
+unsigned strupr(char *S) {
+    unsigned len = 0;
+    while (S[len] != '\0') {
+        if ('a' <= S[len] && S[len] <= 'z')
+            S[len] -= 32;  // to uppercase
+        len++;
+    }
+    return len + 1;  // including null
+}
+#+end_src
+
+** MIPS subroutine
+#+begin_src mips
+strupr:
+    add $t0, $zero, $zero      # index / length
+loop_strupr:
+    lb  $t1, 0($a0)
+    beq $t1, $zero, end_strupr
+    li  $t2, 97                 # 'a'
+    li  $t3, 122                # 'z'
+    blt $t1, $t2, skip_upper
+    bgt $t1, $t3, skip_upper
+    addi $t1, $t1, -32          # convert to uppercase
+    sb   $t1, 0($a0)
+skip_upper:
+    addi $a0, $a0, 1
+    addi $t0, $t0, 1
+    j loop_strupr
+end_strupr:
+    addi $v0, $t0, 1           # return length including null
+    jr $ra
+#+end_src
+
+
+* Binary / Hex Example
+#+begin_src mips
+# Instruction: add t0, t1, t2
+# R-format encoding
+# opcode(6)|rs(5)|rt(5)|rd(5)|shamt(5)|funct(6)
+# add: opcode=0, funct=32
+add $t0, $t1, $t2
+# binary: 000000 01001 01010 01000 00000 100000
+# hex   : 0x012A4020
+#+end_src

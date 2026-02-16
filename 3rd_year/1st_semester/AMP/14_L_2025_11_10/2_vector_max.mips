@@ -1,0 +1,126 @@
+# Program: Maximum element of multiple vectors
+# Description: Computes the maximum value in several short arrays of 16-bit integers
+#              and prints each maximum to the console.
+# Registers:
+#   $a0 - pointer to current element in array or argument to print
+#   $t0 - array index / counter
+#   $t1 - length of the current array
+#   $t2 - current maximum value
+#   $s3 - current array element
+#   $ra - return address
+#   $sp - stack pointer
+
+.data
+# -------------------------------
+# Vector definitions
+# -------------------------------
+vect0:    .half 4, -23, 78, 45, 54, -7
+len0:     .half 6                # Number of elements in vect0
+
+vect1:    .half 45, 54, -9
+len1:     .half 3                # Number of elements in vect1
+
+vect2:    .half 45, 69 
+len2:     .half 2                # Number of elements in vect2
+
+.text
+.globl main
+
+main:
+    # -------------------------------
+    # Process vect0
+    # -------------------------------
+    la $a0, vect0    # Load base address of vect0
+    li $t0, 0        # Reset counter
+    lh $t1, len0     # Load vector length
+    li $t2, -32768   # Initialize "maximum" to very small value (element etalon)
+    jal maxim        # Call maxim function
+
+    # -------------------------------
+    # Process vect1
+    # -------------------------------
+    la $a0, vect1    # Load base address of vect0
+    li $t0, 0        # Reset counter
+    lh $t1, len1     # Load vector length
+    li $t2, -32768   # Initialize "maximum" to very small value (element etalon)
+    jal maxim        # Call maxim function
+
+    # -------------------------------
+    # Process vect2
+    # -------------------------------
+    la $a0, vect2    # Load base address of vect0
+    li $t0, 0        # Reset counter
+    lh $t1, len2     # Load vector length
+    li $t2, -32768   # Initialize "maximum" to very small value (element etalon)
+    jal maxim        # Call maxim function
+
+    j exit           # Terminate program
+
+# -------------------------------------------------
+# maxim:
+# Finds the maximum element in a halfword array
+# Inputs:
+#   $a0 = pointer to array
+#   $t0 = counter (start at 0)
+#   $t1 = array length
+#   $t2 = initial max value (e.g., -32768)
+# Uses stack to save $ra and $t2
+# -------------------------------------------------
+maxim:
+    subu $sp, $sp, 32             # Allocate stack space
+    sw $ra, 20($sp)               # Save return address
+    sw $t2, 16($sp)               # Save current max
+
+    # Check if counter == length
+    beq $t0, $t1, afisare_maxim
+
+    # Load current array element
+    lh $s3, 0($a0)                # Load next element
+    addi $a0, $a0, 2              # Move pointer to next element
+    addi $t0, $t0, 1              # Increment counter
+
+    # Compare current element ($s3) with max ($t2)
+    slt $s0, $t2, $s3             # $s0 = 1 if t2 < s3
+    beq $s0, $0, maxim            # If t2 >= s3, skip update
+    add $t2, $0, $s3              # Update max: t2 = s3
+
+    j maxim                       # Repeat for next element
+
+# -------------------------------------------------
+# afisare_maxim:
+# Print maximum element using syscall
+# -------------------------------------------------
+afisare_maxim:
+    jal afisare                    # Print $t2
+    lw $ra, 20($sp)                # Restore return address
+    lw $t2, 16($sp)                # Restore max (not strictly necessary)
+    addu $sp, $sp, 32              # Free stack space
+    jr $ra                         # Return to caller
+
+# -------------------------------------------------
+# afisare:
+# Print integer in $t2 followed by newline
+# -------------------------------------------------
+afisare:
+    move $a0, $t2                  # Move max value to $a0
+    li $v0, 1                      # Syscall 1: print integer
+    syscall
+
+    li $a0, 10                     # ASCII 10 = newline 
+    li $v0, 11                     # Syscall 11: print character
+    syscall
+
+    jr $ra
+
+# -------------------------------------------------
+# exit:
+# -------------------------------------------------
+exit:
+    li $v0, 10                     # Syscall 10: exit
+    syscall
+
+# -------------------------------
+# Note:
+# slt $s0, $t2, $s3   => sets $s0 = 1 if $t2 < $s3
+#                        used to determine if current element is new maximum
+# -------------------------------

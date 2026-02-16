@@ -7,19 +7,19 @@ pub mod backprop {
         pub v: Array2<f64>,
         pub w: Array2<f64>,
         pub learning_rate: f64,
-        pub max_error: f64,
-        pub num_inputs: usize,
-        pub num_hidden: usize,
-        pub num_outputs: usize,
+        pub max_error:     f64,
+        pub num_inputs:    usize,
+        pub num_hidden:    usize,
+        pub num_outputs:   usize,
     }
 
     impl NeuralNetwork {
         pub fn new(
-            num_inputs: usize,
-            num_hidden: usize,
-            num_outputs: usize,
+            num_inputs:    usize,
+            num_hidden:    usize,
+            num_outputs:   usize,
             learning_rate: f64,
-            max_error: f64,
+            max_error:     f64,
         ) -> Self {
             let mut rng = rand::rng();
             let dist    = Uniform::new(-1.0, 1.0).unwrap();
@@ -53,7 +53,7 @@ pub mod backprop {
             let mut y = Array1::zeros(self.num_hidden);
             for j in 0..self.num_hidden {
                 let net = self.v.row(j).dot(input);
-                y[j] = self.activation(net);
+                y[j]    = self.activation(net);
             }
 
             let mut y_with_bias = Array1::zeros(self.num_hidden + 1);
@@ -65,7 +65,7 @@ pub mod backprop {
             let mut o = Array1::zeros(self.num_outputs);
             for k in 0..self.num_outputs {
                 let net = self.w.row(k).dot(&y_with_bias);
-                o[k] = self.activation(net);
+                o[k]    = self.activation(net);
             }
 
             (y, o)

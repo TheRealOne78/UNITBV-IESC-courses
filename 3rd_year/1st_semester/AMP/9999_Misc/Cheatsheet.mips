@@ -1,0 +1,225 @@
+# ------------------------------- 
+# 0. Template
+# -------------------------------
+.data
+
+.text
+.globl main
+main:
+
+    j exit      # End program
+
+
+### PROGRAM EXIT ROUTINE ###
+exit:
+    li $v0, 10  # syscall 10: exit
+    syscall
+
+
+# ------------------------------- 
+# 1. Data section
+# -------------------------------
+.data
+# Integers
+var_word:  .word 10
+var_half:  .half 5
+var_byte:  .byte 7
+
+# Strings
+str_msg:   .asciiz "Hello MIPS" # NULL-terminated
+ 
+# Arrays
+arr:       .word 1, 2, 3, 4, 5
+arr_len:   .word 5
+
+
+# -------------------------------
+# 2. Registers
+# -------------------------------
+# $t0-$t9 : temporary / scratch (caller-saved)
+# $s0-$s7 : saved registers (callee-saved)
+# $a0-$a3 : argument registers / syscall arguments
+# $v0-$v1 : syscall return / return values
+# $ra     : return address
+# $sp     : stack pointer
+# $fp     : frame pointer (optional)
+# $zero   : always zero
+
+
+# -------------------------------
+# 3. Loading / Storing
+# -------------------------------
+lw   $t0, var_word      # load word
+sw   $t0, var_word      # store word
+lh   $t0, var_half      # load half
+sh   $t0, var_half      # store half
+lb   $t0, var_byte      # load byte
+sb   $t0, var_byte      # store byte
+la   $a0, str_msg       # load address of string
+
+
+# -------------------------------
+# 4. Arithmetic / Logic
+# -------------------------------
+add   $t0, $t1, $t2     # $t0 = $t1 + $t2
+addi  $t0, $t1, 5       # $t0 = $t1 + 5
+sub   $t0, $t1, $t2
+mul   $t0, $t1, $t2
+div   $t1, $t2          # quotient in LO, remainder in HI
+mflo  $t0               # move LO to $t0
+mfhi  $t0               # move HI to $t0
+and   $t0, $t1, $t2
+or    $t0, $t1, $t2
+xor   $t0, $t1, $t2
+andi  $t0, $t1, 0xFF
+slt   $t0, $t1, $t2     # $t0 = 1 if $t1 < $t2 else 0
+
+
+# -------------------------------
+# 5. Branching / Jump
+# -------------------------------
+beq  $t0, $t1, label      # branch if equal
+bne  $t0, $t1, label      # branch if not equal
+bgt  $t0, $t1, label      # pseudo-branch if greater
+blt  $t0, $t1, label      # pseudo-branch if less
+j    label                # unconditional jump
+jal  label                # jump and link (function call)
+jr   $ra                  # return from function
+
+
+# -------------------------------
+# 6. Syscalls
+# -------------------------------
+# $v0 = 1 : print integer ($a0 = value)
+# $v0 = 4 : print string ($a0 = address)
+# $v0 = 5 : read integer (result in $v0)
+# $v0 = 8 : read string ($a0 = buffer, $a1 = max length)
+# $v0 = 10: exit
+# $v0 = 11: print character ($a0 = ASCII)
+li $v0, 1
+move $a0, $t0
+syscall
+
+
+# -------------------------------
+# 7. Loops
+# -------------------------------
+# Simple loop
+li $t0, 0   # counter
+li $t1, 10
+loop:
+    bge $t0, $t1, end_loop
+    addi $t0, $t0, 1
+    j loop
+end_loop:
+
+# Loop through array
+la $t0, arr       # pointer
+lw $t1, arr_len   # length
+li $t2, 0         # index
+loop_array:
+    bge $t2, $t1, end_array
+    lw $t3, 0($t0)
+    # do something with $t3
+    addi $t0, $t0, 4
+    addi $t2, $t2, 1
+    j loop_array
+end_array:
+
+
+# -------------------------------
+# 8. String handling
+# -------------------------------
+# String length
+# $a0 = string address, result in $t0
+li $t0, 0
+strlen_loop:
+    lb $t1, 0($a0)
+    beq $t1, $0, strlen_done
+    addi $t0, $t0, 1
+    addi $a0, $a0, 1
+    j strlen_loop
+strlen_done:
+
+
+# -------------------------------
+# 9. Factorial
+# -------------------------------
+# Input: $t0 = n, output: $t1 = factorial
+li $t1, 1
+li $t2, 1
+fact_loop:
+    bgt $t2, $t0, fact_done
+    mul $t1, $t1, $t2
+    addi $t2, $t2, 1
+    j fact_loop
+fact_done:
+
+
+# -------------------------------
+# 10. Maximum of array
+# -------------------------------
+# $a0 = array, $t1 = length, $t2 = initial max
+li $t0, 0
+max_loop:
+    bge $t0, $t1, max_done
+    lh $t3, 0($a0)
+    addi $a0, $a0, 2
+    addi $t0, $t0, 1
+    slt $s0, $t2, $t3
+    beq $s0, $0, max_loop
+    add $t2, $0, $t3
+    j max_loop
+max_done:
+
+
+# -------------------------------
+# 11. Count divisible by k
+# -------------------------------
+# $a0 = array pointer, $t1 = length, $t3 = divisor, result in $t2
+li $t0, 0
+li $t2, 0
+div_loop:
+    bge $t0, $t1, div_done
+    lw $t4, 0($a0)
+    div $t4, $t3
+    mfhi $t5
+    bne $t5, $0, skip_div
+    addi $t2, $t2, 1
+skip_div:
+    addi $t0, $t0, 4
+    j div_loop
+div_done:
+
+
+# -------------------------------
+# 12. Search in array
+# -------------------------------
+# $a0 = pointer, $t1 = length, $t2 = value, result: index in $t3 or not found
+li $t3, 0
+search_loop:
+    bge $t3, $t1, not_found
+    lw $t4, 0($a0)
+    beq $t4, $t2, found
+    addi $a0, $a0, 4
+    addi $t3, $t3, 1
+    j search_loop
+found:
+    # $t3 = index
+    j end_search
+not_found:
+    # value not found
+end_search:
+
+
+# -------------------------------
+# 13. Function call / stack
+# -------------------------------
+subu $sp, $sp, 16
+sw $ra, 12($sp)
+sw $s0, 8($sp)
+# function body
+lw $ra, 12($sp)
+lw $s0, 8($sp)
+addu $sp, $sp, 16
+jr $ra

@@ -1,0 +1,33 @@
+** Drc report for T15.kicad_pcb **
+** Created on 2025-12-29T02:35:07+0200 **
+
+** Found 3 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(182.7400 mm, 126.0400 mm): Footprint text of Q2 (Q2)
+    @(182.7400 mm, 126.0400 mm): Reference field of Q2
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; warning
+    @(169.0100 mm, 126.0400 mm): Reference field of Q1
+    @(169.0100 mm, 126.0400 mm): Footprint text of Q1 (Q1)
+[lib_footprint_mismatch]: Footprint 'MountingHole_2.7mm_Pad' does not match copy in library 'MountingHole'.
+    Local override; warning
+    @(206.0000 mm, 140.5000 mm): Footprint REF3
+
+** Found 0 unconnected pads **
+
+** Found 4 Footprint errors **
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(206.0000 mm, 140.5000 mm): Footprint REF3
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(138.0000 mm, 140.5000 mm): Footprint REF4
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(206.0000 mm, 108.0000 mm): Footprint REF2
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(138.0000 mm, 108.0000 mm): Footprint REF1
+
+** End of Report **

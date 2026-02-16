@@ -1,0 +1,11 @@
+#+title: Seminar AMP
+
+A - B / C + D
+GRESIT: ABC/D+-
+CORECT: ABC/-D+
+
+* IEEE 754 floating-point
+14. -20.5625|_10 = ? |_IEEE 754 32-biti
+    (-1)^S * (1,M) * 2^e = forma stiintifica normalizata
+    S = bitul de semn, M = mantisa, e = exponent
+    (-1)^1 * 1,01001001 * 2^4

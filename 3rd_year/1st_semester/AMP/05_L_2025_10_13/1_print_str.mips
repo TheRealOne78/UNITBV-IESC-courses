@@ -1,0 +1,57 @@
+# Program: Afisare siruri de caractere (Print strings)
+# Demonstrates usage of .asciiz strings and syscall print_string
+
+.data
+sir1:   .asciiz "Calculatoare "   # String constant, null-terminated ('\0' added automatically)
+sir2:   .asciiz "Electronica"    # String constant, null-terminated
+
+# m: .double 10                  # (Commented) Example of double-precision variable
+# n: .double 17                  # (Commented) Example of double-precision variable
+
+
+.text
+.globl main                      # Declare main as global entry point
+
+main:
+    # -------------------------------------------------
+    # Commented arithmetic example (not executed)
+    # -------------------------------------------------
+    # lh $t0, m                  # Load halfword from m into $t0
+    # lh $t1, n                  # Load halfword from n into $t1
+    # add $t2, $t0, $t1          # t2 = m + n
+
+    # move $a0, $t2              # Move result into $a0
+    # li $v0, 1                  # Syscall 1: print integer
+    # syscall
+
+    # -------------------------------------------------
+    # Print first string
+    # -------------------------------------------------
+    la $a0, sir1                 # Load address of sir1 into $a0 (argument)
+    li $v0, 4                    # Syscall 4: print string
+    syscall                      # Print "Calculatoare"
+
+    # -------------------------------------------------
+    # Print second string
+    # -------------------------------------------------
+    la $a0, sir2                 # Load address of sir2 into $a0
+    li $v0, 4                    # Syscall 4: print string
+    syscall                      # Print "Electronica"
+
+
+# -------------------------------------------------
+# exit:
+# Terminates the program
+# -------------------------------------------------
+exit:
+    li $v0, 10                   # Syscall 10: exit program
+    syscall
+
+
+# -------------------------------------------------
+# System call reference (SPIM / MARS)
+# -------------------------------------------------
+# 1  = print_int
+# 4  = print_string
+# 5  = read_int
+# 10 = exit
