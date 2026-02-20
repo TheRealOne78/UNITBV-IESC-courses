@@ -1,0 +1,81 @@
+#+TITLE: N12 - teme lab02
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: 2026-02-17 Tue
+#+INCLUDE: ../config.org
+
+* Sa se scrie un script shell care aduna numerele date ca parametrii in linia de comanda
+#+INCLUDE: ./src/add_2_nums.sh src sh
+
+* Sa se scrie un script shell care scrie numerele in ordine descrescatoare incepand de la n dat ca parametru folosind while.
+#+INCLUDE: ./src/write_numbers_by_descending_order.sh src sh
+
+\newpage
+
+* Sa se inverseze cifrele unui numar (254 -> 452).
+#+INCLUDE: ./src/reverse_number.sh src sh
+
+* Scrieti un script care afiseaza data curenta, ora, numele utilizatorului si directorul curent
+#+INCLUDE: ./src/print_stats.sh src sh
+
+* Scrieti un script care calculeaza suma cifrelor unui numar dat ca parametru
+#+INCLUDE: ./src/sum_figures.sh src sh
+
+* Scrieti un script care determina daca o comanda contine caracterul "*"
+#+INCLUDE: ./src/check_star_char.sh src sh
+
+* Scrieti un script care afiseaza numerele lui Fibonacci
+#+INCLUDE: ./src/fibonacci.sh src sh
+
+* Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.
+#+INCLUDE: ./src/rename_upper2lower.sh src sh
+
+* Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.
+#+INCLUDE: ./src/rename_upper2lower.sh src sh
+
+* Quiz
+** Ce moduri de operare s-au intalnit in evolutia sistemelor de calcul?
+- Batch --- programele erau încărcate și executate fără intervenția utilizatorului, unul câte unul.
+- Interactiv (time-sharing) --- mai mulți utilizatori pot interacționa cu sistemul în mod simultan, partajând timpul procesorului central.
+- Multiprogramare --- mai multe programe stau în memorie și CPU alternează între ele pentru a crește eficiența.
+- RT (Real Time) --- sistemul răspunde la evenimente într-un timp STRICT.
+  
+** Descrieti pe scurt principiul multiprogramarii si motivul introducerii acestuia.
+Multiprogramarea reprezintă păstrarea mai multor program în memorie în același timp, astfel încât procesorul să poată executa un program la altul când așteaptă I/O.
+
+Acesta s-a introdus deoarece CPU-ul este mult mai rapid decât dispozitivele de intrare/ieșire. Așteptarea după I/O reprezintă eficiență redusă.
+
+** Care este deosebirea dintre modul kernel si modul utilizator?
+*** Mod Kernel
+- Spațiu de adresare este Kernel space -- acces direct la hardware și resurse
+- Are access complet la CPI, memorie, dispozitive
+- Orice eroare poate panica sau bloca sistemul
+*** Mod User
+- Spațiul de adresare este User space -- acces restricționat
+- Access limitat, prin apeluri la kernel
+- Eroarea afectează doar procesul curent și copii
+
+** Care dintre urmatoarele operatii sunt permise doar in modul kernel?
+1) _*mascarea tuturor intreruperilor*_
+2) citirea ceasului
+3) apel de operare kernel
+4) _*fixarea orei sistem*_
+5) _*translatarea adreselor de memorie*_
+   
+** Explicati pe scurt pasii de intrare a unui program in modul kernel
+- Procesul rulează în mod utilizator și face un apel de sistem.
+- CPU comută în mod kernel și salvează contextul procesului curent.
+- Kernelul preia controlul și execută funcția solicitată.
+- La terminarea operației, kernelul restabilește contextul și revine în modul utilizator.
+  
+** Definitia sistemul de operare contine doau moduri de abordare a acestuia. Care sunt acestea si ce semnificatie au?
+*** Monolitic
+- Toate funcțiile kernelului rulează într-un singur spațiu, fără izolare între module.
+- Dezavantaj: erorile pot afecta tot sistemul (Exemplu: [[https://bugzilla.kernel.org/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=RESOLVED&bug_status=VERIFIED&bug_status=REJECTED&bug_status=DEFERRED&bug_status=NEEDINFO&bug_status=CLOSED&component=network-wireless-intel&order=Importance&query_format=advanced&short_desc=iwlwifi&short_desc_type=casesubstring][Intel iwlwifi every single f***ing update]])
+- Exemplu: [[https://kernel.org][Linux]], [[https://en.wikipedia.org/wiki/Berkeley_Software_Distribution][BSD]]
+
+*** Microkernel
+- Kernelul minimal rulează doar funcțiile esențiale (planificare, comunicare, I/O minim)
+- Restul serviciilor rulează în user space
+- Avantaj: mai sigur și mai ușor de extins
+- Dezavantaj: performanță mai mică datorită apelurilor între spații
+- Exemplu: [[https://www.gnu.org/software/hurd][GNU Hurd]] /:3/

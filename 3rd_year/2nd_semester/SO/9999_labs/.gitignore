@@ -1,0 +1,5 @@
+*.pdf
+*.tex
+
+_minted/
+*/_minted/
