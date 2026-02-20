@@ -1,5 +1,5 @@
-*.pdf
-*.tex
+#*.pdf
+#*.tex
 
 _minted/
 */_minted/
