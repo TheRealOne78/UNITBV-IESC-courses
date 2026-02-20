@@ -1,0 +1,306 @@
+% Created 2026-02-17 Tue 11:33
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{BAJCSI Elias-Robert}
+\date{2026-02-17 Tue}
+\title{N12 - teme lab02}
+\hypersetup{
+ pdfauthor={BAJCSI Elias-Robert},
+ pdftitle={N12 - teme lab02},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{Sa se scrie un script shell care aduna numerele date ca parametrii in linia de comanda}
+\label{sec:orge1d0098}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1 NUM2" >&2
+    echo "Prints the sum of NUM1 and NUM2." >&2
+}
+
+# Check args
+[ "$#" -ne 2 ] && { usage; exit 1; }
+
+echo $(( $1 + $2 ))
+\end{minted}
+\section{Sa se scrie un script shell care scrie numerele in ordine descrescatoare incepand de la n dat ca parametru folosind while.}
+\label{sec:orgc419bba}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1" >&2
+    echo "Prints numbers from NUM1 to 0, in descending order." >&2
+    echo "The number must be positive." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+num=$1;
+while [ "$num" -ge 0 ]; do
+    echo $num
+    num=$(( "$num" - 1 ))
+done
+\end{minted}
+
+\newpage
+\section{Sa se inverseze cifrele unui numar (254 -> 452).}
+\label{sec:org584278d}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1" >&2
+    echo "Prints numbers in reverse order." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+n=$1
+rev=0
+
+while [ "$n" -gt 0 ]; do
+    rev=$(( rev * 10 + n % 10 ))
+    n=$(( n / 10 ))
+done
+
+echo "$rev"
+\end{minted}
+\section{Scrieti un script care afiseaza data curenta, ora, numele utilizatorului si directorul curent}
+\label{sec:org81ba6a8}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0}" >&2
+    echo "Prints current datetime, user and current directory" >&2
+}
+
+# Check args
+[ "$#" -ne 0 ] && { usage; exit 1; }
+
+echo "Current datetime: $(date)"
+echo "Logged user name: $(whoami)"
+echo "Current working directory $(pwd)"
+\end{minted}
+\section{Scrieti un script care calculeaza suma cifrelor unui numar dat ca parametru}
+\label{sec:org01b8164}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1" >&2
+    echo "Prints the sum of the figures from NUM1." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+n=$1
+rev=0
+ 
+while [ "$n" -gt 0 ]; do
+    sum=$(( sum + n % 10 ))
+    n=$(( n / 10 ))
+done
+
+echo "$sum"
+\end{minted}
+\section{Scrieti un script care determina daca o comanda contine caracterul ``*''}
+\label{sec:orgc8c0c55}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} ARG1 ..." >&2
+    echo "Checks if the provided arguments contain a \`*' character." >&2
+}
+
+# Check args
+[ "$#" -eq 0 ] && { usage; exit 1; }
+
+for s in "$@"; do
+    case $s in
+        *"*"*) echo "Found \`*' character." && exit 0;;
+    esac
+done
+
+echo "No \`*' character found."
+\end{minted}
+\section{Scrieti un script care afiseaza numerele lui Fibonacci}
+\label{sec:orgd917de7}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1" >&2
+    echo "Prints the first NUM1 numbers of the Fibonacci series." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+a=0
+b=1
+i=0
+
+while [ "$i" -lt "$1" ]; do
+    tmp=$b
+    b=$(( a + b ))
+    a=$tmp
+    i=$(( i + 1 ))
+done
+
+echo "$a"
+\end{minted}
+\section{Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.}
+\label{sec:org7e001e5}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} SOURCE" >&2
+    echo "Renames a file name to it's lowercase variant." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+# Check if file exist
+[ ! -f "${1}" ] && { echo "File doesn't exist!" >&2; exit 1; } 
+
+# Only lower the basename
+mv "${1}" $(dirname "$1")/$(basename "$1" | tr '[:upper:]' '[:lower:]')
+\end{minted}
+\section{Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.}
+\label{sec:org5d2435c}
+\begin{minted}[]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} SOURCE" >&2
+    echo "Renames a file name to it's lowercase variant." >&2
+}
+
+# Check args
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+# Check if file exist
+[ ! -f "${1}" ] && { echo "File doesn't exist!" >&2; exit 1; } 
+
+# Only lower the basename
+mv "${1}" $(dirname "$1")/$(basename "$1" | tr '[:upper:]' '[:lower:]')
+\end{minted}
+\section{Quiz}
+\label{sec:orgbdbe7f2}
+\subsection{Ce moduri de operare s-au intalnit in evolutia sistemelor de calcul?}
+\label{sec:org5a831cc}
+\begin{itemize}
+\item Batch --- programele erau încărcate și executate fără intervenția utilizatorului, unul câte unul.
+\item Interactiv (time-sharing) --- mai mulți utilizatori pot interacționa cu sistemul în mod simultan, partajând timpul procesorului central.
+\item Multiprogramare --- mai multe programe stau în memorie și CPU alternează între ele pentru a crește eficiența.
+\item RT (Real Time) --- sistemul răspunde la evenimente într-un timp STRICT.
+\end{itemize}
+\subsection{Descrieti pe scurt principiul multiprogramarii si motivul introducerii acestuia.}
+\label{sec:org9472266}
+Multiprogramarea reprezintă păstrarea mai multor program în memorie în același timp, astfel încât procesorul să poată executa un program la altul când așteaptă I/O.
+
+Acesta s-a introdus deoarece CPU-ul este mult mai rapid decât dispozitivele de intrare/ieșire. Așteptarea după I/O reprezintă eficiență redusă.
+\subsection{Care este deosebirea dintre modul kernel si modul utilizator?}
+\label{sec:org5becfc4}
+\subsubsection{Mod Kernel}
+\label{sec:org946f147}
+\begin{itemize}
+\item Spațiu de adresare este Kernel space -- acces direct la hardware și resurse
+\item Are access complet la CPI, memorie, dispozitive
+\item Orice eroare poate panica sau bloca sistemul
+\end{itemize}
+\subsubsection{Mod User}
+\label{sec:org0faf09e}
+\begin{itemize}
+\item Spațiul de adresare este User space -- acces restricționat
+\item Access limitat, prin apeluri la kernel
+\item Eroarea afectează doar procesul curent și copii
+\end{itemize}
+\subsection{Care dintre urmatoarele operatii sunt permise doar in modul kernel?}
+\label{sec:org864d78c}
+\begin{enumerate}
+\item \uline{\textbf{mascarea tuturor intreruperilor}}
+\item citirea ceasului
+\item apel de operare kernel
+\item \uline{\textbf{fixarea orei sistem}}
+\item \uline{\textbf{translatarea adreselor de memorie}}
+\end{enumerate}
+\subsection{Explicati pe scurt pasii de intrare a unui program in modul kernel}
+\label{sec:org4a67c86}
+\begin{itemize}
+\item Procesul rulează în mod utilizator și face un apel de sistem.
+\item CPU comută în mod kernel și salvează contextul procesului curent.
+\item Kernelul preia controlul și execută funcția solicitată.
+\item La terminarea operației, kernelul restabilește contextul și revine în modul utilizator.
+\end{itemize}
+\subsection{Definitia sistemul de operare contine doau moduri de abordare a acestuia. Care sunt acestea si ce semnificatie au?}
+\label{sec:orgeceabd0}
+\subsubsection{Monolitic}
+\label{sec:org069d00b}
+\begin{itemize}
+\item Toate funcțiile kernelului rulează într-un singur spațiu, fără izolare între module.
+\item Dezavantaj: erorile pot afecta tot sistemul (Exemplu: \href{https://bugzilla.kernel.org/buglist.cgi?bug\_status=NEW\&bug\_status=ASSIGNED\&bug\_status=REOPENED\&bug\_status=RESOLVED\&bug\_status=VERIFIED\&bug\_status=REJECTED\&bug\_status=DEFERRED\&bug\_status=NEEDINFO\&bug\_status=CLOSED\&component=network-wireless-intel\&order=Importance\&query\_format=advanced\&short\_desc=iwlwifi\&short\_desc\_type=casesubstring}{Intel iwlwifi every single f***ing update})
+\item Exemplu: \href{https://kernel.org}{Linux}, \href{https://en.wikipedia.org/wiki/Berkeley\_Software\_Distribution}{BSD}
+\end{itemize}
+\subsubsection{Microkernel}
+\label{sec:org47a97fd}
+\begin{itemize}
+\item Kernelul minimal rulează doar funcțiile esențiale (planificare, comunicare, I/O minim)
+\item Restul serviciilor rulează în user space
+\item Avantaj: mai sigur și mai ușor de extins
+\item Dezavantaj: performanță mai mică datorită apelurilor între spații
+\item Exemplu: \href{https://www.gnu.org/software/hurd}{GNU Hurd} \emph{:3}
+\end{itemize}
+\end{document}
