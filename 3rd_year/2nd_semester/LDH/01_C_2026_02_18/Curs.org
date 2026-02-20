@@ -1,0 +1,17 @@
+#+title: Curs
+
+* Modul (module)
+Blocul elementar de constricție în Verilog HDL
+** Sintaxă
+#+BEGIN_SRC verilog
+module <nume modul> #(
+<declaratii parametrii>
+) (
+<declaratii porturi>
+);
+<declaratii date>;
+<specificatii concurente;
+endmodule
+#+END_SRC
+* Sintaxa declaratiei unui modul Backus-Naur form (BNF)
+TODO: De căutat

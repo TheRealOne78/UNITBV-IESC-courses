@@ -1,0 +1,17 @@
+#+TITLE: N13 - teme lab0
+3
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: 2026-02-17 Tue
+#+INCLUDE: ../config.org
+
+* Scrieti un script shell care afiseaza lista utilizatorilor si timpul cat au fost logati (din ultima sesiune de lucru)
+#+INCLUDE: ./src/show_users.sh src sh
+
+* Scrieti un script care implementeaza un browser text folosind comenzile wget si links -dump . Utilizatorul are trei optiuni introduce un URL, b pentru back si q pentru quit. Ultimele 10 URL-uri introduse de user sunt stocate intr-un array, de unde utilizatorul poate sa le acceseze folosind functionalitatea back.
+#+INCLUDE: ./src/browser.sh src sh
+
+* Scrieti un script care automatizeaza instalarea unui pachet de pe Internet (trebuie dat numele, descarcat, dezarhivat si compilat). Doar instalarea poate fi intrerupta.
+#+INCLUDE: ./src/pkg_install.sh src sh
+
+* Scrieti un program C care implementeaza comanda kill.
+#+INCLUDE: "./src/sigterm_handler.c" src c
