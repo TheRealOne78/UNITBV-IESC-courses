@@ -1,6 +1,7 @@
-% Created 2026-02-16 Mon 20:02
+% Created 2026-02-26 Thu 21:27
 % Intended LaTeX compiler: lualatex
 \documentclass[11pt]{article}
+
 \usepackage{amsmath}
 \usepackage{fontspec}
 \usepackage{graphicx}
@@ -24,6 +25,21 @@ FontFace={m}{n}{UT Sans Medium}
 \usepackage{minted}
 \usepackage[a4paper,margin=3cm]{geometry}
 \usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
 \author{BAJCSI Elias-Robert}
 \date{2026-02-16 Mon}
 \title{N11 - teme lab01}
@@ -32,29 +48,37 @@ FontFace={m}{n}{UT Sans Medium}
  pdftitle={N11 - teme lab01},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdfcreator={},
  pdflang={English}}
 \begin{document}
 
 \maketitle
 \section{Listati continutul directoarelor /, /bin, /usr, /etc, /usr/include. Acolo unde este cazul, paginati listarea (ls | less). cautati, in fisierul /usr/include/stdio.h, textul printf.}
-\label{sec:org0c0daf3}
+\label{sec:orgb2aa2bf}
 \subsection{List}
-\label{sec:orga96baad}
-\begin{minted}[]{sh}
+\label{sec:orgeb41f22}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 ls /
 ls /bin | less
 ls /usr
 ls /etc | less
 ls /usr/include | less
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/1.png}
+\end{center}
 \subsection{Concat}
-\label{sec:org7161d12}
-\begin{minted}[]{sh}
-cat /usr/include/stdio.h | grep printf
+\label{sec:org1f60228}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+cat /usr/include/stdio.h | grep " printf "
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/2.png}
+\end{center}
 \section{Creati, in directorul personal, urmatoarea structura de directoare si fisiere:}
-\label{sec:orga117ae1}
+\label{sec:org39d693b}
 \begin{verbatim}
 (dir. personal)
 |
@@ -74,44 +98,68 @@ cat /usr/include/stdio.h | grep printf
 +-- tt (director)
 \end{verbatim}
 
-\begin{minted}[]{sh}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 mkdir -p abc/t zz/x tt
 
 cd ./abc; touch x y t{1..3} a b; cd ..
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/3.png}
+\end{center}
 \section{Copiati directorul abc cu tot continutul sau (recursiv) ca subdirector al lui zz (va rezulta un subdirector abc in zz)}
-\label{sec:org1bc113a}
-\begin{minted}[]{sh}
+\label{sec:org97926d4}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 cp -r ./abc ./zz
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/4.png}
+\end{center}
 \section{Copiati continutul lui abc in directorul zz fara a suprascrie fisierele cu acelasi nume (x, in cazul nostru)}
-\label{sec:orge7d2e64}
-\begin{minted}[]{sh}
+\label{sec:org691e77a}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 cp --update=none -r ./abc/* ./zz
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/5.png}
+\end{center}
 \section{copiati fisierele t1 si t2 din abc in tt (folosind specificator generic)}
-\label{sec:org0ea5d35}
-\begin{minted}[]{sh}
+\label{sec:org87f07b6}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 cp ./abc/t{1..2} tt
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/6.png}
+\end{center}
 \section{Creati un director pe care sa va dati dreptul x fara a avea dreptul r. Creati in el un fisier. Ce observati? Dati-va apoi dreptul r si luati-va dreptul x. Ce observati ?}
-\label{sec:org8cbfba6}
+\label{sec:orga34beff}
 \subsection{Execute, no read}
-\label{sec:org73be716}
-\begin{minted}[]{sh}
+\label{sec:org2403ec5}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 mkdir -m 300 foo
 touch foo/bar
 \end{minted}
 Pot crea fișiere în directorul respectiv (deoarece în acest caz, mi-am dat și permisiunea de scriere [write]), însă nu pot lista fișierele.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/7.1.png}
+\end{center}
 \subsection{Read, no execute}
-\label{sec:org58afc33}
-\begin{minted}[]{sh}
+\label{sec:orgf8517a8}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 chmod 600 foo
 \end{minted}
 Acum nu mai am cum să schimb directorul în ``\$(pwd)/foo'', și nu am cum sa creez conținut în el, deoarece drepturile de execuție în directorul respectiv îmi sunt blocate.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/7.2.png}
+\end{center}
 \section{Dati drepturile potrivite astfel incat oricine sa poata vizualiza continutul directoarelor abc si abc/t, sa poata adauga fisiere in abc/t, sa poata citi fisierele x, y, t1, t2, t3 din abc dar sa nu poata citi fisierele a si b din abc/t}
-\label{sec:orgd25e0bd}
-\begin{minted}[]{sh}
+\label{sec:org85c3bcc}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 chmod a+rx abc abc/t
 chmod a+w abc/t
 
@@ -123,17 +171,28 @@ for f in a b; do
     chmod a-r "abc/t/${f}"
 done
 \end{minted}
-\section{Listati in format lung fisierele t, t1, t2, t3 din abc (sa se vada drepturile de acces asupra lui t, nu asupra fisierelor din el}
-\label{sec:org432ba6b}
-\begin{minted}[]{sh}
-for f in t t1 t2 t3; do
-    ls -l abc
-done
-\end{minted}
-\section{Comanda copy /dev/zero /dev/null este un fel de 'ciclu infinit' (nu se termina). Lansati-o, mutati-o in background, listati procesele active, terminati comanda (in ambele variante: mutata in foreground si oprita cu \^{}C, sau cu kill).}
-\label{sec:org74779bb}
 
-\begin{minted}[]{sh}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/8.1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/8.2.png}
+\end{center}
+\section{Listati in format lung fisierele t, t1, t2, t3 din abc (sa se vada drepturile de acces asupra lui t, nu asupra fisierelor din el}
+\label{sec:org4e5b79b}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+ls -l "abc/t"
+ls -l "abc/t{1..3}"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/9.png}
+\end{center}
+\section{Comanda copy /dev/zero /dev/null este un fel de 'ciclu infinit' (nu se termina). Lansati-o, mutati-o in background, listati procesele active, terminati comanda (in ambele variante: mutata in foreground si oprita cu \^{}C, sau cu kill).}
+\label{sec:orgf08103c}
+
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 cp /dev/zero /dev/null &
 ps -aux | grep "cp /dev/zero /dev/null"
 
@@ -145,42 +204,69 @@ fg
 cp /dev/zero /dev/null &
 kill $! # Kill last process ID
 \end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/10.png}
+\end{center}
 \section{Arhivati structura de directoare folosind utilitarul zip sau utilitarele tar si gz.}
-\label{sec:org8d14a49}
+\label{sec:org134cf1e}
 \subsection{Zip}
-\label{sec:org3fc8aa5}
-\begin{minted}[]{sh}
+\label{sec:org138d6cf}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 zip -r structure.zip src
 \end{minted}
 \subsection{GNU Tar + GNU Zip}
-\label{sec:org4c9fd7a}
+\label{sec:orgf1984a9}
 
-\begin{minted}[]{sh}
-tar -cpzf structure.tar.gz src
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+tar -cpzH posix -f structure.tar.gz src  --atime-preserve
 
 # Or pipe
-tar -cp src | gzip > structure2.tar.gz
+tar -cpH posix src --atime-preserve | gzip > structure2.tar.gz
 \end{minted}
+\subsection{Screenshot}
+\label{sec:org9671d4b}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/11.png}
+\end{center}
 \section{Stergeti directoarele si refaceti structura pornind de la arhiva. Verificati conservarea datei creerii si drepturilor de acces.}
-\label{sec:orgcad485c}
+\label{sec:org98c8a31}
 \subsection{Remove dirs}
-\label{sec:org98303b4}
-\begin{minted}[]{sh}
+\label{sec:org45f0fef}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+for f in $(find src); do
+    stat "${f}" >> old.txt
+done
+
 rm -rf src
 \end{minted}
 \subsection{Unarchive}
-\label{sec:orgdc6068d}
+\label{sec:org38f5fb6}
 \subsubsection{ZIP}
-\label{sec:org2285437}
-\begin{minted}[]{sh}
+\label{sec:org0f7cafa}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 unzip structure.zip
 \end{minted}
 \subsubsection{GNU Tar + GNU Zip}
-\label{sec:orgdb1144d}
-\begin{minted}[]{sh}
+\label{sec:org5ba8f52}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 tar -xzf structure.tar.gz
 
 # Or pipe
 gunzip -c structure.tar.gz | tar -xf -
 \end{minted}
+\subsection{Verify}
+\label{sec:orga7521b9}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+for f in $(find src); do
+    stat "${f}" >> new.txt
+done
+
+diff new.txt old.txt
+\end{minted}
+\subsection{Screenshot}
+\label{sec:orgae03731}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./Pics/12.png}
+\end{center}
 \end{document}
