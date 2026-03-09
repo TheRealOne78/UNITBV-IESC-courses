@@ -6,31 +6,58 @@
 * Sa se scrie un script shell care aduna numerele date ca parametrii in linia de comanda
 #+INCLUDE: ./src/add_2_nums.sh src sh
 
+[[./Pics/1.png]]
+
+\clearpage
+
 * Sa se scrie un script shell care scrie numerele in ordine descrescatoare incepand de la n dat ca parametru folosind while.
 #+INCLUDE: ./src/write_numbers_by_descending_order.sh src sh
 
-\newpage
+[[./Pics/2.png]]
+
+\clearpage
 
 * Sa se inverseze cifrele unui numar (254 -> 452).
 #+INCLUDE: ./src/reverse_number.sh src sh
 
+[[./Pics/3.png]]
+
+\clearpage
+
 * Scrieti un script care afiseaza data curenta, ora, numele utilizatorului si directorul curent
 #+INCLUDE: ./src/print_stats.sh src sh
+
+[[./Pics/4.png]]
+
+\clearpage
 
 * Scrieti un script care calculeaza suma cifrelor unui numar dat ca parametru
 #+INCLUDE: ./src/sum_figures.sh src sh
 
+[[./Pics/5.png]]
+
+\clearpage
+
 * Scrieti un script care determina daca o comanda contine caracterul "*"
 #+INCLUDE: ./src/check_star_char.sh src sh
+
+[[./Pics/6.png]]
+
+\clearpage
 
 * Scrieti un script care afiseaza numerele lui Fibonacci
 #+INCLUDE: ./src/fibonacci.sh src sh
 
-* Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.
-#+INCLUDE: ./src/rename_upper2lower.sh src sh
+[[./Pics/7.png]]
+
+\clearpage
 
 * Scrieti un script care transforma litere mari in litere mici pentru nume de fisiere primite ca parametru.
 #+INCLUDE: ./src/rename_upper2lower.sh src sh
+
+[[./Pics/8.png]]
+
+\clearpage
 
 * Quiz
 ** Ce moduri de operare s-au intalnit in evolutia sistemelor de calcul?
