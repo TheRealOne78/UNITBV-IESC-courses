@@ -1,0 +1,10 @@
+|demo
+a_i[0] => Add0.IN2
+a_i[1] => Add0.IN1
+b_i[0] => Add0.IN4
+b_i[1] => Add0.IN3
+s_o[0] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+s_o[1] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+s_o[2] <= Add0.DB_MAX_OUTPUT_PORT_TYPE
+
+
