@@ -1,0 +1,100 @@
+#+TITLE: N14 - teme lab04
+
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: <2026-04-12 Sun>
+#+INCLUDE: ../config.org
+
+
+* Scrieți un script care pe baze de if/then verifică dacă scriptul a primit cel puțin doi parametrii și afișează eroarea corespunzătoare.
+#+INCLUDE: ./src/01_check_params.sh src sh
+
+[[./pics/1.png]]
+
+* Scrieți un script care verifică dacă două stringuri sunt egale.
+#+INCLUDE: ./src/02_string_equal.sh src sh
+
+[[./pics/2.png]]
+
+* Determinați maximul a trei numere primite ca parametru.
+#+INCLUDE: ./src/03_max_three.sh src sh
+
+[[./pics/3.png]]
+
+* Determinați suma numerelor de la 1 la n cu ajutorul unui ciclu while și cu ajutorul unui ciclu for.
+#+INCLUDE: ./src/04_sum_loops.sh src sh
+
+[[./pics/4.png]]
+
+* Scrieți un script shell care utilizează for și ls -l pentru a calcula suma totală a dimensiunii fișierelor din directoarele date ca parametrii.
+#+INCLUDE: ./src/05_total_size.sh src sh
+
+[[./pics/5.png]]
+
+* Scrieți un script shell care utilizează for și top pentru a calcula suma totală a procentului de memorie utilizat de procesele ssh.
+#+INCLUDE: ./src/06_ssh_mem.sh src sh
+
+[[./pics/6.png]]
+
+* Scrieți un script care cere luna și anul și afișează zilele din luna respectivă.
+#+INCLUDE: ./src/07_days_in_month.sh src sh
+
+[[./pics/7.png]]
+
+* Scrieți un script care determină dacă o comandă conține caracterul "*".
+#+INCLUDE: ./src/08_has_star.sh src sh
+
+[[./pics/8.png]]
+
+* Scrieți un script care numără câte fișiere și câte subdirectoare sunt într-un director (recursiv).
+#+INCLUDE: ./src/09_count_recursive.sh src sh
+
+[[./pics/9.png]]
+
+* Scrieți un script KornShell care folosește comanda de selectare pentru a afișa o listă de mașini și ca răspuns va propune o culoare pentru mașina aleasă.
+#+INCLUDE: ./src/10_car_color.ksh src sh
+
+[[./pics/10.png]]
+
+* Întrebări teoretice
+
+** a) Biblioteci dinamice vs. statice
+
+*** Trei avantaje ale bibliotecilor dinamice față de cele statice:
+
+1. *Economie de spațiu pe disc și în memorie* --- mai multe procese pot partaja același obiect partajat (~.so~) încărcat o singură dată în RAM (shared memory pages), spre deosebire de linkeditarea statică, unde codul bibliotecii este copiat în fiecare executabil.
+2. *Actualizări fără recompilare* --- o bibliotecă dinamică poate fi înlocuită cu o versiune nouă (patch de securitate, bugfix) fără a recompila și redistribui toate aplicațiile care o folosesc.
+3. *Modularitate și încărcare lazy* --- bibliotecile pot fi încărcate la cerere (~dlopen()~), reducând timpul de pornire al aplicației și permițând arhitecturi bazate pe plugin-uri.
+
+*** Două cazuri în care linkeditarea statică este recomandată:
+
+1. *Medii izolate / containere minimaliste* --- un executabil static este complet autonom (~scratch~ Docker image), eliminând dependența de versiunile bibliotecilor din sistemul gazdă.
+2. *Sisteme embedded sau de boot timpuriu* --- în stadii pre-~libc~ (ex. ~initramfs~, tooluri de recovery), linkeditarea statică garantează că executabilul rulează independent de sistemul de fișiere montat.
+
+** b) Implicații de securitate ale disponibilității surselor Linux pe Internet
+
+1. *Audit public și descoperire rapidă a vulnerabilităților* --- oricine poate analiza codul, ceea ce accelerează atât găsirea cât și raportarea bug-urilor de securitate (model "many eyes"); în același timp, atacatorii pot studia codul pentru a identifica vectori de atac înainte ca patch-urile să fie aplicate pe sisteme de producție.
+2. *Transparență vs. securitate prin obscuritate* --- absența secretului asupra implementării înseamnă că mecanismele de securitate (LSM, SELinux, capabilities) trebuie să fie corect proiectate, nu să se bazeze pe necunoașterea codului; orice slăbiciune de design este vizibilă public.
+3. *Risc de supply-chain* – sursele publice pot fi modificate prin contribuții malițioase (ex. tentativa ~xz/liblzma~ din 2025); distribuțiile trebuie să mențină procese de review și semnare criptografică a commit-urilor pentru a contracara astfel de atacuri.
+
+** c) Modele de implementare a firelor de execuție; comparație cu ~clone()~
+
+*** Modele de implementare:
+
+- *Many-to-One (Green threads)* --- mai multe fire de nivel utilizator sunt multiplexate pe un singur fir de kernel. Planificarea este gestionată în user-space (ex. biblioteca ~GNU Portable Threads~). Avantaj: overhead mic de context-switch. Dezavantaj: un singur fir blocat blochează întregul proces; nu beneficiază de multiprocesare reală.
+
+- *One-to-One* --- fiecare fir de nivel utilizator corespunde unui fir de kernel. Modelul folosit de ~pthreads~ pe Linux (via ~NPTL~). Avantaj: paralelism real pe SMP, apeluri blocante nu afectează alte fire. Dezavantaj: overhead la creare (syscall), limitat de numărul maxim de thread-uri al kernelului.
+
+- *Many-to-Many (M:N)* --- $M$ fire utilizator se mapează pe $N \le M$ fire de kernel. Planificatorul hibrid poate migra fire între contexte kernel. Oferă flexibilitate, dar implementarea este complexă (ex. Solaris ULT, Go runtime goroutines).
+
+*** Comparație cu ~clone()~ din Linux:
+
+~clone()~ este syscall-ul Linux de nivel scăzut care stă la baza atât a proceselor (~fork()~) cât și a firelor (~pthread_create()~). Diferența față de modelele clasice este că ~clone()~ permite controlul granular al resurselor partajate prin flags:
+
+| Flag            | Efect                                      |
+|-----------------+--------------------------------------------|
+| ~CLONE_VM~      | Partajare spațiu de adrese (thread)        |
+| ~CLONE_FILES~   | Partajare tabelă de descriptori de fișiere |
+| ~CLONE_SIGHAND~ | Partajare handlere de semnale              |
+| ~CLONE_THREAD~  | Același group de thread-uri (~getpid()~)   |
+
+Spre deosebire de modelele abstracte (M:1, 1:1, M:N), ~clone()~ implementează modelul *1:1* în Linux: fiecare fir creat cu toți flag-ii de partajare este un task independent de kernel (~task_struct~), planificat direct de CFS. ~NPTL~ (~Native POSIX Thread Library~) exploatează exact această proprietate, obținând performanțe superioare față de vechea ~LinuxThreads~ care emula threaduri cu procese separate.

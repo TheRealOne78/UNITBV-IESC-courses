@@ -1,3 +1,74 @@
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: $0 <url>" >&2
+    echo "Download, extract/clone, build and install a package" >&2
+}
+
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+PACKAGE_URL="$1"
+PACKAGE_NAME=$(basename "$PACKAGE_URL")
+
+download_source() {
+    url="$1"
+
+    # Try git first
+    if command -v git >/dev/null 2>&1; then
+        echo "Attempting to clone as git repo..."
+        dir="src_$$"  # unique temporary folder for this clone
+        if git clone "$url" "$dir" 2>/dev/null; then
+            cd "$dir" || return 1
+            return 0
+        fi
+        echo "Not a git repo (or clone failed), falling back..."
+    fi
+
+    # Download
+    file=$(basename "$url")
+    echo "Downloading $file..."
+
+    if command -v curl >/dev/null 2>&1; then
+        curl -L -o "$file" "$url" || return 1
+    elif command -v wget >/dev/null 2>&1; then
+        wget -O "$file" "$url" || return 1
+    else
+        echo "Error: need curl or wget"
+        return 1
+    fi
+
+    extract_archive "$file" || return 1
+    enter_source_dir
+}
+
+extract_archive() {
+    file="$1"
+    echo "Extracting $file with bsdtar..."
+    bsdtar -xf "$file" || return 1
+}
+
+enter_source_dir() {
+    dir=$(find . -maxdepth 1 -type d ! -name . | head -n 1)
+    if [ -n "$dir" ]; then
+        cd "$dir" || {
+            echo "Failed to cd into $dir"
+            return 1
+        }
+    else
+        echo "Could not determine source directory"
+        return 1
+    fi
+}
+
+
+
+
+# prep src
+download_source "$PACKAGE_URL" || {
+    echo "Failed to prepare source"
+    exit 1
+}
+
 echo "Attempting to build $PACKAGE_NAME..."
 
 # 0. GNU AutoGen

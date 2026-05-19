@@ -5,12 +5,8 @@ usage() {
     echo "Prints logged users and their logtime" >&2
 }
 
-# Check args
-[ "$#" -ne 0 ] && { usage; exit 1; }
+awk -F: '$7 ~ /(sh)$/ {print $1}' /etc/passwd | while read -r user; do
+    session=$(last "$user" 2>/dev/null | grep -m 1 -E 'logged in|\([0-9:+]+\)')
 
-for user in $(awk -F: '$3 >= 1000 {print $1}' /etc/passwd); do
-    session=$(last -n 1 "$user" | head -n 1)
-    # Extract duration (the last field in parentheses)
-    duration=$(echo "$session" | awk '{print $NF}')
-    printf "%-10s %s\n" "$user" "$duration"
+    printf "%s\t\t %s\n" "$user" "$session"
 done

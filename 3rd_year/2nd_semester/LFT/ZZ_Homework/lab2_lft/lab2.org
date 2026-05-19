@@ -1,0 +1,410 @@
+#+TITLE: Laborator 2
+#+SUBTITLE: Limbaje Formale și Translatoare -- Analiză Lexicală în Rust
+#+INCLUDE: ../config.org
+#+OPTIONS: date:nil
+
+* Exercițiul 1: Tokenizare manuală pe hârtie
+
+** a) Tokenizați manual programul de mai jos.
+
+#+begin_src rust
+fn max(a: i32, b: i32) -> i32 {
+    if a != b {
+        return a;
+    }
+    b
+}
+#+end_src
+
+| Type      | Val/Lexem | Line | Column |
+|-----------+-----------+------+--------|
+| KwFn      | fn        |    1 |      1 |
+| Ident     | max       |    1 |      4 |
+| LParen    | (         |    1 |      7 |
+| Ident     | a         |    1 |      8 |
+| Colon     | :         |    1 |      9 |
+| Ident     | i32       |    1 |     11 |
+| Comma     | ,         |    1 |     14 |
+| Ident     | b         |    1 |     16 |
+| Colon     | :         |    1 |     17 |
+| Ident     | i32       |    1 |     19 |
+| RParen    | )         |    1 |     22 |
+| Arrow     | ->        |    1 |     24 |
+| Ident     | i32       |    1 |     27 |
+| LBrace    | {         |    1 |     31 |
+| KwIf      | if        |    2 |      5 |
+| Ident     | a         |    2 |      8 |
+| NotEq     | !=        |    2 |     10 |
+| Ident     | b         |    2 |     13 |
+| LBrace    | {         |    2 |     15 |
+| KwReturn  | return    |    3 |      9 |
+| Ident     | a         |    3 |     16 |
+| Semicolon | ;         |    3 |     17 |
+| RBrace    | }         |    4 |      5 |
+| Ident     | b         |    5 |      5 |
+| RBrace    | }         |    6 |      1 |
+| Eof       |           |    6 |      2 |
+
+** b) Identificați toate cuvintele cheie, identificatorii și literalele.
+
+- *Cuvinte cheie:* =fn=, =if=, =return=
+- *Identificatori:* =max=, =a=, =b=, =i32=
+- *Literale:* none
+
+** c) Ce token produce operatorul =->= ? Dar =!== ? Argumentați de ce nu sunt doi tokeni separați.
+
+=->= produces =Arrow=. =!== produces =NotEq=.
+
+Neither is split into two tokens because the lexer applies the *maximal munch* rule: it always consumes the longest character sequence that forms a valid token. When the lexer sees =-=, it peeks at the next character; finding =>= it consumes both and emits =Arrow=. The same logic applies to =!=: seeing ===, it emits =NotEq= instead of a bare =!= followed by ====.
+
+* Exercițiul 2: Expresii regulate
+
+** a) Expresia regulată pentru tipul float cu sufix opțional =f32= sau =f64=.
+
+#+begin_example
+[0-9]+\.[0-9]+(f32|f64)?
+#+end_example
+
+Examples: =3.14f32=, =2.0f64=, =1.5=
+
+** b) Expresia regulată pentru un identificator Rust care nu poate începe cu două underscore consecutive.
+
+#+begin_example
+(?!__)[a-zA-Z_][a-zA-Z0-9_]*
+#+end_example
+
+The negative lookahead =(?!__)= rejects any identifier whose first two characters are both underscores. The rest of the pattern is the standard identifier rule.
+
+** c) De ce șirul =12abc= nu poate fi tokenizat ca un singur token =INT=.
+
+The regex for =INT= is =[0-9]+=, so the lexer stops as soon as it hits a non-digit. It reads =1= and =2=, then hits =a= which is not a digit, and emits =INT(12)=. It then tokenizes =abc= as =IDENT("abc")=. The result is two tokens, not one. This is consistent with maximal munch: =12= is the longest valid integer prefix, and =abc= is a separate valid identifier.
+
+** d) DFA pentru operatorul de egalitate =Eq= (====), distinct de =Assign= (==).
+
+#+begin_example
+States:
+  Start    -- initial state
+  SeenEq   -- consumed one '='
+  Assign   -- final: emit ASSIGN (next char was not '=')
+  Eq       -- final: emit EQ (consumed second '=')
+
+Transitions:
+  Start  --['=']--> SeenEq
+  SeenEq --['=']--> Eq       (second '=' → EQ)
+  SeenEq --[other]--> Assign  (backtrack: current char not consumed)
+#+end_example
+
+* Exercițiul 3: Tratarea erorilor lexicale
+
+** a) Analiza fragmentelor cu erori
+
+*Fragment A* — caracter invalid:
+#+begin_src rust
+let x = 5 @ 3;
+#+end_src
+- Tip eroare: invalid character
+- Mesaj: =[LEX] 1:11 – invalid char '@'=
+- Recuperare: skip one char; next token is =INT(3)=
+
+*Fragment B* — float malformat:
+#+begin_src rust
+let y = 3.14.15;
+#+end_src
+- Tip eroare: malformed float literal
+- Mesaj: =[LEX] 1:9 – invalid float literal=
+- Recuperare: skip until space; next token is =Semicolon=
+
+*Fragment C* — șir neînchis:
+#+begin_src rust
+let s = "salut;
+#+end_src
+- Tip eroare: unterminated string
+- Mesaj: =[LEX] 1:9 – unterminated string=
+- Recuperare: panic mode (stops at newline); next token is =Eof=
+
+*Fragment D* — comentariu bloc neînchis:
+#+begin_src rust
+/* acest comentariu nu se inchide
+let z = 1;
+#+end_src
+- Tip eroare: unterminated block comment
+- Mesaj: =[LEX] 1:1 – unterminated block comment=
+- Recuperare: panic mode (stops at EOF); next token is =Eof=
+
+** b) Modificați lexerul să raporteze erorile cu formatul =[LEX] linie:col – mesaj – near: "lexem"=.
+
+In =lexer.rs=, add a helper method and update the error-emitting sites:
+
+#+begin_src rust
+// In impl Lexer:
+fn report_error(&self, line: usize, col: usize, msg: &str, near: &str) -> Token {
+    Token::Error(
+        format!("[LEX] {}:{} – {} – near: \"{}\"", line, col, msg, near)
+    )
+}
+#+end_src
+
+In =next_token()=, replace the bare =Token::Error= call for unknown characters:
+
+#+begin_src rust
+Some(c) => {
+    let bad = c.to_string();
+    self.advance();
+    self.report_error(line, col, &format!("invalid char '{}'", c), &bad)
+}
+#+end_src
+
+In =scan_string()=, replace the unterminated-string return:
+
+#+begin_src rust
+None | Some('\n') => {
+    return self.report_error(
+        self.line, self.col,
+        "unterminated string",
+        &format!("\"{}",  s)
+    );
+}
+#+end_src
+
+** c) Suport pentru comentarii bloc nested =/* /* interior */ exterior */=.
+
+Standard single-pass scanning cannot handle nested block comments because it stops at the first =*/= it finds, regardless of nesting depth. The fix is to track a depth counter and only close the comment when depth reaches zero.
+
+Replace the =Some('*')= branch in =scan_slash()=:
+
+#+begin_src rust
+Some('*') => {
+    self.advance(); // consume '*'
+    let mut depth: usize = 1;
+    loop {
+        match self.peek() {
+            None => {
+                return self.report_error(
+                    self.line, self.col,
+                    "unterminated block comment", "/*"
+                );
+            }
+            Some('/') if self.peek_next() == Some('*') => {
+                self.advance(); self.advance();
+                depth += 1;
+            }
+            Some('*') if self.peek_next() == Some('/') => {
+                self.advance(); self.advance();
+                depth -= 1;
+                if depth == 0 { break; }
+            }
+            _ => { self.advance(); }
+        }
+    }
+    return self.next_token().token;
+}
+#+end_src
+
+* Exercițiul 4: Extinderea lexerului manual
+
+** a) Suport pentru literale =char=: ='a'=, ='\n'=, ='\t'=.
+
+In =token.rs=, add:
+
+#+begin_src rust
+CharLit(char),
+#+end_src
+
+In =next_token()=, add a new arm before the catch-all:
+
+#+begin_src rust
+Some('\'') => self.scan_char(),
+#+end_src
+
+Add the =scan_char= method to =impl Lexer=:
+
+#+begin_src rust
+fn scan_char(&mut self) -> Token {
+    let start_line = self.line;
+    let start_col  = self.col;
+    self.advance(); // consume opening '\''
+
+    let ch = match self.peek() {
+        None | Some('\n') => {
+            return self.report_error(start_line, start_col,
+                "unterminated char literal", "'");
+        }
+        Some('\'') => {
+            self.advance();
+            return self.report_error(start_line, start_col,
+                "empty char literal", "''");
+        }
+        Some('\\') => {
+            self.advance();
+            match self.peek() {
+                Some('n')  => { self.advance(); '\n' }
+                Some('t')  => { self.advance(); '\t' }
+                Some('\\') => { self.advance(); '\\' }
+                Some('\'') => { self.advance(); '\'' }
+                Some(c) => {
+                    self.advance();
+                    return self.report_error(start_line, start_col,
+                        &format!("unknown escape '\\{}'", c),
+                        &format!("'\\{}'", c));
+                }
+                None => {
+                    return self.report_error(start_line, start_col,
+                        "unterminated char literal", "'\\");
+                }
+            }
+        }
+        Some(c) => { self.advance(); c }
+    };
+
+    match self.peek() {
+        Some('\'') => { self.advance(); }
+        _ => {
+            return self.report_error(start_line, start_col,
+                "unterminated char literal", &ch.to_string());
+        }
+    }
+    Token::CharLit(ch)
+}
+#+end_src
+
+** b) Suport pentru numere cu separator vizual (=1_000_000=, =0xFF_AA=).
+
+In =scan_number()=, update the hex digit loop to skip underscores:
+
+#+begin_src rust
+while let Some(c) = self.peek() {
+    if c.is_ascii_hexdigit() { hex.push(c); self.advance(); }
+    else if c == '_'         { self.advance(); } // skip separator
+    else                     { break; }
+}
+#+end_src
+
+Update the decimal loop similarly:
+
+#+begin_src rust
+while let Some(c) = self.peek() {
+    if c.is_ascii_digit()  { s.push(c); self.advance(); }
+    else if c == '_'       { self.advance(); } // skip separator
+    else if c == '.' && !is_float
+        && self.peek_next().map_or(false, |n| n.is_ascii_digit()) {
+        is_float = true; s.push(c); self.advance();
+    }
+    else { break; }
+}
+#+end_src
+
+** c) Colectarea erorilor în =Vec<String>= în loc de =Token::Error=.
+
+In =lexer.rs=, add the field to the struct:
+
+#+begin_src rust
+pub struct Lexer {
+    input:  Vec<char>,
+    pos:    usize,
+    line:   usize,
+    col:    usize,
+    pub errors: Vec<String>,
+}
+#+end_src
+
+Update =new()=:
+
+#+begin_src rust
+pub fn new(source: &str) -> Self {
+    Lexer {
+        input:  source.chars().collect(),
+        pos:    0,
+        line:   1,
+        col:    1,
+        errors: Vec::new(),
+    }
+}
+#+end_src
+
+Update =report_error= to push into the list:
+
+#+begin_src rust
+fn report_error(&mut self, line: usize, col: usize, msg: &str, near: &str) -> Token {
+    let err = format!("[LEX] {}:{} – {} – near: \"{}\"", line, col, msg, near);
+    self.errors.push(err.clone());
+    Token::Error(err)
+}
+#+end_src
+
+Update =tokenize= to return the error list alongside the token list:
+
+#+begin_src rust
+pub fn tokenize(source: &str) -> (Vec<SpannedToken>, Vec<String>) {
+    let mut lexer  = Lexer::new(source);
+    let mut tokens = Vec::new();
+    loop {
+        let st     = lexer.next_token();
+        let is_eof = st.token == Token::Eof;
+        tokens.push(st);
+        if is_eof { break; }
+    }
+    (tokens, lexer.errors)
+}
+#+end_src
+
+In =main.rs=:
+
+#+begin_src rust
+mod token;
+mod lexer;
+use lexer::Lexer;
+
+fn main() {
+    let source = "let x = 5 @ 3; let y = # 2;";
+    let (tokens, errors) = Lexer::tokenize(source);
+
+    println!("Tokens");
+    for st in &tokens {
+        println!("{}:{} {:?}", st.line, st.col, st.token);
+    }
+
+    println!("\nErrors: ({})", errors.len());
+    for e in &errors {
+        println!("{}", e);
+    }
+}
+#+end_src
+
+* Exercițiul 5: Lexer cu logos — extindere
+
+** a) Suport pentru comentarii bloc =/* ... */= ca token ignorat.
+
+=token_logos.rs=:
+
+#+begin_src rust
+#[logos(skip r"/\*(?:[^*]|\*[^/])*\*/")]
+#+end_src
+
+This pattern matches =/\*=, then any sequence of chars that are either not =*=, or =*= not followed by =/=, and finally =\*/=. It handles single-level block comments; for nested comments a logos skip regex is insufficient and a callback would be needed.
+
+** b) Suport pentru literale =char= în logos.
+
+#+begin_src rust
+#[regex(r"'([^'\\]|\\[ntr\\'])'", |lex| {
+    let s     = lex.slice();
+    let inner = &s[1..s.len() - 1]; // strip surrounding single quotes
+    if inner.starts_with('\\') {
+        match inner.chars().nth(1) {
+            Some('n')  => Some('\n'),
+            Some('t')  => Some('\t'),
+            Some('\\') => Some('\\'),
+            Some('\'') => Some('\''),
+            _          => None,
+        }
+    } else {
+        inner.chars().next()
+    }
+})]
+CharLit(Option<char>),
+#+end_src
+
+The stored type is =Option<char>=: =Some(c)= for a valid character, =None= if the escape sequence is unrecognized.
+
+** c) Comparație lexer manual vs. logos pe 1000 de linii.
+
+Logos is by far much faster since it combines all token definitions into a single deterministic state machine, optimizes branches into lookup tables or jump tables, prevents backtracking inside token definitions, unwinds loops, and batches reads to minimize bounds checking and does all of that heavy lifting at compile time.

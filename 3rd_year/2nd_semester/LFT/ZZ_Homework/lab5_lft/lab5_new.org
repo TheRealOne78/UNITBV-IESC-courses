@@ -1,0 +1,693 @@
+#+title: laborator 5
+#+subtitle: Limbaje Formale si Translatoare -- Analiza Semantica si Tabela de Simboluri in Rust
+#+include: ../config.org
+#+options: date:nil
+
+#+latex_header: \usepackage{amsmath}
+
+* Exercitiul 1: Intelegerea tabelei de simboluri
+
+** ~symbol_table.rs~
+
+#+begin_src rust
+use std::collections::HashMap;
+use crate::types::Type;
+
+#[derive(Debug, Clone)]
+pub struct Symbol {
+    pub name: String,
+    pub ty: Type,
+    pub mutable: bool,
+}
+
+pub struct SymbolTable {
+    scopes: Vec<HashMap<String, Symbol>>,
+    pub errors: Vec<String>,
+}
+
+impl SymbolTable {
+    pub fn new() -> Self {
+        SymbolTable { scopes: vec![HashMap::new()], errors: Vec::new() }
+    }
+    pub fn push_scope(&mut self) { self.scopes.push(HashMap::new()); }
+    pub fn pop_scope(&mut self) {
+        if self.scopes.len() > 1 { self.scopes.pop(); }
+    }
+    pub fn declare(&mut self, sym: Symbol) {
+        self.scopes.last_mut().unwrap().insert(sym.name.clone(), sym);
+    }
+    pub fn lookup(&self, name: &str) -> Option<&Symbol> {
+        for scope in self.scopes.iter().rev() {
+            if let Some(s) = scope.get(name) { return Some(s); }
+        }
+        None
+    }
+    pub fn lookup_mut(&mut self, name: &str) -> Option<&mut Symbol> {
+        for scope in self.scopes.iter_mut().rev() {
+            if let Some(s) = scope.get_mut(name) { return Some(s); }
+        }
+        None
+    }
+    pub fn error(&mut self, msg: String) { self.errors.push(msg); }
+    pub fn has_errors(&self) -> bool { !self.errors.is_empty() }
+}
+#+end_src
+
+** ~main.rs~
+
+#+begin_src rust
+mod types;
+mod ast;
+mod symbol_table;
+mod checker;
+
+use types::Type;
+use ast::*;
+use checker::TypeChecker;
+
+fn check(program: Program, desc: &str) {
+    println!("\n=== {} ===", desc);
+    let mut checker = TypeChecker::new();
+    checker.check_program(&program);
+    if checker.table.has_errors() {
+        for e in &checker.table.errors { println!("  EROARE: {}", e); }
+    } else {
+        println!("  OK - nicio eroare semantica");
+    }
+}
+
+fn main() {
+    check(Program { functions: vec![FnDecl {
+        name: "aduna".into(),
+        params: vec![("a".into(), Type::Int), ("b".into(), Type::Int)],
+        ret_ty: Type::Int,
+        body: vec![Stmt::Return(Expr::BinOp {
+            op: BinOp::Add,
+            left: Box::new(Expr::Var("a".into())),
+            right: Box::new(Expr::Var("b".into())),
+        })],
+    }]}, "Program corect: aduna(a, b)");
+
+    check(Program { functions: vec![FnDecl {
+        name: "gresit".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![Stmt::Return(Expr::BinOp {
+            op: BinOp::Add,
+            left: Box::new(Expr::BoolLit(true)),
+            right: Box::new(Expr::IntLit(5)),
+        })],
+    }]}, "Eroare: Bool + Int");
+
+    check(Program { functions: vec![FnDecl {
+        name: "nedeclarat".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![Stmt::Return(Expr::Var("x_nedeclarat".into()))],
+    }]}, "Eroare: variabila nedeclarata");
+#+end_src
+
+** Rulati programul de testare si adaugati inca un test: o functie care declara o variabila locala cu let, o modifica cu o atribuire si o returneaza. Verificati ca type checker-ul nu raporteaza erori.
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "local_assign".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![
+            Stmt::Let { name: "x".into(), ty: None, init: Some(Expr::IntLit(5)) },
+            Stmt::Assign { name: "x".into(), value: Expr::BinOp {
+                op: BinOp::Add,
+                left: Box::new(Expr::Var("x".into())),
+                right: Box::new(Expr::IntLit(1)),
+            }},
+            Stmt::Return(Expr::Var("x".into())),
+        ],
+    }]}, "exerc1.a:");
+#+end_src
+
+#+begin_example
+=== exerc1.a: ===
+OK - nicio eroare semantica
+#+end_example
+
+** Adaugati un test care demonstreaza shadowing: declarati let x = 5; intr-un bloc, apoi let x = true; in acelasi bloc. Ce tip are x dupa a doua declaratie?
+
+Dupa a doua declaratie, tipul lui ~x~ este ~Bool~. ~let x = true;~ introduce un simbol nou in acelasi scop care il ascunde pe cel initial; ~lookup~ returneaza intotdeauna intrarea cea mai recenta.
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "shadowing".into(), params: vec![], ret_ty: Type::Bool,
+        body: vec![Stmt::Block(vec![
+            Stmt::Let { name: "x".into(), ty: None, init: Some(Expr::IntLit(5)) },
+            Stmt::Let { name: "x".into(), ty: None, init: Some(Expr::BoolLit(true)) },
+            Stmt::Return(Expr::Var("x".into())),
+        ])],
+    }]}, "exerc1.b:");
+#+end_src
+
+#+begin_example
+=== exerc1.b: ===
+OK - nicio eroare semantica
+#+end_example
+
+** Adaugati un test cu variabila nedeclarata intr-un bloc imbricat: Stmt::Block care contine un Stmt::Assign spre o variabila din scope-ul exterior. Ce se intampla? De ce?
+
+Doua cazuri:
+1. Assign catre variabila din scope exterior: fara eroare --- ~lookup~ parcurge ierarhia
+  scope-urilor de la interior spre exterior si o gaseste.
+2. Assign catre variabila complet nedeclarata: eroare --- ~lookup~ esueaza in toate scope-urile.
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "assign_outer_from_inner".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![
+            Stmt::Let { name: "x".into(), ty: None, init: Some(Expr::IntLit(5)) },
+            Stmt::Block(vec![Stmt::Assign { name: "x".into(), value: Expr::BinOp {
+                op: BinOp::Add,
+                left: Box::new(Expr::Var("x".into())),
+                right: Box::new(Expr::IntLit(1)),
+            }}]),
+            Stmt::Return(Expr::Var("x".into())),
+        ],
+    }]}, "exerc1.c: assign spre variabila din scope exterior");
+
+    check(Program { functions: vec![FnDecl {
+        name: "nested_undeclared_assign".into(), params: vec![], ret_ty: Type::Unit,
+        body: vec![Stmt::Block(vec![
+            Stmt::Assign { name: "y".into(), value: Expr::IntLit(1) },
+        ])],
+    }]}, "exerc1.c: variabila nedeclarata in bloc imbricat");
+#+end_src
+
+#+begin_example
+=== exerc1.c: assign spre variabila din scope exterior ===
+OK - nicio eroare semantica
+
+=== exerc1.c: variabila nedeclarata in bloc imbricat ===
+EROARE: Variabila nedeclarata: 'y'
+#+end_example
+
+* Exercitiul 2: Extinderea type checker-ului cu scoping corect
+Adaugati suportul pentru Stmt::Block in check_stmt (deja prezent in
+implementare): scrieti un test care verifica ca o variabila declarata intr-un bloc
+NU mai e vizibila dupa bloc.
+Adaugati un mesaj de eroare mai specific pentru atribuire la variabila imutabila.
+Hint: adaugati un camp mutable: false la Symbol si verificati in Stmt::Assign.
+Implementati suportul pentru let x: Int = ...; cu verificare explicita de tip: daca tipul
+declarat difera de tipul inferit, raportati eroare.
+
+** ~checker.rs~
+
+#+begin_src rust
+use crate::ast::*;
+use crate::types::Type;
+use crate::symbol_table::{Symbol, SymbolTable};
+
+pub struct TypeChecker {
+    pub table: SymbolTable,
+}
+
+impl TypeChecker {
+    pub fn new() -> Self {
+        TypeChecker { table: SymbolTable::new() }
+    }
+
+    pub fn register_functions(&mut self, program: &Program) {
+        for f in &program.functions {
+            let fn_type = Type::Fn {
+                params: f.params.iter().map(|(_, t)| t.clone()).collect(),
+                ret: Box::new(f.ret_ty.clone()),
+            };
+            self.table.declare(Symbol { name: f.name.clone(), ty: fn_type, mutable: false });
+        }
+    }
+
+    pub fn check_program(&mut self, program: &Program) {
+        self.register_functions(program);
+        for f in &program.functions { self.check_function(f); }
+    }
+
+    fn check_function(&mut self, f: &FnDecl) {
+        self.table.push_scope();
+        for (name, ty) in &f.params {
+            self.table.declare(Symbol { name: name.clone(), ty: ty.clone(), mutable: false });
+        }
+        for stmt in &f.body { self.check_stmt(stmt, &f.ret_ty); }
+        self.table.pop_scope();
+    }
+
+    fn check_stmt(&mut self, stmt: &Stmt, ret_ty: &Type) {
+        match stmt {
+            Stmt::Let { name, ty, init } => {
+                let inferred = init.as_ref().map(|e| self.check_expr(e));
+                let final_ty = match (ty, inferred) {
+                    (Some(dt), Some(it)) => {
+                        if &it != dt {
+                            self.table.error(format!(
+                                "Tip incompatibil pentru '{}': asteptat {:?}, gasit {:?}",
+                                name, dt, it));
+                        }
+                        dt.clone()
+                    }
+                    (Some(dt), None) => dt.clone(),
+                    (None, Some(it)) => it,
+                    (None, None)     => Type::Unknown,
+                };
+                self.table.declare(Symbol { name: name.clone(), ty: final_ty, mutable: true });
+            }
+
+            Stmt::Assign { name, value } => {
+                let val_ty = self.check_expr(value);
+                match self.table.lookup(name).cloned() {
+                    None => self.table.error(format!("Variabila nedeclarata: '{}'", name)),
+                    Some(sym) => {
+                        if !sym.mutable {
+                            self.table.error(format!(
+                                "Atribuire invalida: '{}' este imutabila", name));
+                        } else if sym.ty == Type::Unknown {
+                            if let Some(s) = self.table.lookup_mut(name) { s.ty = val_ty; }
+                        } else if sym.ty != val_ty {
+                            self.table.error(format!(
+                                "Atribuire invalida pentru '{}': {:?} = {:?}",
+                                name, sym.ty, val_ty));
+                        }
+                    }
+                }
+            }
+
+            Stmt::Return(expr) => {
+                let expr_ty = self.check_expr(expr);
+                if &expr_ty != ret_ty {
+                    self.table.error(format!(
+                        "Return incompatibil: asteptat {:?}, gasit {:?}", ret_ty, expr_ty));
+                }
+            }
+
+            Stmt::ExprStmt(expr) => { self.check_expr(expr); }
+
+            Stmt::Block(stmts) => {
+                self.table.push_scope();
+                for s in stmts { self.check_stmt(s, ret_ty); }
+                self.table.pop_scope();
+            }
+        }
+    }
+
+    pub fn check_expr(&mut self, expr: &Expr) -> Type {
+        match expr {
+            Expr::IntLit(_)   => Type::Int,
+            Expr::FloatLit(_) => Type::Float,
+            Expr::BoolLit(_)  => Type::Bool,
+            Expr::StrLit(_)   => Type::Str,
+
+            Expr::Var(name) => match self.table.lookup(name) {
+                Some(sym) => sym.ty.clone(),
+                None => {
+                    self.table.error(format!("Variabila nedeclarata: '{}'", name));
+                    Type::Unit
+                }
+            },
+
+            Expr::BinOp { op, left, right } => {
+                let lt = self.check_expr(left);
+                let rt = self.check_expr(right);
+                match op {
+                    BinOp::Add | BinOp::Sub | BinOp::Mul | BinOp::Div => {
+                        if lt != rt || (lt != Type::Int && lt != Type::Float) {
+                            self.table.error(format!(
+                                "Operatori {:?} necesita Int sau Float, gasit {:?} si {:?}",
+                                op, lt, rt));
+                        }
+                        lt
+                    }
+                    BinOp::Eq | BinOp::Ne | BinOp::Lt | BinOp::Gt => {
+                        if lt != rt {
+                            self.table.error(format!(
+                                "Comparatie intre tipuri diferite: {:?} vs {:?}", lt, rt));
+                        }
+                        Type::Bool
+                    }
+                    BinOp::And | BinOp::Or => {
+                        if lt != Type::Bool || rt != Type::Bool {
+                            self.table.error(format!(
+                                "And/Or necesita Bool, gasit {:?} si {:?}", lt, rt));
+                        }
+                        Type::Bool
+                    }
+                }
+            }
+
+            Expr::Call { func, args } => match self.table.lookup(func).cloned() {
+                None => {
+                    self.table.error(format!("Functie nedeclarata: '{}'", func));
+                    Type::Unit
+                }
+                Some(sym) => {
+                    if let Type::Fn { params, ret } = sym.ty {
+                        if args.len() != params.len() {
+                            self.table.error(format!(
+                                "'{}' asteapta {} argumente, primit {}",
+                                func, params.len(), args.len()));
+                        } else {
+                            for (arg, param_ty) in args.iter().zip(params.iter()) {
+                                let arg_ty = self.check_expr(arg);
+                                if &arg_ty != param_ty {
+                                    self.table.error(format!(
+                                        "Argument incorect pentru '{}': asteptat {:?}, gasit {:?}",
+                                        func, param_ty, arg_ty));
+                                }
+                            }
+                        }
+                        *ret
+                    } else {
+                        self.table.error(format!("'{}' nu este o functie", func));
+                        Type::Unit
+                    }
+                }
+            },
+
+            Expr::If { cond, then_, else_ } => {
+                let cond_ty = self.check_expr(cond);
+                if cond_ty != Type::Bool {
+                    self.table.error(format!(
+                        "Conditia if trebuie sa fie Bool, gasit {:?}", cond_ty));
+                }
+                let then_ty = self.check_expr(then_);
+                if let Some(else_expr) = else_ {
+                    let else_ty = self.check_expr(else_expr);
+                    if then_ty != else_ty {
+                        self.table.error(format!(
+                            "Ramurile if/else au tipuri diferite: {:?} vs {:?}",
+                            then_ty, else_ty));
+                    }
+                    then_ty
+                } else {
+                    Type::Unit
+                }
+            }
+        }
+    }
+}
+#+end_src
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "block_scope".into(), params: vec![], ret_ty: Type::Unit,
+        body: vec![
+            Stmt::Block(vec![
+                Stmt::Let { name: "y".into(), ty: None, init: Some(Expr::IntLit(10)) },
+            ]),
+            Stmt::ExprStmt(Expr::Var("y".into())),
+        ],
+    }]}, "exerc2.a:");
+
+    check(Program { functions: vec![FnDecl {
+        name: "immutable_param".into(),
+        params: vec![("a".into(), Type::Int)],
+        ret_ty: Type::Int,
+        body: vec![
+            Stmt::Assign { name: "a".into(), value: Expr::IntLit(7) },
+            Stmt::Return(Expr::Var("a".into())),
+        ],
+    }]}, "exerc2.b:");
+
+    check(Program { functions: vec![FnDecl {
+        name: "typed_let_mismatch".into(), params: vec![], ret_ty: Type::Unit,
+        body: vec![
+            Stmt::Let { name: "x".into(), ty: Some(Type::Int), init: Some(Expr::BoolLit(true)) },
+        ],
+    }]}, "exerc2.c:");
+#+end_src
+
+#+begin_example
+=== exerc2.a: ===
+EROARE: Variabila nedeclarata: 'y'
+
+=== exerc2.b: ===
+EROARE: Atribuire invalida: 'a' este imutabila
+
+=== exerc2.c: ===
+EROARE: Tip incompatibil pentru 'x': asteptat Int, gasit Bool
+#+end_example
+
+* Exercitiul 3: Type checking pentru if si apeluri de functii
+Construiti manual in main.rs un AST pentru programul: fn max(a: Int, b: Int) -> Int
+{ if a > b { return a; } else { return b; } } si verificati-l cu type checker-ul.
+Adaugati un test cu apel de functie cu numarul gresit de argumente: apelati
+aduna(1, 2, 3) si verificati ca type checker-ul raporteaza eroarea corecta.
+Adaugati un test cu apel de functie cu tipuri gresite: apelati aduna(true, 5) si
+verificati mesajul de eroare.
+
+** ~ast.rs~
+
+#+begin_src rust
+use crate::types::Type;
+
+#[derive(Debug, Clone)]
+pub enum Expr {
+    IntLit(i64),
+    FloatLit(f64),
+    BoolLit(bool),
+    StrLit(String),
+    Var(String),
+    BinOp { op: BinOp, left: Box<Expr>, right: Box<Expr> },
+    Call { func: String, args: Vec<Expr> },
+    If { cond: Box<Expr>, then_: Box<Expr>, else_: Option<Box<Expr>> },
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum BinOp { Add, Sub, Mul, Div, Eq, Ne, Lt, Gt, And, Or }
+
+#[derive(Debug, Clone)]
+pub enum Stmt {
+    Let { name: String, ty: Option<Type>, init: Option<Expr> },
+    Assign { name: String, value: Expr },
+    Return(Expr),
+    ExprStmt(Expr),
+    Block(Vec<Stmt>),
+}
+
+#[derive(Debug, Clone)]
+pub struct FnDecl {
+    pub name: String,
+    pub params: Vec<(String, Type)>,
+    pub ret_ty: Type,
+    pub body: Vec<Stmt>,
+}
+
+#[derive(Debug, Clone)]
+pub struct Program {
+    pub functions: Vec<FnDecl>,
+}
+#+end_src
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "max".into(),
+        params: vec![("a".into(), Type::Int), ("b".into(), Type::Int)],
+        ret_ty: Type::Int,
+        body: vec![Stmt::Return(Expr::If {
+            cond: Box::new(Expr::BinOp {
+                op: BinOp::Gt,
+                left: Box::new(Expr::Var("a".into())),
+                right: Box::new(Expr::Var("b".into())),
+            }),
+            then_: Box::new(Expr::Var("a".into())),
+            else_: Some(Box::new(Expr::Var("b".into()))),
+        })],
+    }]}, "exerc3.a:");
+
+    check(Program { functions: vec![
+        FnDecl {
+            name: "aduna".into(),
+            params: vec![("a".into(), Type::Int), ("b".into(), Type::Int)],
+            ret_ty: Type::Int,
+            body: vec![Stmt::Return(Expr::BinOp {
+                op: BinOp::Add,
+                left: Box::new(Expr::Var("a".into())),
+                right: Box::new(Expr::Var("b".into())),
+            })],
+        },
+        FnDecl {
+            name: "apel_gresit_arity".into(), params: vec![], ret_ty: Type::Int,
+            body: vec![Stmt::Return(Expr::Call {
+                func: "aduna".into(),
+                args: vec![Expr::IntLit(1), Expr::IntLit(2), Expr::IntLit(3)],
+            })],
+        },
+    ]}, "exerc3.b:");
+
+    check(Program { functions: vec![
+        FnDecl {
+            name: "aduna".into(),
+            params: vec![("a".into(), Type::Int), ("b".into(), Type::Int)],
+            ret_ty: Type::Int,
+            body: vec![Stmt::Return(Expr::BinOp {
+                op: BinOp::Add,
+                left: Box::new(Expr::Var("a".into())),
+                right: Box::new(Expr::Var("b".into())),
+            })],
+        },
+        FnDecl {
+            name: "apel_gresit_tip".into(), params: vec![], ret_ty: Type::Int,
+            body: vec![Stmt::Return(Expr::Call {
+                func: "aduna".into(),
+                args: vec![Expr::BoolLit(true), Expr::IntLit(5)],
+            })],
+        },
+    ]}, "exerc3.c:");
+#+end_src
+
+#+begin_example
+=== exerc3.a: ===
+OK - nicio eroare semantica
+
+=== exerc3.b: ===
+EROARE: 'aduna' asteapta 2 argumente, primit 3
+
+=== exerc3.c: ===
+EROARE: Argument incorect pentru 'aduna': asteptat Int, gasit Bool
+#+end_example
+
+* Exercitiul 4: Inferenta de tip simpla
+
+** ~types.rs~
+
+#+begin_src rust
+#[derive(Debug, Clone, PartialEq)]
+pub enum Type {
+    Int, Float, Bool, Str, Unit, Unknown,
+    Fn { params: Vec<Type>, ret: Box<Type> },
+}
+#+end_src
+
+** Modificati Stmt::Let astfel incat daca nu se specifica tipul explicit (ty: None), type checker-ul sa il deduca automat din expresia de initializare. Testati cu let x = 42 + 1 (ar trebui sa dea Int). Adaugati suportul pentru Type::Unknown: daca o variabila e declarata fara tip si fara initializare (let x;), tipul ramane Unknown pana la prima atribuire.
+
+#+begin_src rust
+    check(Program { functions: vec![FnDecl {
+        name: "infer_int".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![
+            Stmt::Let { name: "x".into(), ty: None, init: Some(Expr::BinOp {
+                op: BinOp::Add,
+                left: Box::new(Expr::IntLit(42)),
+                right: Box::new(Expr::IntLit(1)),
+            })},
+            Stmt::Return(Expr::Var("x".into())),
+        ],
+    }]}, "exerc4.a:");
+
+    check(Program { functions: vec![FnDecl {
+        name: "unknown_then_assign".into(), params: vec![], ret_ty: Type::Int,
+        body: vec![
+            Stmt::Let { name: "x".into(), ty: None, init: None },
+            Stmt::Assign { name: "x".into(), value: Expr::IntLit(5) },
+            Stmt::Return(Expr::Var("x".into())),
+        ],
+    }]}, "exerc4.b:");
+}
+#+end_src
+
+#+begin_example
+=== exerc4.a: ===
+OK - nicio eroare semantica
+
+=== exerc4.b: ===
+OK - nicio eroare semantica
+#+end_example
+
+** Descrieti in cuvinte cum ar functiona inferenta de tip completa pentru let x = aduna(1, 2) — ce pasi ar urma type checker-ul?
+
+1. *Cautare functie*: ~aduna~ este localizata in tabela de simboluri; se extrage semnatura
+   (param: ~[Int, Int]~, ret: ~Int~).
+2. *Validare argumente*: ~1~ si ~2~ sunt ~Int~ => corespund parametrilor.
+3. *Deducere tip expresie*: ~aduna(1, 2)~ are tipul de retur al functiei => ~Int~.
+4. *Inregistrare variabila*: ~x~ se adauga in tabela cu tipul dedus ~Int~.
+
+* Exercitiul 5: Analiza semantica in contextul Rust
+
+** Scrieti un program Rust real care contine fiecare dintre urmatoarele erori, compilati-l si notati mesajul exact de eroare: (a) variabila nedeclarata, (b) tip incompatibil la atribuire, (c) functie apelata cu argumente gresite, (d) return cu tip gresit.
+
+*** variabila nedeclarata
+
+#+begin_src rust
+fn main() {
+    println!("{}", x);
+}
+#+end_src
+
+#+begin_example
+error[E0425]: cannot find value `x` in this scope
+ --> ex5a_nedeclarata.rs:2:20
+  |
+2 |     println!("{}", x);
+  |                    ^ not found in this scope
+#+end_example
+
+*** tip incompatibil la atribuire
+
+#+begin_src rust
+fn main() {
+    let mut x: i32 = 5;
+    x = true;
+}
+#+end_src
+
+#+begin_example
+error[E0308]: mismatched types
+ --> ex5a_atribuire_tip_gresit.rs:3:9
+  |
+2 |     let mut x: i32 = 5;
+  |                --- expected due to this type
+3 |     x = true;
+  |         ^^^^ expected `i32`, found `bool`
+#+end_example
+
+*** argumente gresite la apel
+
+#+begin_src rust
+fn aduna(a: i32, b: i32) -> i32 { a + b }
+
+fn main() {
+    let _ = aduna(1, 2, 3);
+}
+#+end_src
+
+#+begin_example
+error[E0061]: this function takes 2 arguments but 3 arguments were supplied
+ --> ex5a_apel_argumente_gresite.rs:6:13
+  |
+6 |     let _ = aduna(1, 2, 3);
+  |                        ^ unexpected argument #3 of type `{integer}`
+#+end_example
+
+*** return cu tip gresit
+
+#+begin_src rust
+fn f() -> i32 {
+    return "abc";
+}
+
+fn main() {}
+#+end_src
+
+#+begin_example
+error[E0308]: mismatched types
+ --> ex5a_return_gresit.rs:2:12
+  |
+1 | fn f() -> i32 {
+  |           --- expected `i32` because of return type
+2 |     return "abc";
+  |            ^^^^^ expected `i32`, found `&str`
+#+end_example
+
+** Pentru fiecare eroare din punctul a), explicati in ce faza a type checker-ului nostru ar fi detectata si ce regula s-ar aplica.
+
+- *Variabila nedeclarata* (~Expr::Var~ / ~Stmt::Assign~): ~lookup~ in tabela inainte de utilizare.
+- *Tip incompatibil la atribuire* (~Stmt::Assign~): tipul RHS verificat sa coincida cu tipul
+  variabilei din tabela.
+- *Argumente gresite* (~Expr::Call~): numar si tipuri de argumente verificate fata de semnatura.
+- *Return de tip gresit* (~Stmt::Return~): tipul expresiei returnate comparat cu ~ret_ty~ al functiei.
+
+** Explicati de ce borrow checker-ul din Rust este o forma de analiza semantica dar merge dincolo de type checking standard. Ce verifica el pe care type checker-ul nostru NU il verifica?
+
+Borrow checker-ul este analiza semantica avansata dincolo de type checking; verifica:
+- Unicitatea referintelor mutabile (max 1 referinta mutabila la un moment dat).
+- Invalidarea referintelor dupa mutare (move semantics).
+- Dangling pointers: referinte catre valori iesite din scope.
+
+Type checker-ul nostru nu modeleaza ownership, lifetime-uri sau aliasing.

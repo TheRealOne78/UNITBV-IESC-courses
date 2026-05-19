@@ -1,0 +1,322 @@
+#+title: laborator 4
+#+subtitle: limbaje formale si translatoare -- automate finite si expresii regulate in rust
+#+author: Racheru Ioana, CALC, 4LF732
+#+include: ../config.org
+#+options: date:nil
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{tikz}
+#+latex_header: \usetikzlibrary{automata,positioning,arrows.meta}
+
+* Exercitiul 1: Simulare manuala a unui AFD
+
+** Folosind AFD-ul pentru identificatori din sectiunea 2.2, simulati manual (pe hartie) tranzitia stare cu stare pentru fiecare sir de mai jos. Scrieti toate starile parcurse si concluzia (Acceptat / Respins). Siruri de simulat: 'result', '_count', 'var2_x', '3D', 'x y' (cu spatiu).
+
+| sir    | stari parcurse              | rezultat |
+|--------+-----------------------------+----------|
+| result | S->II->II->II->II->II->II   | acceptat |
+| _count | S->II->II->II->II->II->II   | acceptat |
+| var2_x | S->II->II->II->II->II->II   | acceptat |
+| 3D     | S->D                        | respins  |
+| x y    | S->II->D                    | respins  |
+
+** Construiti manual (pe hartie) AFD-ul pentru numere hexazecimale: prefixul '0x' urmat de una sau mai multe cifre hex (0-9, a-f, A-F). Definiti starile, tranzitiile si starea finala.
+
+Stari: ~Start~, ~SawZero~, ~SawX~, ~InHex~, ~Dead~. Stare finala: ~InHex~.
+
+#+begin_latex
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2.6cm, on grid, auto,
+  every state/.style={circle, draw, minimum size=0.9cm, font=\small}]
+  \node[state, initial]   (S)  {Start};
+  \node[state]            (SZ) [right=of S]        {SawZ};
+  \node[state]            (SX) [right=of SZ]       {SawX};
+  \node[state, accepting] (IH) [right=of SX]       {InHex};
+  \node[state]            (D)  [below=2cm of SX]   {Dead};
+  \path[->]
+    (S)  edge                  node              {0}    (SZ)
+    (S)  edge [bend right=30]  node [below left] {else} (D)
+    (SZ) edge                  node              {x}    (SX)
+    (SZ) edge                  node [left]       {else} (D)
+    (SX) edge                  node              {hex}  (IH)
+    (SX) edge                  node              {else} (D)
+    (IH) edge [loop above]     node              {hex}  ()
+    (IH) edge [bend left=25]   node [right]      {else} (D)
+    (D)  edge [loop below]     node              {*}    ();
+\end{tikzpicture}
+\end{center}
+#+end_latex
+
+** Simulati AFD-ul de la punctul c) pentru sirurile: '0xFF', '0x1A3', '0xGG', '0x', 'FF'
+
+| sir   | traseu                        | rezultat |
+|-------+-------------------------------+----------|
+| 0xFF  | S->SZ->SX->IH->IH             | acceptat |
+| 0x1A3 | S->SZ->SX->IH->IH->IH         | acceptat |
+| 0xGG  | S->SZ->SX->D->D               | respins  |
+| 0x    | S->SZ->SX (SawX nefinala)     | respins  |
+| FF    | S->D->D                       | respins  |
+
+* Exercitiul 2: Construirea unui AFD pentru operatori
+
+** Construiti un AFD care recunoaste operatorii: =, ==, !=, ->, -. Atentie la regula maximal munch: '==' trebuie sa fie un singur token, nu doua '='. Definiti starile necesare si desenati diagrama de tranzitii.
+
+Stari finale: ~SawEq~, ~SawEqEq~, ~SawNotEq~, ~SawMinus~, ~SawArrow~.
+~SawBang~ -- nefinala (! singur nu e recunoscut).
+
+#+begin_latex
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, on grid, auto,
+  every state/.style={circle, draw, minimum size=1cm, font=\small}]
+  % column 1: Start
+  \node[state, initial]   (S)   at (0,0)    {Start};
+  % column 2: after first char
+  \node[state, accepting] (SE)  at (3.5, 2) {SawEq};
+  \node[state]            (SB)  at (3.5, 0) {SawBang};
+  \node[state, accepting] (SM)  at (3.5,-2) {SawMinus};
+  % column 3: after second char
+  \node[state, accepting] (SEE) at (7, 2)   {SawEqEq};
+  \node[state, accepting] (SNE) at (7, 0)   {SawNEq};
+  \node[state, accepting] (SA)  at (7,-2)   {SawArrow};
+  % Dead: below everything
+  \node[state]            (D)   at (3.5,-4) {Dead};
+  \path[->]
+    (S)   edge              node [above left]  {=}    (SE)
+    (S)   edge              node [above]       {!}    (SB)
+    (S)   edge              node [below left]  {-}    (SM)
+    (S)   edge              node [left]        {else} (D)
+    (SE)  edge              node [above]       {=}    (SEE)
+    (SE)  edge [bend left=15] node [right]     {else} (D)
+    (SB)  edge              node [above]       {=}    (SNE)
+    (SB)  edge              node [right]       {else} (D)
+    (SM)  edge              node [above]       {>}    (SA)
+    (SM)  edge [bend right=15] node [right]    {else} (D)
+    (SEE) edge [bend left=10] node [above right] {else} (D)
+    (SNE) edge [bend left=10] node [right]     {else} (D)
+    (SA)  edge [bend right=10] node [below right]{else} (D)
+    (D)   edge [loop below] node               {*}    ();
+\end{tikzpicture}
+\end{center}
+#+end_latex
+
+** Implementati acest AFD in Rust adaugand un nou enum OpState si struct OpDfa in src/dfa.rs, urmand acelasi pattern ca IdentDfa.
+
+*** ~dfa.rs~
+
+#+begin_src rust
+#[derive(Debug, Clone, PartialEq)]
+pub enum OpState {
+    Start, SawEq, SawEqEq, SawBang, SawNotEq, SawMinus, SawArrow, Dead,
+}
+
+pub struct OpDfa;
+
+impl Dfa for OpDfa {
+    type State = OpState;
+
+    fn start() -> OpState { OpState::Start }
+
+    fn transition(state: &OpState, c: char) -> OpState {
+        match state {
+            OpState::Start    => match c {
+                '=' => OpState::SawEq,
+                '!' => OpState::SawBang,
+                '-' => OpState::SawMinus,
+                _   => OpState::Dead,
+            },
+            OpState::SawEq    => if c == '=' { OpState::SawEqEq  } else { OpState::Dead },
+            OpState::SawBang  => if c == '=' { OpState::SawNotEq } else { OpState::Dead },
+            OpState::SawMinus => if c == '>' { OpState::SawArrow } else { OpState::Dead },
+            _                 => OpState::Dead,
+        }
+    }
+
+    fn is_accepting(state: &OpState) -> bool {
+        matches!(state,
+            OpState::SawEq | OpState::SawEqEq | OpState::SawNotEq |
+            OpState::SawMinus | OpState::SawArrow)
+    }
+}
+#+end_src
+
+** Testati cu: '=', '==', '!=', '->', '-', '==='. La ce rezultat va asteptati pentru '==='?
+
+Start->SawEq->SawEqEq->Dead => *Rejected* (al treilea = duce in Dead).
+
+* Exercitiul 3: Construirea AFN din expresii regulate (algoritm Thompson)
+
+** Aplicati algoritmul Thompson pentru a construi AFN-ul corespunzator expresiei regulate (a|b)*abb. Desenati toate starile si tranzitiile epsilon.
+
+#+begin_latex
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, on grid, auto,
+  every state/.style={circle, draw, minimum size=0.8cm, font=\scriptsize}]
+  % (a|b)* block
+  \node[state, initial]   (q0) at (0, 0)    {$q_0$};
+  \node[state]            (q1) at (2, 0)    {$q_1$};
+  \node[state]            (q2) at (4, 1.4)  {$q_2$};
+  \node[state]            (q3) at (6, 1.4)  {$q_3$};
+  \node[state]            (q4) at (4,-1.4)  {$q_4$};
+  \node[state]            (q5) at (6,-1.4)  {$q_5$};
+  \node[state]            (q6) at (8, 0)    {$q_6$};
+  % kleene exit + abb block
+  \node[state]            (q7) at (10, 0)   {$q_7$};
+  \node[state]            (q8) at (12, 0)   {$q_8$};
+  \node[state]            (q9) at (14, 0)   {$q_9$};
+  \node[state, accepting] (q10) at (16, 0)  {$q_{10}$};
+  \path[->]
+    (q0) edge              node [above]      {$\varepsilon$} (q1)
+    (q0) edge [bend right=35] node [below]  {$\varepsilon$} (q7)
+    (q1) edge              node [above left] {$\varepsilon$} (q2)
+    (q1) edge              node [below left] {$\varepsilon$} (q4)
+    (q2) edge              node [above]      {$a$}           (q3)
+    (q4) edge              node [below]      {$b$}           (q5)
+    (q3) edge              node [above right]{$\varepsilon$} (q6)
+    (q5) edge              node [below right]{$\varepsilon$} (q6)
+    (q6) edge              node [above]      {$\varepsilon$} (q7)
+    (q6) edge [bend left=35] node [above]   {$\varepsilon$} (q1)
+    (q7) edge              node [above]      {$a$}           (q8)
+    (q8) edge              node [above]      {$b$}           (q9)
+    (q9) edge              node [above]      {$b$}           (q10);
+\end{tikzpicture}
+\end{center}
+#+end_latex
+
+** b) Sirul 'abb' apartine limbajului descris de aceasta expresie? Urmati tranzitiile din AFN pas cu pas.
+\[
+q_0 \xrightarrow{\varepsilon} q_7 \xrightarrow{a} q_8 \xrightarrow{b} q_9 \xrightarrow{b} q_{10}
+\]
+Zero repetari ale lui $(a|b)^*$, apoi $abb$ consumat direct. *Acceptat.*
+
+** c) Convertiti manual AFN-ul la AFD folosind constructia submultimilor: fiecare stare a AFD-ului este o multime de stari ale AFN-ului.
+\[
+S_0 = \varepsilon\text{-cl}(q_0) = \{q_0,q_1,q_2,q_4,q_7\}
+\]
+\[
+S_1 = \varepsilon\text{-cl}(\delta(S_0,a)) = \{q_1,q_2,q_3,q_4,q_6,q_7,q_8\}
+\]
+\[
+S_2 = \varepsilon\text{-cl}(\delta(S_0,b)) = \{q_1,q_2,q_4,q_5,q_6,q_7\}
+\]
+\[
+S_3 = \varepsilon\text{-cl}(\delta(S_1,b)) = \{q_1,q_2,q_4,q_5,q_6,q_7,q_9\}
+\]
+\[
+S_4^* = \varepsilon\text{-cl}(\delta(S_3,b)) = \{q_1,q_2,q_4,q_5,q_6,q_7,q_{10}\}
+\]
+
+| Stare AFD    | pe $a$ | pe $b$ |
+|--------------+--------+--------|
+| $S_0$        | $S_1$  | $S_2$  |
+| $S_1$        | $S_1$  | $S_3$  |
+| $S_2$        | $S_1$  | $S_2$  |
+| $S_3$        | $S_1$  | $S_4$  |
+| $S_4^*$ (fin) | $S_1$ | $S_2$  |
+
+* Exercitiul 4: Extinderea lexerului cu noi tokeni
+
+** Adaugati in lexer_dfa.rs suportul pentru comentariile de linie (// pana la sfarsit de linie). Cum afecteaza asta functia next_token()?
+#+begin_src rust
+Some('/') => {
+    self.advance();
+    if self.peek() == Some('/') {
+        while let Some(c) = self.peek() {
+            if c == '\n' { break; }
+            self.advance();
+        }
+        self.next_token()  // apel recursiv; sare peste comentariu
+    } else {
+        Token::Error('/')
+    }
+}
+#+end_src
+
+Dupa consumarea comentariului, ~next_token()~ se apeleaza recursiv pentru a returna urmatorul token valid.
+
+** Adaugati suportul pentru numere hexazecimale (0x...) in try_number(). Hint: modificati NumberState cu inca doua stari: AfterZero si InHex. Doua stari noi: ~AfterZero~, ~InHex~.
+
+#+begin_src rust
+pub enum NumberState {
+    Start, Digits, Dot, FloatDigits, Dead,
+    AfterZero,  // citit '0'
+    InHex,      // citit '0x' + >=1 hex
+}
+
+// transition():
+NumberState::Start => {
+    if c == '0'                { NumberState::AfterZero }
+    else if c.is_ascii_digit() { NumberState::Digits    }
+    else                       { NumberState::Dead       }
+}
+NumberState::AfterZero => match c {
+    'x' | 'X'               => NumberState::InHex,
+    '.'                     => NumberState::Dot,
+    c if c.is_ascii_digit() => NumberState::Digits,
+    _                       => NumberState::Dead,
+}
+NumberState::InHex => {
+    if c.is_ascii_hexdigit() { NumberState::InHex }
+    else                     { NumberState::Dead  }
+}
+
+// is_accepting():
+matches!(state, NumberState::Digits | NumberState::FloatDigits
+              | NumberState::AfterZero | NumberState::InHex)
+
+// parsare in try_number():
+if s.starts_with("0x") || s.starts_with("0X") {
+    Some(Token::Integer(i64::from_str_radix(&s[2..], 16).unwrap()))
+} else if s.contains('.') {
+    Some(Token::Float(s.parse().unwrap()))
+} else {
+    Some(Token::Integer(s.parse().unwrap()))
+}
+#+end_src
+
+** Testati lexerul complet cu sirul: 'let x = 0xFF + 3.14; // total'
+#+begin_example
+Ident("let")
+Ident("x")
+Assign
+Integer(255)    -- 0xFF convertit corect
+Plus
+Float(3.14)
+Semicolon
+Eof
+#+end_example
+
+* Exercitiul 5: Minimizarea manuala a unui AFD
+
+** Considerati AFD-ul cu 4 stari {A, B, C, D} peste alfabetul {0, 1}, cu starile finale {C, D}, si tranzitiile: A-0->B, A-1->C, B-0->B, B-1->D, C-0->C, C-1->C, D-0->D, D-1->D. Aplicati algoritmul de minimizare prin partitionare: impartiti starile in finale si nefinale, apoi refinati pana la stabilizare.
+
+- $P_0 = \{\{A,B\},\{C,D\}\}$ (nefinale vs finale)
+- Clasa $\{C,D\}$: C si D duc pe 0,1 tot in $\{C,D\}$ => nu se desparte
+- Clasa $\{A,B\}$: A si B duc pe 0 in $\{A,B\}$, pe 1 in $\{C,D\}$ => comportament identic => nu se desparte
+- $P_1 = P_0$ => stabilizat imediat
+
+Clase de echivalenta: $\{A,B\}$ si $\{C,D\}$.
+
+** c) Desenati AFD-ul minimizat. Cate stari are?
+#+begin_latex
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=3.5cm, on grid, auto,
+  every state/.style={circle, draw, minimum size=1cm}]
+  \node[state, initial]   (AB) {AB};
+  \node[state, accepting] (CD) [right=of AB] {CD};
+  \path[->]
+    (AB) edge [loop above] node {0}   ()
+    (AB) edge              node {1}   (CD)
+    (CD) edge [loop above] node {0,1} ();
+\end{tikzpicture}
+\end{center}
+#+end_latex
+
+** d) Verificati ca AFD-ul minimizat accepta aceleasi siruri ca cel original testand cu: '0', '1', '10', '01', '11'.
+
+| sir | orig              | min                | rez      |
+|-----+-------------------+--------------------+----------|
+| 0   | A->B (nefin)      | AB->AB (nefin)     | respins  |
+| 1   | A->C (fin)        | AB->CD (fin)       | acceptat |
+| 10  | A->C->C (fin)     | AB->CD->CD (fin)   | acceptat |
+| 01  | A->B->D (fin)     | AB->AB->CD (fin)   | acceptat |
+| 11  | A->C->C (fin)     | AB->CD->CD (fin)   | acceptat |

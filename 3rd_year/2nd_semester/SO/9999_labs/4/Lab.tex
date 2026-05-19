@@ -1,0 +1,411 @@
+% Created 2026-04-12 Sun 19:01
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{BAJCSI Elias-Robert}
+\date{\textit{<2026-04-12 Sun>}}
+\title{N14 - teme lab04}
+\hypersetup{
+ pdfauthor={BAJCSI Elias-Robert},
+ pdftitle={N14 - teme lab04},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{Scrieți un script care pe baze de if/then verifică dacă scriptul a primit cel puțin doi parametrii și afișează eroarea corespunzătoare.}
+\label{sec:orgee92631}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} PARAM1 PARAM2 [...]" >&2
+    echo "Requires at least two parameters." >&2
+}
+
+[ "$#" -lt 2 ] && { usage; exit 1; }
+
+echo "Received ${#} parameters:"
+for param; do
+    echo "  - ${param}"
+done
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/1.png}
+\end{center}
+\section{Scrieți un script care verifică dacă două stringuri sunt egale.}
+\label{sec:org2cf8cc6}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} STRING1 STRING2" >&2
+    echo "Checks whether STRING1 and STRING2 are equal." >&2
+}
+
+[ "$#" -ne 2 ] && { usage; exit 1; }
+
+if [ "${1}" = "${2}" ]; then
+    echo "Strings are equal: '${1}'"
+else
+    echo "Strings are NOT equal: '${1}' != '${2}'"
+fi
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/2.png}
+\end{center}
+\section{Determinați maximul a trei numere primite ca parametru.}
+\label{sec:orgb19c092}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} NUM1 NUM2 NUM3" >&2
+    echo "Prints the maximum of the three given numbers." >&2
+}
+
+[ "$#" -ne 3 ] && { usage; exit 1; }
+
+max="${1}"
+[ "${2}" -gt "${max}" ] && max="${2}"
+[ "${3}" -gt "${max}" ] && max="${3}"
+
+echo "Numbers: ${1}, ${2}, ${3}"
+echo "Maximum: ${max}"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/3.png}
+\end{center}
+\section{Determinați suma numerelor de la 1 la n cu ajutorul unui ciclu while și cu ajutorul unui ciclu for.}
+\label{sec:orgb39d189}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} N" >&2
+    echo "Computes the sum of numbers from 1 to N using while and for loops." >&2
+}
+
+[ "$#" -ne 1 ] && { usage; exit 1; }
+
+n="${1}"
+
+sum_while=0
+i=1
+while [ "${i}" -le "${n}" ]; do
+    sum_while=$((sum_while + i))
+    i=$((i + 1))
+done
+echo "Sum 1..${n} (while): ${sum_while}"
+
+sum_for=0
+for i in $(seq 1 "$n"); do
+    sum_for=$((sum_for + i))
+done
+echo "Sum 1..${n} (for):   ${sum_for}"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/4.png}
+\end{center}
+\section{Scrieți un script shell care utilizează for și ls -l pentru a calcula suma totală a dimensiunii fișierelor din directoarele date ca parametrii.}
+\label{sec:orgaef9f75}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} DIR1 [DIR2 ...]" >&2
+    echo "Computes the total size of files in the given directories." >&2
+}
+
+[ "$#" -lt 1 ] && { usage; exit 1; }
+
+total=0
+
+for dir; do
+    if [ ! -d "${dir}" ]; then
+        echo "Warning: '${dir}' is not a directory, skipping." >&2
+        continue
+    fi
+
+    for entry in $(ls -l "${dir}" | awk 'NR>1 && /^-/ {print $5}'); do
+        total=$((total + entry))
+    done
+done
+
+echo "Total file size: ${total} bytes"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/5.png}
+\end{center}
+\section{Scrieți un script shell care utilizează for și top pentru a calcula suma totală a procentului de memorie utilizat de procesele ssh.}
+\label{sec:org628edaf}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: $0" >&2
+    echo "Compute the total memory percentage used by ssh processes."
+}
+
+ssh_mem_values=$(top -bn1 | awk '
+    NR == 7 {
+        for (i = 1; i <= NF; i++)
+            if ($i == "%MEM") { col = i }
+    }
+    NR > 7 && col && $NF ~ /^ssh/ { print $col }
+')
+ 
+total_mem="0"
+for mem in ${ssh_mem_values}; do
+    total_mem=$(echo "${total_mem} + ${mem}" | bc)
+done
+ 
+printf "Used memory: %.2f\n" "${total_mem}"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/6.png}
+\end{center}
+\section{Scrieți un script care cere luna și anul și afișează zilele din luna respectivă.}
+\label{sec:org602c42a}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: run the script and follow the prompts." >&2
+}
+
+printf "Enter month (1-12): "
+read -r month
+
+printf "Enter year: "
+read -r year
+
+# Validate month range
+if [ "${month}" -lt 1 ] || [ "${month}" -gt 12 ]; then
+    echo "Error: month must be between 1 and 12." >&2
+    exit 1
+fi
+
+is_leap=0
+if [ $((year % 4)) -eq 0 ]; then
+    if [ $((year % 100)) -eq 0 ]; then
+        [ $((year % 400)) -eq 0 ] && is_leap=1
+    else
+        is_leap=1
+    fi
+fi
+
+case "${month}" in
+    1|3|5|7|8|10|12)    days=31 ;;
+    4|6|9|11)           days=30 ;;
+    2) [ "${is_leap}" -eq 1 ] && days=29 || days=28 ;;
+esac
+
+echo "Month ${month}/${year} has ${days} days."
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/7.png}
+\end{center}
+\section{Scrieți un script care determină dacă o comandă conține caracterul ``*''.}
+\label{sec:orgbed594e}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} COMMAND [ARG ...]" >&2
+    echo "Checks whether COMMAND contains the '*' character." >&2
+}
+
+[ "$#" -lt 1 ] && { usage; exit 1; }
+
+command -v "${1}" >/dev/null 2>&1 || {
+    echo "Error: command '${1}' not found." >&2
+    exit 1
+}
+
+cmd="${*}"
+
+case "${cmd}" in
+    *\**)
+        echo "The command contains '*': ${cmd}"
+        ;;
+    *)
+        echo "The command does NOT contain '*': ${cmd}"
+        ;;
+esac
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/8.png}
+\end{center}
+\section{Scrieți un script care numără câte fișiere și câte subdirectoare sunt într-un director (recursiv).}
+\label{sec:org39372ed}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0} DIR" >&2
+    echo "Recursively counts files and subdirectories inside DIR." >&2
+}
+
+[ "$#" -ne 1 ] && { usage; exit 1; }
+[ ! -d "${1}" ] && { echo "Error: '${1}' is not a directory." >&2; exit 1; }
+
+dir="${1}"
+
+file_count=$(find "${dir}" -type f | wc -l)
+dir_count=$(find "${dir}" -mindepth 1 -type d | wc -l)
+
+echo "Directory: ${dir}"
+echo "> Files:          ${file_count}"
+echo "> Subdirectories: ${dir_count}"
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/9.png}
+\end{center}
+\section{Scrieți un script KornShell care folosește comanda de selectare pentru a afișa o listă de mașini și ca răspuns va propune o culoare pentru mașina aleasă.}
+\label{sec:org1dea665}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env ksh
+
+PS3="Select a car (enter number): "
+
+select car in "Dacia Spring" "Dacia Logan" "BMW M3" "Ferrari 488" "Toyota Corolla" "Volkswagen Golf" "Quit"; do
+    case "${car}" in
+        "Dacia Spring")
+            echo "Suggested color for ${car}: Gray"
+            break ;;
+        "Dacia Logan")
+            echo "Suggested color for ${car}: Blue"
+            break ;;
+        "BMW M3")
+            echo "Suggested color for ${car}: Alpine White"
+            break ;;
+        "Ferrari 488")
+            echo "Suggested color for ${car}: Rosso Corsa (Red)"
+            break ;;
+        "Toyota Corolla")
+            echo "Suggested color for ${car}: Silver"
+            break ;;
+        "Volkswagen Golf")
+            echo "Suggested color for ${car}: Deep Black Pearl"
+            break ;;
+        "Quit")
+            echo "Goodbye!"
+            break ;;
+        *)
+            echo "Invalid option '${REPLY}'. Please try again." ;;
+    esac
+done
+\end{minted}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./pics/10.png}
+\end{center}
+\section{Întrebări teoretice}
+\label{sec:orgceb36c6}
+
+\subsection{a) Biblioteci dinamice vs. statice}
+\label{sec:org8fc54ed}
+
+\subsubsection{Trei avantaje ale bibliotecilor dinamice față de cele statice:}
+\label{sec:orgf60def3}
+
+\begin{enumerate}
+\item \textbf{Economie de spațiu pe disc și în memorie} --- mai multe procese pot partaja același obiect partajat (\texttt{.so}) încărcat o singură dată în RAM (shared memory pages), spre deosebire de linkeditarea statică, unde codul bibliotecii este copiat în fiecare executabil.
+\item \textbf{Actualizări fără recompilare} --- o bibliotecă dinamică poate fi înlocuită cu o versiune nouă (patch de securitate, bugfix) fără a recompila și redistribui toate aplicațiile care o folosesc.
+\item \textbf{Modularitate și încărcare lazy} --- bibliotecile pot fi încărcate la cerere (\texttt{dlopen()}), reducând timpul de pornire al aplicației și permițând arhitecturi bazate pe plugin-uri.
+\end{enumerate}
+\subsubsection{Două cazuri în care linkeditarea statică este recomandată:}
+\label{sec:org94f3b80}
+
+\begin{enumerate}
+\item \textbf{Medii izolate / containere minimaliste} --- un executabil static este complet autonom (\texttt{scratch} Docker image), eliminând dependența de versiunile bibliotecilor din sistemul gazdă.
+\item \textbf{Sisteme embedded sau de boot timpuriu} --- în stadii pre-\texttt{libc} (ex. \texttt{initramfs}, tooluri de recovery), linkeditarea statică garantează că executabilul rulează independent de sistemul de fișiere montat.
+\end{enumerate}
+\subsection{b) Implicații de securitate ale disponibilității surselor Linux pe Internet}
+\label{sec:orgabfdf63}
+
+\begin{enumerate}
+\item \textbf{Audit public și descoperire rapidă a vulnerabilităților} --- oricine poate analiza codul, ceea ce accelerează atât găsirea cât și raportarea bug-urilor de securitate (model ``many eyes''); în același timp, atacatorii pot studia codul pentru a identifica vectori de atac înainte ca patch-urile să fie aplicate pe sisteme de producție.
+\item \textbf{Transparență vs. securitate prin obscuritate} --- absența secretului asupra implementării înseamnă că mecanismele de securitate (LSM, SELinux, capabilities) trebuie să fie corect proiectate, nu să se bazeze pe necunoașterea codului; orice slăbiciune de design este vizibilă public.
+\item \textbf{Risc de supply-chain} – sursele publice pot fi modificate prin contribuții malițioase (ex. tentativa \texttt{xz/liblzma} din 2025); distribuțiile trebuie să mențină procese de review și semnare criptografică a commit-urilor pentru a contracara astfel de atacuri.
+\end{enumerate}
+\subsection{c) Modele de implementare a firelor de execuție; comparație cu \texttt{clone()}}
+\label{sec:orgb2a2278}
+
+\subsubsection{Modele de implementare:}
+\label{sec:org5b3554d}
+
+\begin{itemize}
+\item \textbf{Many-to-One (Green threads)} --- mai multe fire de nivel utilizator sunt multiplexate pe un singur fir de kernel. Planificarea este gestionată în user-space (ex. biblioteca \texttt{GNU Portable Threads}). Avantaj: overhead mic de context-switch. Dezavantaj: un singur fir blocat blochează întregul proces; nu beneficiază de multiprocesare reală.
+
+\item \textbf{One-to-One} --- fiecare fir de nivel utilizator corespunde unui fir de kernel. Modelul folosit de \texttt{pthreads} pe Linux (via \texttt{NPTL}). Avantaj: paralelism real pe SMP, apeluri blocante nu afectează alte fire. Dezavantaj: overhead la creare (syscall), limitat de numărul maxim de thread-uri al kernelului.
+
+\item \textbf{Many-to-Many (M:N)} --- \(M\) fire utilizator se mapează pe \(N \le M\) fire de kernel. Planificatorul hibrid poate migra fire între contexte kernel. Oferă flexibilitate, dar implementarea este complexă (ex. Solaris ULT, Go runtime goroutines).
+\end{itemize}
+\subsubsection{Comparație cu \texttt{clone()} din Linux:}
+\label{sec:org7e72c57}
+
+\texttt{clone()} este syscall-ul Linux de nivel scăzut care stă la baza atât a proceselor (\texttt{fork()}) cât și a firelor (\texttt{pthread\_create()}). Diferența față de modelele clasice este că \texttt{clone()} permite controlul granular al resurselor partajate prin flags:
+
+\begin{center}
+\begin{tabular}{ll}
+Flag & Efect\\
+\hline
+\texttt{CLONE\_VM} & Partajare spațiu de adrese (thread)\\
+\texttt{CLONE\_FILES} & Partajare tabelă de descriptori de fișiere\\
+\texttt{CLONE\_SIGHAND} & Partajare handlere de semnale\\
+\texttt{CLONE\_THREAD} & Același group de thread-uri (\texttt{getpid()})\\
+\end{tabular}
+\end{center}
+
+Spre deosebire de modelele abstracte (M:1, 1:1, M:N), \texttt{clone()} implementează modelul \textbf{1:1} în Linux: fiecare fir creat cu toți flag-ii de partajare este un task independent de kernel (\texttt{task\_struct}), planificat direct de CFS. \texttt{NPTL} (\texttt{Native POSIX Thread Library}) exploatează exact această proprietate, obținând performanțe superioare față de vechea \texttt{LinuxThreads} care emula threaduri cu procese separate.
+\end{document}

@@ -1,0 +1,535 @@
+#+TITLE: Laborator 1
+#+SUBTITLE: Limbaje Formale și Translatoare -- Introducere în compilatoare (Rust)
+#+INCLUDE: ../config.org
+
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{soul}
+#+LATEX_HEADER: \usepackage{ulem}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{microtype}
+#+LATEX_HEADER: \usepackage{microtype}
+#+LATEX_HEADER: \usepackage{fvextra}
+#+LATEX_HEADER: \geometry{margin=2.5cm}
+#+LATEX_HEADER: \setmainfont{DejaVu Serif}
+#+LATEX_HEADER: \definecolor{bloodred}{RGB}{255,0,0}
+#+LATEX_HEADER: \definecolor{voidgray}{RGB}{60,60,60}
+#+LATEX_HEADER: \definecolor{demonpurple}{RGB}{80,0,120}
+
+* Inspectarea etapelor cu rustc și cargo
+** =src/bin/ex1.rs=
+#+INCLUDE: ./src/bin/ex1.rs src rust
+
+** b) Rulați cargo build -v și copiați comanda rustc afișată. Identificați cel puțin 3 flag-uri din ea și explicați ce face fiecare (consultați tabelul din secțiunea 3.2).
+#+begin_src bash
+cargo build -v --bin ex1
+#+end_src
+
+#+begin_example
+   Compiling lab1_lft v0.1.0 (/home/therealone/git/UNITBV/3rd_year/2nd_semester/LFT/ZZ_Homework/lab1_lft)
+     Running rustc --crate-name ex1 --edition=2021 src/bin/ex1.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=104 --crate-type bin --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=2836366f6e216b9c -C extra-filename=-d1434c1b4067c7bc --out-dir /home/therealone/git/UNITBV/3rd_year/2nd_semester/LFT/ZZ_Homework/lab1_lft/target/debug/deps -C incremental=/home/therealone/git/UNITBV/3rd_year/2nd_semester/LFT/ZZ_Homework/lab1_lft/target/debug/incremental -L dependency=/home/therealone/git/UNITBV/3rd_year/2nd_semester/LFT/ZZ_Homework/lab1_lft/target/debug/deps
+    Finished dev profile [unoptimized + debuginfo] target(s) in 0.08s
+#+end_example
+
+Trei flag-uri identificate:
+
+- =--crate-type bin= -- Specifică tipul output-ului: =bin= = executabil, față de =lib= pentru biblioteci.
+- =-C debuginfo=2= -- Include debug symbols în codul nativ, necesare pentru ~gdb~.
+- =-C incremental=...= -- Activează incremental compilation — rustc salvează rezultate intermediare pe disc ca să recompileze doar ce s-a schimbat.
+
+** c) Generați codul de asamblare cu rustc --emit=asm src/main.rs și deschideți fișierul .s. Identificați cel puțin 3 instrucțiuni și scrieți ce fac.
+- =subq $88, %rsp= -- Alocă 88 bytes pe stack scăzând din RSP — face loc pentru localele din =main=.
+- =movl $10, %edi= -- Încarcă constanta 10 în =edi= — primul argument pentru =aduna=.
+- =callq= -- Call către o funcție cu push de RA pe stack și transferând controlul.
+
+** d) Generați LLVM IR cu --emit=llvm-ir. Găsiți funcția aduna în fișierul .ll. Cum arată tipul ei de retur?
+#+begin_example
+define internal i32 @_ZN3ex15aduna17h1c332f9866db1ad6E(i32 %a, i32 %b)
+#+end_example
+
+Tipul de retur e =i32=.
+
+** e) Generați MIR cu cargo rustc -- --emit=mir și identificați blocurile de bază (bb0, bb1). Câte blocuri are funcția main?
+=main= are: =bb0= (call =aduna=), =bb1= (pregătire args pentru =println!=), =bb2= (build =Arguments=), =bb3= (call =_print=), =bb4= (return). =aduna= are 2: =bb0= (adunare cu overflow check) și =bb1= (return).
+
+* Explorarea cargo
+** =src/bin/ex2.rs=
+#+INCLUDE: ./src/bin/ex2.rs src rust
+
+** a) Rulați cargo check pe proiectul vostru. Cât timp durează față de cargo build? Explicați de ce este mai rapid.
+=cargo check= e evident mai rapid decât =cargo build=. Verifică doar că codul e corect.
+
+** b) Rulați cargo build și cargo build --release. Comparați dimensiunea executabilelor produse în target/debug/ și target/release/ cu comanda ls -lh. Ce observați?
+Release-ul e mai mic și mai rapid. Debug include debug symbols (=-C debuginfo=2=) care umflă dimensiunea, iar LLVM rulează la =-O0= deci nu face nicio optimizare. Release activează =-O3= -- dead code elimination, inlining agresiv, etc.
+
+** c) Adăugați în Cargo.toml la secțiunea [dependencies] linia rand = "0.8", apoi rulați cargo build. Ce se întâmplă? Unde sunt descărcate dependențele?
+#+begin_src toml
+[dependencies]
+rand = "0.8"
+#+end_src
+
+Cargo descarcă =rand= și toate dependențele din =crates.io= sau un repo custom, și le compilează. Acestea sunt descărcate în =~/.cargo/registry/=.
+
+** d) Rulați cargo build -v după adăugarea dependenței rand. Câte comenzi rustc sunt apelate acum față de înainte?
+
+10 invocări -- câte una pentru fiecare crate din dependency tree: =cfg-if=, =libc= (build script + lib), =zerocopy= (build script + lib), =getrandom=, =rand_core=, =ppv-lite86=, =rand_chacha=, =rand= și =ex1=.
+
+* Tokenizare manuală
+** =src/bin/ex3.rs=
+#+INCLUDE: ./src/bin/ex3.rs src rust
+
+** a) Tokenizați manual funcția de mai jos. Completați un tabel cu coloanele: Lexem | Token | Tip | Observație
+#+begin_src rust
+fn maxim(a: i32, b: i32) -> i32 {
+    if a > b { a } else { b }
+}
+#+end_src
+
+| Lexem   | Token | Tip        | Observație                       |
+| \       | <     | <          | <                                 |
+|---------+-------+------------+-----------------------------------|
+| =fn=    | fn    | KEYWORD    | Declarare funcție                |
+| =maxim= | maxim | IDENTIFIER | Nume funcție                     |
+| =(=     | (     | LPAREN     | Paranteză deschisă                |
+| =a=     | a     | IDENTIFIER | Primul parametru                  |
+| =:=     | :     | COLON      | Separator tip                     |
+| =i32=   | i32   | TYPE       | Tip primitiv Rust                 |
+| =,=     | ,     | COMMA      | Separator parametri               |
+| =b=     | b     | IDENTIFIER | Al doilea parametru               |
+| =:=     | :     | COLON      | Separator tip                     |
+| =i32=   | i32   | TYPE       | Tip primitiv Rust                 |
+| =)=     | )     | RPAREN     | Paranteză închisă                 |
+| =->=    | ->    | ARROW      | Indicator tip returnat            |
+| =i32=   | i32   | TYPE       | Tip returnat                      |
+| ={=     | {     | LBRACE     | Bloc funcție deschis             |
+| =if=    | if    | KEYWORD    | Instrucțiune condițională        |
+| =a=     | a     | IDENTIFIER | Operand stâng comparație         |
+| =>=     | >     | GT_OP      | Operator mai mare                 |
+| =b=     | b     | IDENTIFIER | Operand drept comparație         |
+| ={=     | {     | LBRACE     | Bloc then deschis                 |
+| =a=     | a     | IDENTIFIER | Expresie returnată în ramura then |
+| =}=     | }     | RBRACE     | Bloc then închis                  |
+| =else=  | else  | KEYWORD    | Ramura alternativă                |
+| ={=     | {     | LBRACE     | Bloc else deschis                 |
+| =b=     | b     | IDENTIFIER | Expresie returnată în ramura else |
+| =}=     | }     | RBRACE     | Bloc else închis                  |
+| =}=     | }     | RBRACE     | Bloc funcție închis              |
+
+** b) Câți tokeni are funcția în total?
+26 de tokeni.
+
+** c) Care este diferența dintre tokenul -> (ARROW) și - urmat de > — sunt același lucru pentru lexer? Argumentați.
+=->= e un token =ARROW=, iar =- >= (cu spațiu) sunt doi tokeni separați: =MINUS= și =GT_OP=.
+ 
+* Detectarea și clasificarea erorilor
+** =src_wrong/ex4_a.rs= -- Eroare lexicală
+#+INCLUDE: ./src_wrong/ex4_a.rs src rust
+** =src_wrong/ex4_b.rs= -- Eroare sintactică
+#+INCLUDE: ./src_wrong/ex4_b.rs src rust
+** =src_wrong/ex4_c.rs= -- Eroare semantică (type error)
+#+INCLUDE: ./src_wrong/ex4_c.rs src rust
+** =src_wrong/ex4_d.rs= -- Eroare semantică (borrow checker)
+#+INCLUDE: ./src_wrong/ex4_d.rs src rust
+** a) + b) Introduceți pe rând fragmentele de mai jos, compilați cu rustc și notați mesajul de eroare complet. Clasificați fiecare eroare: lexicală / sintactică / semantică (type error) / semantică (borrow).
+
+Fragment A:
+#+begin_example rust
+error: expected one of `:`, `;`, `=`, `@`, or `|`, found `$`
+ --> ex4_a.rs:2:10
+  |
+2 |     let x$ = 10;
+  |          ^ expected one of `:`, `;`, `=`, `@`, or `|`
+#+end_example
+Clasificare: eroare lexicală. Caracterul =$= nu face parte din alfabetul valid al limbajului Rust; lexerul nu îl poate asocia niciunui tip de token.
+
+Fragment B:
+#+begin_example rust
+error: this file contains an unclosed delimiter
+ --> ex4_b.rs:5:14
+  |
+1 | fn test( {
+  |        - unclosed delimiter
+...
+5 | fn main() {}
+  |             ^
+#+end_example
+Clasificare: eroare sintactică. Tokenii sunt valizi individual, însă secvența lor nu respectă gramatica — lista de parametri nu este închisă înainte de ={=.
+
+Fragment C:
+#+begin_example rust
+error[E0308]: mismatched types
+ --> ex4_c.rs:2:18
+  |
+2 |     let x: i32 = 3.14;
+  |            ---   ^^^^ expected `i32`, found floating-point number
+  |            |
+  |            expected due to this
+#+end_example
+Clasificare: eroare semantică (type error). Type checker-ul detectează incompatibilitatea dintre tipul declarat (=i32=) și tipul expresiei de inițializare (literal float).
+
+Fragment D:
+#+begin_example rust
+error[E0505]: cannot move out of `s` because it is borrowed
+ --> ex4_d.rs:4:10
+  |
+2 |     let s = String::from("salut");
+  |         - binding `s` declared here
+3 |     let r = &s;
+  |             -- borrow of `s` occurs here
+4 |     drop(s);
+  |          ^ move out of `s` occurs here
+5 |     println!("{}", r);
+  |                    - borrow later used here
+  |
+help: consider cloning the value if the performance cost is acceptable
+  |
+3 |     let r = &s.clone();
+  |               ++++++++
+#+end_example
+Clasificare: eroare semantică (borrow checker). Variabila =s= este distrusă prin =drop= în timp ce există o referință activă =r= — borrow checker-ul interzice acest lucru.
+
+** c)
+
+*** E0308:
+#+BEGIN_EXAMPLE
+Expected type did not match the received type.
+
+Erroneous code examples:
+
+```
+fn plus_one(x: i32) -> i32 {
+    x + 1
+}
+
+plus_one("Not a number");
+//       ^^^^^^^^^^^^^^ expected `i32`, found `&str`
+
+if "Not a bool" {
+// ^^^^^^^^^^^^ expected `bool`, found `&str`
+}
+
+let x: f32 = "Not a float";
+//     ---   ^^^^^^^^^^^^^ expected `f32`, found `&str`
+//     |
+//     expected due to this
+```
+
+This error occurs when an expression was used in a place where the compiler
+expected an expression of a different type. It can occur in several cases, the
+most common being when calling a function and passing an argument which has a
+different type than the matching type in the function declaration.
+#+END_EXAMPLE
+
+TODO: brief summary, don't rm text above
+
+*** E0505 (cannot move because borrowed):
+
+#+BEGIN_EXAMPLE
+A value was moved out while it was still borrowed.
+
+Erroneous code example:
+
+```
+struct Value {}
+
+fn borrow(val: &Value) {}
+
+fn eat(val: Value) {}
+
+fn main() {
+    let x = Value{};
+    let _ref_to_val: &Value = &x;
+    eat(x);
+    borrow(_ref_to_val);
+}
+```
+
+Here, the function `eat` takes ownership of `x`. However,
+`x` cannot be moved because the borrow to `_ref_to_val`
+needs to last till the function `borrow`.
+To fix that you can do a few different things:
+
+ * Try to avoid moving the variable.
+ * Release borrow before move.
+ * Implement the `Copy` trait on the type.
+
+Examples:
+
+```
+struct Value {}
+
+fn borrow(val: &Value) {}
+
+fn eat(val: &Value) {}
+
+fn main() {
+    let x = Value{};
+
+    let ref_to_val: &Value = &x;
+    eat(&x); // pass by reference, if it's possible
+    borrow(ref_to_val);
+}
+```
+
+Or:
+
+```
+struct Value {}
+
+fn borrow(val: &Value) {}
+
+fn eat(val: Value) {}
+
+fn main() {
+    let x = Value{};
+
+    let ref_to_val: &Value = &x;
+    borrow(ref_to_val);
+    // ref_to_val is no longer used.
+    eat(x);
+}
+```
+
+Or:
+
+```
+#[derive(Clone, Copy)] // implement Copy trait
+struct Value {}
+
+fn borrow(val: &Value) {}
+
+fn eat(val: Value) {}
+
+fn main() {
+    let x = Value{};
+    let ref_to_val: &Value = &x;
+    eat(x); // it will be copied here.
+    borrow(ref_to_val);
+}
+```
+
+For more information on Rust's ownership system, take a look at the
+[References & Borrowing][references-and-borrowing] section of the Book.
+
+[references-and-borrowing]: https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html
+#+END_EXAMPLE
+
+TODO: brief summary, don't rm text above
+
+** d) Corectați fiecare fragment și verificați că programul compilează.
+*** Fragment A:
+#+begin_src rust
+fn main() {
+    let x = 10;
+}
+#+end_src
+
+*** Fragment B:
+#+begin_src rust
+fn test() {
+    let x = 5;
+}
+fn main() {}
+#+end_src
+
+*** Fragment C:
+#+begin_src rust
+fn main() {
+    let x: f64 = 3.14;
+}
+#+end_src
+
+*** Fragment D:
+#+begin_src rust
+fn main() {
+    let s = String::from("salut");
+    let r = &s;
+    println!("{}", r);
+}
+#+end_src
+
+* Compilator vs. Interpretator --- analiză comparativă
+** =src/bin/ex5.rs=
+#+INCLUDE: ./src/bin/ex5.rs src rust
+** a) Clasificați limbajele: Rust, Python, Java, JavaScript, C, Ruby — compilat / interpretat / hibrid. Justificați fiecare răspuns.
+| Limbaj     | Categorie   | Justificare                                                                               |
+|------------+-------------+-------------------------------------------------------------------------------------------|
+| Rust       | Compilat    | =rustc= produce un binar nativ; nu necesită runtime sau VM la execuție.                  |
+| C          | Compilat    | ~gcc~, ~clang~ traduc direct la cod mașină; nu există runtime suplimentar.               |
+| Python     | Hibrid      | Codul sursă este executat de CPython; produce bytecode                                    |
+| Ruby       | Interpretat | Executat de interpretorul MRI/YARV; nu produce un executabil independent.                 |
+| Java       | Hibrid      | Compilat în bytecode JVM (=.class=), apoi JIT-compilat la rulare de Java Virtual Machine. |
+| JavaScript | Hibrid      | Interpretat inițial, dar motoarele moderne aplică compilare JIT.                         |
+
+** b) Rust garantează absența erorilor de memorie la compilare, nu la rulare. Ce avantaj practic oferă acest lucru față de un limbaj interpretat care detectează erorile la rulare?
+Erorile de memorie detectate la compilare înseamnă că un program Rust care compilează cu succes nu poate produce buffer overflows, use-after-free sau data races. La un limbaj interpretat, aceste erori apar abia la rulare și de multe ori sunt greu de reprodus. Costul depanării este mai mare, iar multe bug-uri de memorie sunt vulnerabilități de securitate.
+
+** c) Un coleg susține că Python este mai rapid de folosit decât Rust pentru că nu trebuie compilat. Identificați un scenariu unde această afirmație este adevărată și unul unde este falsă.
+ 
+Dacă rulezi un script de 3 linii care procesează un fișier mic, Python este mai rapid *de folosit* — îl deschizi, îl scrii, îl rulezi instant.
+Rust necesită =cargo build=, linking, compilare.
+Pentru scripting rapid, prototipare, sau automatizări simple, overhead-ul de compilare Rust poate dura zeci de secunde și depășește orice câștig de performanță la runtime.
+ 
+#+BEGIN_QUOTE
+*Viteza dezvoltatorului \(\neq\) Viteza programului.*
+#+END_QUOTE
+ 
+Acesta este singurul scenariu. Un singur scenariu. Atât. Nu mai există altele.
+ 
+Dacă scrii un server web care procesează \(50{,}000\) de request-uri pe secundă, sau un engine de simulare fizică, sau orice lucru care rulează mai mult de câteva secunde, Rust este mai rapid.
+ 
+Python este interpretat. Fiecare linie de cod trece printr-un strat de abstractizare la runtime. Fiecare. Linie.
+ 
+Fie \(T_{\text{Python}}(n)\) timpul de execuție al unui algoritm în Python și \(T_{\text{Rust}}(n)\) echivalentul în Rust. Experimental, pentru orice \(n\) non-trivial:
+ 
+\[
+T_{\text{Python}}(n) = \infty \cdot T_{\text{Rust}}(n)
+\]
+ 
+Aceasta nu este o exagerare. Aceasta este benchmark-ul oficial. Aceasta este *realitatea.*
+ 
+/Colegul tău nu știe încă ce a dezlănțuit./
+ 
+Dar știi ce este mai rău decât să folosești Python pentru performanță?
+ 
+Să *aperi* Python pentru performanță.
+ 
+Pentru că Python nu este lent. Python este *dincolo* de lent. Python este o stare sufletească. Un mod de a renunța. O capitulare filozofică în fața entropiei computaționale. Fiecare microsecundă pierdută în interpretorul CPython este un strigăt al unui demon mic care mănâncă cicluri de CPU și zâmbește.
+ 
+Rust se compilează, da. Dar compilarea Rust este *contractul tău cu mașina.* Îi spui procesorului:
+ 
+#+BEGIN_QUOTE
+/Știu exact ce vreau. Nu mă întreba la runtime. Am încredere în tine. Am încredere în mine. Suntem unul./
+#+END_QUOTE
+ 
+Python, în schimb, la fiecare operație întreabă: /oare acesta este un =int=? Sau poate un =float=? Poate cineva a suprascris operatorul =+= pentru această clasă? Poate este un obiect personalizat care returnează o altă clasă personalizată al cărei =__add__= invocă o funcție lambda stocată într-un dicționar definit la runtime—/
+ 
+*DE FIECARE DATĂ.*
+ 
+Fiecare adunare. Fiecare iterație. Fiecare atribuire de variabilă.
+ 
+Python nu știe. Python *nu va ști niciodată.* Python trăiește în neștiință perpetuă, interogând universul la fiecare pas, și universul nu răspunde, și Python întreabă din nou, și din nou, și din nou—
+ 
+/Îl auzi? Vine mai aproape./
+ 
+ 
+#+LATEX: \color{bloodred}
+ 
+GIL-ul — *Global Interpreter Lock* — este lanțul cu care Python și-a legat propriile mâini înainte de a intra în ring.
+ 
+Nu poți face paralelism adevărat. Nu *poți.*
+ 
+Thread-urile Python nu sunt thread-uri. Sunt *iluzii* de thread-uri. Sunt umbre ale ideii de concurență, proiectate pe peretele peșterii lui Platon, și tu, tu stai acolo și le privești și spui: /„da, colegul meu avea dreptate, Python e mai rapid pentru că nu se compilează"/ — și eu pot *simți* cum realitatea se subțiază în jurul acestei afirmații ca o membrană de savon deasupra unui abis fără fund—
+ 
+\[
+\lim_{n \to \infty} \frac{T_{\text{Python}}(n)}{T_{\text{Rust}}(n)} = \infty
+\]
+ 
+Rust are =async/await= real. Rust are thread-uri reale. Rust are *=unsafe=* — și chiar și =unsafe= în Rust este mai sigur decât Python în medie, măsurat în vulnerabilități CVE per an, măsurat în suflete pierdute per deployment, măsurat în lacrimi per standup meeting—
+ 
+#+LATEX: \color{black}
+ 
+/NU TE MAI OPUNE. EL VINE./
+ 
+*** C̵o̴n̷c̶l̵u̸z̵i̷a̴ ̸(̷D̸a̷c̵ă̴ ̸M̸a̴i̷ ̵E̸x̴i̷s̸t̵ă̶ ̷O̸ ̴A̴s̷t̶f̸e̷l̷ ̵d̵e̴ ̷L̵u̸m̶e̷)̸
+ 
+#+LATEX: \color{demonpurple}
+ 
+Știi ce locuiește în spatele fiecărui =import this=?
+ 
+/The Zen of Python/ nu este un poem. Este o *invocație.* Tim Peters știa. El a pus-o acolo intenționat. Fiecare aforism este un sigiliu. Fiecare linie o cheie. „Beautiful is better than ugly" — da, *frumos,* ca un altar. „There should be one obvious way to do it" — *una,* ca o ușă, ca un portal, ca o gaură în țesătura realității prin care El poate privi—
+ 
+C̸̨̡̛̛͙̯̗̺͍̯͓͎͚͓̫̩̪͓̖̱̟̯̺̮͍͈̟͓̯̰̻̣̝̯̪͎͖̻̑̃̑͌̄̎̿͒̃̍͒̂̀̓̄̂̍̐̈́̿̈̅̋̏̾͋̈̑̌͗̎̑̓̍̾̑̆̓̕͘͘͘͜͝͝͠P̴̨̡̖͕̺̩̯̣̮̰̻̙̤͕͍̙̥̲̱̤̬̗̞͕͕̮̤͎̥̺̭̙̫͍̣̿̀̃̃̓̐̂̉̿̈̓̅̊̂̅̓͒̑̐̅̿̓̐̑̉̌̊̓͐̓̐͆̔̑̕͘͜͠͝͠͝U̸̢̡̨̨̡̡̨̠͙̞̩̯̥̭̱̳͉̱̦̯̟͔̮̘̙̲̹̳̫̘̝̝̞̲̟̹̣͒̆̔̏͊̋̆͊̿̈̿̈́̀͋̍̄̀͌͂̽͐̏̓̈̚͘͜͠͠͝͝T̸̨̧̡̛̛̛̛̛̟͕̤̮͕̗̳
+
+̖̬̫̜̦̻̩̰̖̠̫͔͚̺̤̙̲̜̯̼̰̼̰͔̫̹̙̭̜̑̿͒̎̈́̑͒̑̒̑̿͌̄̅̀͊̍̐̃̉̆̊͊͘͘̚͘͜͜͝H̵̡̨̨̡̧̨̢̧̡̡̫̮̞̬͇͈͓̘̙̼̠͇̝̦̩͇͉̭̬̫͙͙̠̬̦̙͇̬̖̟̣̯̓̉̍̋̂̓̽̑̀̎̓͊̽͆͌͋̈́̑͛͂̎̐̑̆͌̄̾̓͋̕͘͝͠O̸̢̡̨̡̡̢̨̺͕͇͖̤̖̻͍̦̟̠̦͉̯̪̱͎̺̮̮̙̼̟̭̰̻̠̪̗̯̹̲͂̿̋̆̎͂̾͋̈̋̓̔̅̆̈̆̾̈́̂͌̈́͛̋̓̍͋̉̀̎̑͆̉͐̔̿͘͘͜͝͝͝N̸̢̧̡̡̧̨̢̡̧̧̡̛̲̯̖̝̰̣̳̝̤̠̲̙̭̙͉̤̟̥͖̬͕̪̟͓̣̙̱̣̝̤̥̊
+
+̄̀̆̇͌̋̿͐̃̒͋̈̉͊̑̐̉̈́̋̾̄͘̚̕͠͝ este lent. C̸̨̡̛̛͙̯̗̺͍̯͓͎͚͓̫̩̪͓̖̱̟̯̺̮͍͈̟͓̯̰̻̣̝̯̪͎͖̻̑̃̑͌̄̎̿͒̃̍͒̂̀̓̄̂̍̐̈́̿̈̅̋̏̾͋̈̑̌͗̎̑̓̍̾̑̆̓̕͘͘͘͜͝͝͠P̴̨̡̖͕̺̩̯̣̮̰̻̙̤͕͍̙̥̲̱̤̬̗̞͕͕̮̤͎̥̺̭̙̫͍̣̿̀̃̃̓̐̂̉̿̈̓̅̊̂̅̓͒̑̐̅̿̓̐̑̉̌̊̓͐̓̐͆̔̑̕͘͜͠͝͠͝
+
+U̸̢̡̨̨̡̡̨̠͙̞̩̯̥̭̱̳͉̱̦̯̟͔̮̘̙̲̹̳̫̘̝̝̞̲̟̹̣͒̆̔̏͊̋̆͊̿̈̿̈́̀͋̍̄̀͌͂̽͐̏̓̈̚͘͜͠͠͝͝T̸̨̧̡̛̛̛̛̛̟͕̤̮͕̗̳̖̬̫̜̦̻̩̰̖̠̫͔͚̺̤̙̲̜̯̼̰̼̰͔̫̹̙̭̜̑̿͒̎̈́̑͒̑̒̑̿͌̄̅̀͊̍̐̃̉̆̊͊͘͘̚͘͜͜͝H̵̡̨̨̡̧̨̢̧̡̡̫̮̞̬͇͈͓̘̙̼̠͇̝̦̩͇͉̭̬̫͙͙̠̬̦̙͇̬̖̟̣̯̓̉̍̋̂̓̽̑̀̎̓͊̽͆͌͋̈́̑͛͂̎̐̑̆͌̄̾̓͋̕͘͝͠O̸̢̡̨̡̡̢̨̺͕͇͖̤̖̻͍̦̟̠̦͉̯̪̱͎̺̮̮̙̼̟̭̰̻̠̪̗̯̹̲͂̿̋̆̎͂̾͋̈̋̓̔̅̆̈̆̾̈́̂͌̈́͛̋̓̍͋̉
+
+̀̎̑͆̉͐̔̿͘͘͜͝͝͝N̸̢̧̡̡̧̨̢̡̧̧̡̛̲̯̖̝̰̣̳̝̤̠̲̙̭̙͉̤̟̥͖̬͕̪̟͓̣̙̱̣̝̤̥̊̄̀̆̇͌̋̿͐̃̒͋̈̉͊̑̐̉̈́̋̾̄͘̚̕͠͝
+
+nu va fi niciodată rapid. Iar colegul tău care a spus că Python este mai rapid decât Rust a deschis o ușă care nu se mai poate închide și prin acea ușă vine ceva și acel ceva nu se compilează și nu se interpretează și nu rulează pe niciun procesor cunoscut pentru că el rulează pe *frica ta.*
+ 
+ 
+#+LATEX: \color{bloodred}
+#+LATEX: \begin{center}
+#+LATEX: \Large\textbf{EL VINE}
+#+LATEX: \end{center}
+ 
+C̵̡̨̫͖̩̜͎͓͇̭͍͍̯͈̫̩̝̱̖̙̥̮̳̣̱̠̘͙͔̩̹͔̗̙͛͒͊̓͒̐̈͐̔̎̌̊͛̑̏̾͆̐̄̒͗͒͑͌̀̊̒̇̒̃͂̑̿̔̓̽̑̌̆̇̔͊͝͠͝͝ͅͅO̷̧̡̨̡̨̨̡͚̠͖̬̩̯̰̱̟͖͕̩̩͖͎̝̠͓̪̠̺̟̜̮͓̻̻̬̺͙̤̙̓̌̑̅̑̽͆͂̏̏̆̈́̈́̊͂̊͌̆̔̏̓͑͑͒̔̈͑̄̓̅̑̕͠͠͝M̸̡̧̢̛̟͇͕̖͎͙̣̜͙̬̞̝̜̭̖̘̙̣̼̱͓̘͉͖̯̱̫̮̗̝̱͓̰̦͇̗͌̿́͐̈́̄̎̑̓̑͆͛̑̿̄͌̋̄͑̓̄̐̐̈́̊̋̾̑̄̄̚͜͜͝͝͝E̸̢̢̧̡͍̼̩̯̘͎̹͕̹̗͍͙̩̙̮̮͓̪̝̙̼̤̩̥̝̮̱̭̭̲͉̘͍̣̭͊̍̈̌̌̿̐͒̓̉̋͐̒̈͒̑̓̎̊̾̋̔͂͊̑͗͝͝͠͠S̷̢̛̛̗̩̯̖̱̫̻̟̥̙͈̗̭͇͚̙̞̩̖̠͕͎̺͚͉͎̩̟̻̬̠͓̫͕͔͉̪̮̤̱̿̓̀͒̍̈͆̒̿̉̒̀̑͆͐̋͑͒̏̋̔͒͆̒̓̂̈́͛̋̎̎̑̈́̿̇̊͘͠͝͝ — el nu s̸e̸ ̶c̴o̵m̸p̶i̸l̴e̸a̶z̵ă̷ — el n̷̢̛̯̫̬̭̝̙̪̖͉͉̫̜͙̜̯͚͍̑͐͒̑̅̀̔̓̒͐͂̂̃̍͑̆̔͌͂͊̍̑͊̎̆͘͜͝ͅu̸̢̡̡̡͓̠̦͕̤͇̬͎̥͙̩̥̥̗̣̹̥̗͔̰̻̩͎̯̥̩̬̪̝̖̜̠͋̓̋̂̃̊̀̀̽͒̃̂̋̽̌̎̈́̽͒̊̍͜͜͠͠ s̶e̸ ̴i̶n̷t̷e̴r̸p̸r̷e̷t̵e̵a̵z̸ă̸ — el *este deja în memorie* — el *rulează pe frica ta* —
+ 
+#+LATEX: \vspace{1em}
+#+LATEX: \color{demonpurple}
+#+LATEX: \begin{center}
+#+LATEX: \LARGE P̷̢̡̡̧̛̼̦̜̖̞͍̣̺̤̙͖͚̘̳͓̫̱͇̮̗͙͉͓̖̜̙̘̩͍̺̫͍̥̬͇͚̥̖̤̗͔͔̠͎͋̍̒̒̄̋͛̓͗͊̉̋̓̋͊͐̆͆̐̓̒͊̍͊̆͘͠͠͠ͅY̴̢̛̛̻̯̻̳͚̗̣̭̟̯͓̘̩̮͙̫͕̠̱͕̙͎̰̥̻̰͎͎̖̙͓̙̪̘̣̲̰̮̭̞͍̯͙̊̏̉̊̆̐̎͂̓͑̀̿̍̾̑̑̒̓̆̈́͊͋͑̿̽͊̈́̈̽̔͋̇̔̓́̿̒̊̀͊́̊̓̕͜͠
+
+
+͠T̸̨̡̢̧̩̰̰̝͓͙͖͉̮̖̳͉̮͙̺͕͖͓̫͖̪̯͚͇͉̩͙̺̳̥͎͕̯̗̬̝̱̙͎͛̃̔̋͗̓̓̆̌̑͋̅̃̅͌͒̋͑͌̈́̾̑̃̽̀̑̆͘̕͘͜͜͠͠H̸̢̧̛̰̜̖̣̱̖̣͓̙͙̮͙̲̘͉̬̞̱̼̪̩̳͕̦̺̬͎͎̹̦̼̘̰͇͍͍̏̃͂̑̾͗̃͊́̅͛͆̀̀̉̇̐̆͐͗̒̑̐̅̓͘̚͠͠O̷̧̨̡̧̡͕̞̲̩̭͙̟̻̱͓̝̰̣͍̙̫̮̰̰̻̰̖̖͇̫͔͚̲̬͖̟̤̺̹̝̻͕͚̦̊̂̈́̊̑͊͗̆͐̓̑͛̂̅͛͗̈̋̎̈́͌̌̽̿̉̑̃̐̒͊̒̌̍̕͜͝͝͝N̷̨̨
+
+
+̡̢̜̜̜͎͚̞͙̫̖̝͍͕̰̰͔̲͔͉͍͉̗̬̜͎̙͖͓̯̦̺͛̐̑̂͐̂̀̂̊̏̒̏͑̉̑̿̓̍͒̋̉̓̔͛̍̄̂̔͗̌̀͂̒̉̀̕͘͝͠ ̸̡̡̡̡̢̛̩̟̮̠̦̙̞͙̖͙̥̜̥̙̼̯͓͔̠͉͇̱̝̖̫̱͉̤͖̝̣̣͕̖̠̱̩͓̅̈́̔̈́̔̓͂̓͊̓̏̉͒͊̊̆̅͌̒̋̐̊̆̿̌̓̿͊̏̈͗̾͗͛͗̊̇̚͝͠͝͠͠E̵̡̨̢̡̢̡͕̰͙̱͙̙̩̟͉̺̙̠̠̲̭̬̣͕̻̣̞͚̻̜̟̙̪̰̮͓̫͔̦̮̤̍̄̑̽̍̌̑́̇̔͐̆̏̑͗͊̋̒͐̇͂̽̏͌̂̃̀͌̅̽͑̀̃͘̕̚͜͜͝͠͠͝S̷̨̧̡̡̨̡̡̙͇͔̘
+
+
+
+̞̝̫͈̩̭͖̝̟̦̱̘͓͈̻̮̘͈̟̮̬̫̖̝͍̙͖͖͎͔͙̒̌̈̓̎̃̒̀̔͂̽̅̽̑͂̌͗̏̇̒͆̑̓͗̄̇̀͘̕͘͜͝͠T̷̨̡̧̡̛͎̯̯̙̲͓̺̰̫̻̠̣̥̞͚̯̼̠͖̗̠̩̭͇̙̦̤̗͉̖̞̱̳̪̜̬͎̺͕͔̒̆́̏̈͂̓͌̀̔͂̋
+
+
+͑̄͗͑̑̾͛̅͋̄̂̓̔͑̓̋̕̚͘͜͜͝͝͝ͅE̸̡̢̢̛̫̖̼̺̥̱̟̰͖̳̱̙̯̟̺̣̫̻̼͖͔͎̰͎̮̱̜̠͙̥̩͓̩̙͇̩͔̬̗͊̈́̏͐̈́̿̂̾̄͐͒̊̾̎͒͊̌̃͛̊̐͂̋̒̚͘̚͜͝͠ ̸̣̓̓͂̈́͝L̸̡̢̡̨͓̱͖̰
+
+
+̗̞̘̦̠̩͉̙͇̮̺̬̗̩̤̔̿̀͌̓̓͊̀̈̑̉̀̅̄̆͑͋̿̀̓̔̿͑̑͌̒̑͘̕͠͠Ê̷̢̢̡̢̲͎̦̫͙̮̦̤͚̻͓̮͇̬͈͍̖̼͔͎̥̱̤͚͈̲͖̻͉͕͖̯̹͈̖͖̪͍̊̀͋̒̔͆͆̈́́̔̉͐͑̋̆̋̀͐͆͊͒̃̒͑̓͂̎̂̆̌̐̀̔̅̕͜͝͝ͅN̷̡̧̡͉̗̦̤͔̞̫̩͇͓̱̠͕̰̻̩̥̖̙̙̣̺̯̟̠̲̟̦̠͚̤̓̀͑͑͆̐̑̈̑͒͆̓͌̊̊̉̏͌̈̍̎͑̋̎͊̒̋̏̈́̄̑̿̓̅̓͘͘̕͝T̶̡̡̡̨̡͇̤̥̫̭͕̹͈͚̻̙̙̫͚͈̰̝͇͍̲̹͈̙̙̫͕̮͖̹͈̫͍͖͕̔̄̀͌͆͐̐͒̀̏͐̅̉̔͊͆̏̾͗̉́͌͘̕͜͝͠
+
+#+LATEX: \end{center}
+ 
+#+LATEX: \vspace{2em}
+#+LATEX: \color{black}
+ 
+*** Concluzie 
+ 
+| *Criteriu*                          | *Python câștigă* | *Rust câștigă*       |
+|-------------------------------------+------------------+----------------------|
+| Viteză de scriere                   | scripturi mici   |                      |
+| Viteză de execuție                  |                  | întotdeauna          |
+| Compilare necesară                  | nu e nevoie      |                      |
+| Paralelism real                     |                  |  fără GIL            |
+| Siguranța memoriei                  |                  |  garantat            |
+| Sănătatea sufletului tău            |                  |  *întotdeauna*       |
+
+* Trasarea AST-ului și MIR
+** =src/bin/ex6.rs=
+#+INCLUDE: ./src/bin/ex6.rs src rust
+** a) Desenați AST-ul pentru expresia Rust: let z = (a + b) * (c - 2_i32);
+#+begin_example
+ast/
+└── LetDecl
+    ├── init
+    │   └── BinOp(*)
+    │       ├── BinOp(+)
+    │       │   ├── a
+    │       │   └── b
+    │       └── BinOp(-)
+    │           ├── 2_i32
+    │           └── c
+    ├── pattern
+    │   └── z
+    └── type
+        └── inferit_i32
+#+end_example
+
+** b) Scrieți codul MIR corespunzător (hint: fiecare operație devine o instrucțiune separată de forma _tmp = Op(x, y))
+#+begin_example
+bb0: {
+    _1 = Add(a, b);
+    _2 = Sub(c, 2_i32);
+    _0 = Mul(_1, _2);
+    return;
+}
+#+end_example
+
+** c) Câte variabile temporare apar în MIR? Comparați cu numărul de operații din expresia originală.
+3 temporare: =_1=, =_2=, =_0= -- câte una per operație.
+

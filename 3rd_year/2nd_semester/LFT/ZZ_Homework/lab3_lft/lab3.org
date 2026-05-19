@@ -1,0 +1,309 @@
+#+title: laborator 3
+#+subtitle: limbaje formale și translatoare -- gramatici, ierarhia chomsky si parser recursive descent in rust
+#+include: ../config.org
+#+options: date:nil
+
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{forest}
+
+* exercitiul 1: ierarhia chomsky -- clasificare
+
+** clasificati fiecare limbaj in tipul chomsky corect (tip 3 / tip 2 / tip 1) si justificati:
+- l1 = siruri peste {a, b} care se termina in b  
+        tip 3 --- ajunge ultimul simbol
+- l2 = siruri de forma a^n b^n, n >= 0  
+        tip 2 --- trebuie egal nr de a si b (stiva)
+- l3 = siruri de forma a^n b^n c^n, n >= 1  
+        tip 1 --- 2 dependente simultane
+- l4 = paranteze echilibrate: (), (()), (())(), ...  
+        tip 2 --- nesting + recursie
+- l5 = tokeni (identificatori, numere, operatori)  
+        tip 3 --- pattern-uri simple
+
+* exercitiul 2: constructia unei cfg
+scrieti o gramatica independenta de context pentru fiecare limbaj:
+
+** paranteze echilibrate: l = { () , (()) , (()()) , ((())) , ... }
+\[ s \rightarrow (s) s | \varepsilon \]
+
+** expresii de atribuire simple: let id = number; (cu cuvantul cheie let)
+s -> =let id = number;=
+
+** palindroame peste literele a si b — siruri care se citesc la fel de la stanga si de la dreapta: abba, aabbaa, aba. indicatie: s -> a s a | b s b | a | b | (nimic)
+
+** identificati tipul chomsky (tip 2 sau tip 3) pentru fiecare gramatica scrisa si justificati pe scurt.
+
+- paranteze -> tip 2 (recursie)  
+- atribuire -> tip 3 (secventa fixa)  
+- palindroame -> tip 2 (simetrie)
+
+* exercitiul 3: derivare si arbore
+folosind gramatica e -> e+t | t, t -> t*f | f, f -> (e) | id, derivati sirul id * (id + id) prin derivare stanga si scrieti toti pasii.
+
+** desenati arborele de derivare complet pentru sirul de mai sus.
+
+\[ \\
+\begin{aligned} \\
+e &\rightarrow e + t \\
+  &\rightarrow t + t \\
+  &\rightarrow f + t \\
+  &\rightarrow id + t \\
+  &\rightarrow id + t * f \\
+  &\rightarrow id + f * f \\
+  &\rightarrow id + id * f \\
+  &\rightarrow id + id * (e) \\
+  &\rightarrow id + id * (e + t) \\
+  &\rightarrow id + id * (t + t) \\
+  &\rightarrow id + id * (f + t) \\
+  &\rightarrow id + id * (id + t) \\
+  &\rightarrow id + id * (id + f) \\
+  &\rightarrow id + id * (id + id)
+\end{aligned} \\
+\]
+
+** desenati arborele de derivare complet pentru sirul de mai sus.
+
+#+begin_latex
+\[ \\
+\begin{forest} \\
+[$e$ \\
+  [$e$ \\
+    [$t$ \\
+      [$f$ [id]] \\
+    ] \\
+  ] \\
+  [+] \\
+  [$t$ \\
+    [$t$ \\
+      [$f$ [id]] \\
+    ] \\
+    [*] \\
+    [$f$ \\
+      [(] \\
+      [$e$ \\
+        [$e$ \\
+          [$t$ \\
+            [$f$ [id]] \\
+          ] \\
+        ] \\
+        [+] \\
+        [$t$ \\
+          [$f$ [id]] \\
+        ] \\
+      ] \\
+      [)] \\
+    ] \\
+  ] \\
+] \\
+\end{forest} \\
+\]
+#+end_latex
+
+** desenati ast-ul corespunzator (eliminati neterminalele redundante e, t, f).
+
+#+begin_latex
+\[ \\
+\begin{forest} \\
+[* \\
+  [id] \\
+  [+ \\
+    [id] \\
+    [id] \\
+  ] \\
+] \\
+\end{forest} \\
+\]
+#+end_latex
+
+** care este valoarea expresiei daca id = 3, respectiv id = 2, respectiv id = 5?
+\[ 3 * (2 + 5) = 21 \]
+
+* exercitiul 4: ambiguitate
+** aratati ca gramatica e -> e+e | e*e | id este ambigua construind doi arbori diferiti pentru sirul id + id * id.
+
+*** arbore 1
+#+begin_latex
+\[ \\
+\begin{forest} \\
+[$e$ \\
+  [$e$ \\
+    [$e$ [id]] \\
+    [+] \\
+    [$e$ [id]] \\
+  ] \\
+  [*] \\
+  [$e$ [id]] \\
+] \\
+\end{forest} \\
+\]
+#+end_latex
+
+
+*** arbore 2:
+
+#+begin_latex
+\[ \\
+\begin{forest} \\
+[$e$ \\
+  [$e$ [id]] \\
+  [+] \\
+  [$e$ \\
+    [$e$ [id]] \\
+    [*] \\
+    [$e$ [id]] \\
+  ] \\
+] \\
+\end{forest} \\
+\]
+#+end_latex
+
+
+** rescrieti gramatica ca sa fie neambigua, sa respecte precedenta si asociativitatea stanga.
+
+#+begin_example
+e -> e + t | t
+t -> t * f | f
+f -> (e) | id
+#+end_example
+
+
+** verificati ca sirul id + id * id are acum un singur arbore de derivare in gramatica noua.
+
+#+begin_latex
+\[ \\
+\begin{forest} \\
+[$e$ \\
+  [$e$ \\
+    [$t$ \\
+      [$f$ \\
+        [id] \\
+      ] \\
+    ] \\
+  ] \\
+  [+] \\
+  [$t$ \\
+    [$t$ \\
+      [$f$ \\
+        [id] \\
+      ] \\
+    ] \\
+    [*] \\
+    [$f$ \\
+      [id] \\
+    ] \\
+  ] \\
+] \\
+\end{forest} \\
+\]
+#+end_latex
+
+* exercitiul 5: eliminarea recursivitatii stangi si rust
+
+** eliminati recursivitatea stanga din gramatica: e -> e + e | e - e | id
+
+#+begin_example
+e -> e + e | e - e | id
+#+end_example
+
+#+begin_example
+e  -> id e'
+e' -> + id e' | - id e' | epsilon
+#+end_example
+
+** extindeti parserul din sectiunea 3 cu suportul pentru operatorul - (scadere). modificati token.rs (adaugati minus), lexer.rs si parser.rs.
+
+*** =token.rs=
+#+begin_src rust
+#[derive(debug, clone, partialeq)]
+pub enum token {
+    number(i64),
+    plus,
+    minus,
+    star,
+    slash,
+    lparen,
+    rparen,
+    eof,
+}
+#+end_src
+
+*** =lexer.rs=
+#+begin_src rust
+match c {
+    '+' => { tokens.push(token::plus); chars.next(); }
+    '-' => { tokens.push(token::minus); chars.next(); }
+    '*' => { tokens.push(token::star); chars.next(); }
+    '/' => { tokens.push(token::slash); chars.next(); }
+}
+#+end_src
+
+*** =parser.rs=
+#+begin_src rust
+fn parse_expr_prime(&mut self, left: expr) -> expr {
+    if self.peek() == &token::plus || self.peek() == &token::minus {
+        let is_plus = self.peek() == &token::plus;
+        self.advance();
+        let right = self.parse_term();
+        let node = expr::binop {
+            op: if is_plus { '+' } else { '-' },
+            left: box::new(left),
+            right: box::new(right),
+        };
+        self.parse_expr_prime(node)
+    } else { left }
+}
+
+fn parse_term_prime(&mut self, left: expr) -> expr {
+    if self.peek() == &token::star || self.peek() == &token::slash {
+        let is_star = self.peek() == &token::star;
+        self.advance();
+        let right = self.parse_factor();
+        let node = expr::binop {
+            op: if is_star { '*' } else { '/' },
+            left: box::new(left),
+            right: box::new(right),
+        };
+        self.parse_term_prime(node)
+    } else { left }
+}
+#+end_src
+
+** testati cu 10 / 2 + 1 = 6 si 10 / (2 + 3) = 2.
+
+#+begin_src rust
+run("10 / 2 + 1");
+run("10 / (2 + 3)");
+#+end_src
+
+#+begin_example
+10 / 2 + 1 = 6
+10 / (2 + 3) = 2
+#+end_example
+
+** adaugati afisarea ast-ului intr-un format lizibil (prefix notation): (+ 1 (* 2 3))
+pentru 1 + 2 * 3:
+
+*** =ast.rs=
+#+begin_src rust
+impl fmt::display for expr {
+    fn fmt(&self, f: &mut fmt::formatter<'_>) -> fmt::result {
+        match self {
+            expr::number(n) => write!(f, "{}", n),
+            expr::binop { op, left, right } =>
+                write!(f, "({} {} {})", op, left, right),
+        }
+    }
+}
+#+end_src
+
+*** =main.rs=
+#+begin_src rust
+fn run(input: &str) {
+    let tokens = lexer::tokenize(input);
+    let mut p  = parser::parser::new(tokens);
+    let ast    = p.parse();
+
+    println!("ast: {}", ast);
+    println!("rezultat: {}", ast.eval());
+}
+#+end_src
