@@ -1,0 +1,878 @@
+% Created 2026-05-11 Mon 03:46
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{BAJCSI Elias-Robert}
+\date{}
+\title{N16 - teme lab06}
+\hypersetup{
+ pdfauthor={BAJCSI Elias-Robert},
+ pdftitle={N16 - teme lab06},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+Cerințe:
+Rezolvați cel puțin 3 din problemele din lista de mai jos, astfel:
+\begin{itemize}
+\item probleme impuse / obligatorii: 3, 4;
+\item o problemă la alegere dintre cele din lista de mai jos.
+\end{itemize}
+\section{1}
+\label{sec:orgb4e2c2c}
+\begin{enumerate}
+\item Se se ruleze exemplul cu matrice alocata dinamic din fisier (exemplu alocare memorie).
+\end{enumerate}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{c}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int n, m, i, j;
+    int **a = NULL;
+    printf("n=");
+    scanf("%d", &n);
+    printf("m=");
+    scanf("%d", &m);
+
+    a = (int **)calloc((size_t)n, sizeof(int *));
+    if (a == NULL) {
+        perror("Memorie insuficienta");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++) {
+        a[i] = (int *)calloc((size_t)m, sizeof(int));
+        if (a[i] == NULL) {
+            perror("Memorie insuficienta");
+            while (i > 0) {
+                i--;
+                free(a[i]);
+            }
+            free(a);
+            return 1;
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            printf("a[%d][%d]=", i, j);
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    printf("Matricea citita este:\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            printf("%d ", a[i][j]);
+        }
+        printf("\n");
+    }
+
+    for (i = 0; i < n; i++) {
+        free(a[i]);
+    }
+    free(a);
+
+    return 0;
+}
+\end{minted}
+
+\begin{enumerate}
+\item Sa se implementeze un fractal recursiv folosind matrice alocata dinamic.
+\end{enumerate}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{c}
+#include <stdio.h>
+#include <stdlib.h>
+
+static void fractal(char **m, int x, int y, int size) {
+    int i, j, step;
+    if (size < 3) {
+        return;
+    }
+    step = size / 3;
+    for (i = x + step; i < x + 2 * step; i++) {
+        for (j = y + step; j < y + 2 * step; j++) {
+            m[i][j] = '.';
+        }
+    }
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            int nx, ny;
+            if (i == 1 && j == 1) {
+                continue;
+            }
+            nx = x + i * step;
+            ny = y + j * step;
+            fractal(m, nx, ny, step);
+        }
+    }
+}
+
+int main(void) {
+    int n;
+    char **m;
+
+    printf("n (putere a lui 3) = ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        fprintf(stderr, "n invalid\n");
+        return 1;
+    }
+
+    m = (char **)calloc((size_t)n, sizeof(char *));
+    if (m == NULL) {
+        perror("Memorie insuficienta");
+        return 1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        m[i] = (char *)calloc((size_t)n, sizeof(char));
+        if (m[i] == NULL) {
+            perror("Memorie insuficienta");
+            while (i > 0) {
+                i--;
+                free(m[i]);
+            }
+            free(m);
+            return 1;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            m[i][j] = '#';
+        }
+    }
+    fractal(m, 0, 0, n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            putchar(m[i][j]);
+        }
+        putchar('\n');
+    }
+
+    for (int i = 0; i < n; i++) {
+        free(m[i]);
+    }
+    free(m);
+    return 0;
+}
+\end{minted}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./screenshots/1.png}
+\end{center}
+\section{2}
+\label{sec:org78ad2b6}
+\begin{enumerate}
+\item Se se ruleze exemplul de lista simplu inlatuita din fisier.
+\end{enumerate}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{c}
+#include <stdio.h>
+#include <stdlib.h>
+
+struct linked_list {
+    int item;
+    struct linked_list *next;
+};
+
+static void insert(struct linked_list **head, int value) {
+    struct linked_list *node = (struct linked_list *)malloc(sizeof(struct linked_list));
+    if (node == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        exit(1);
+    }
+    node->item = value;
+    node->next = *head;
+    *head = node;
+}
+
+static void delete_value(struct linked_list **head, int value) {
+    struct linked_list *cur = *head;
+    struct linked_list *prev = NULL;
+    while (cur != NULL) {
+        if (cur->item == value) {
+            break;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+    if (cur == NULL) {
+        return;
+    }
+    if (prev != NULL) {
+        prev->next = cur->next;
+    } else {
+        *head = cur->next;
+    }
+    free(cur);
+}
+
+static void print_list(struct linked_list *head) {
+    struct linked_list *cur = head;
+    while (cur != NULL) {
+        printf("%d ", cur->item);
+        cur = cur->next;
+    }
+    printf("\n");
+}
+
+static void free_list(struct linked_list *head) {
+    while (head != NULL) {
+        struct linked_list *next = head->next;
+        free(head);
+        head = next;
+    }
+}
+
+int main(void) {
+    struct linked_list *head = NULL;
+
+    insert(&head, 1);
+    insert(&head, 4);
+    insert(&head, 2);
+
+    print_list(head);
+    delete_value(&head, 2);
+    print_list(head);
+    delete_value(&head, 1);
+    print_list(head);
+    delete_value(&head, 4);
+    print_list(head);
+
+    free_list(head);
+    return 0;
+}
+\end{minted}
+
+\begin{enumerate}
+\item Sa se implementeze o structura student si operatiile de adaugare, modificare si stergere folosind liste simplu inlantuite.
+\end{enumerate}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{c}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct student {
+    int id;
+    char name[64];
+    float grade;
+    struct student *next;
+};
+
+static void add_student(struct student **head, int id, const char *name, float grade) {
+    struct student *node = (struct student *)malloc(sizeof(struct student));
+    if (node == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        exit(1);
+    }
+    node->id = id;
+    strncpy(node->name, name, sizeof(node->name) - 1);
+    node->name[sizeof(node->name) - 1] = '\0';
+    node->grade = grade;
+    node->next = *head;
+    *head = node;
+}
+
+static struct student *find_student(struct student *head, int id) {
+    while (head != NULL) {
+        if (head->id == id) {
+            return head;
+        }
+        head = head->next;
+    }
+    return NULL;
+}
+
+static int update_student(struct student *head, int id, const char *new_name, float new_grade) {
+    struct student *s = find_student(head, id);
+    if (s == NULL) {
+        return 0;
+    }
+    strncpy(s->name, new_name, sizeof(s->name) - 1);
+    s->name[sizeof(s->name) - 1] = '\0';
+    s->grade = new_grade;
+    return 1;
+}
+
+static int delete_student(struct student **head, int id) {
+    struct student *cur = *head;
+    struct student *prev = NULL;
+    while (cur != NULL) {
+        if (cur->id == id) {
+            break;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+    if (cur == NULL) {
+        return 0;
+    }
+    if (prev != NULL) {
+        prev->next = cur->next;
+    } else {
+        *head = cur->next;
+    }
+    free(cur);
+    return 1;
+}
+
+static void print_students(struct student *head) {
+    while (head != NULL) {
+        printf("id=%d, nume=%s, medie=%.2f\n", head->id, head->name, head->grade);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+static void free_students(struct student *head) {
+    while (head != NULL) {
+        struct student *next = head->next;
+        free(head);
+        head = next;
+    }
+}
+
+int main(void) {
+    struct student *head = NULL;
+
+    add_student(&head, 101, "Ana", 9.25f);
+    add_student(&head, 102, "Mihai", 8.70f);
+    add_student(&head, 103, "Ioana", 9.80f);
+    printf("Dupa adaugare:\n");
+    print_students(head);
+
+    update_student(head, 102, "Mihai Pop", 9.10f);
+    printf("Dupa modificare id=102:\n");
+    print_students(head);
+
+    delete_student(&head, 101);
+    printf("Dupa stergere id=101:\n");
+    print_students(head);
+
+    free_students(head);
+    return 0;
+}
+\end{minted}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./screenshots/2.png}
+\end{center}
+\section{3}
+\label{sec:org22958fa}
+Algoritmi de inlocuire a paginilor de memorie virtuala. O eroare de aredare a unei pagini de memorie (page fault) are loc atunci când un program care rulează accesează o pagină de memorie care este mapată în spațiul de adrese virtuale, dar nu este încărcată în memoria fizică. Deoarece memoria fizică reală este mult mai mică decât memoria virtuală, apar erori de adresare. În cazul unei erori de adresare pagina, sistemul de operare ar putea fi nevoit să înlocuiască una dintre paginile existente cu pagina nou cerută.. Sa se determine numarul de erori (de tipul page fault) pentru un sistem care lucreaza cu trei pagini si primeste urmatorul sir de cereri pentru incarcare pagini  1 2 0 2 7 5 2 4 3 2 5 folosind alogoritmii FIFO (First-In First Out),  Optimal, LRU (Least Recently Used), MRU (Most Recently Used).
+
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0}" >&2
+    echo "Computes page faults for FIFO, OPT, LRU, MRU." >&2
+}
+
+# Check args
+[ "$#" -ne 0 ] && { usage; exit 1; }
+
+seq_pages="1 2 0 2 7 5 2 4 3 2 5"
+frames_n=3
+
+contains() {
+    for x in $1; do
+        [ "$x" = "$2" ] && return 0
+    done
+    return 1
+}
+
+fifo_pf() {
+    frames=""
+    queue=""
+    pf=0
+    for p in $seq_pages; do
+        if contains "$frames" "$p"; then
+            continue
+        fi
+        pf=$((pf + 1))
+        count=$(set -- $frames; echo $#)
+        if [ "$count" -lt "$frames_n" ]; then
+            frames="$frames $p"
+            queue="$queue $p"
+        else
+            set -- $queue
+            old="$1"
+            shift
+            queue="$* $p"
+            new_frames=""
+            for f in $frames; do
+                if [ "$f" = "$old" ]; then
+                    new_frames="$new_frames $p"
+                else
+                    new_frames="$new_frames $f"
+                fi
+            done
+            frames="$new_frames"
+        fi
+    done
+    echo "$pf"
+}
+
+opt_pf() {
+    set -- $seq_pages
+    total=$#
+    i=1
+    frames=""
+    pf=0
+    for p in $seq_pages; do
+        if contains "$frames" "$p"; then
+            i=$((i + 1))
+            continue
+        fi
+        pf=$((pf + 1))
+        count=$(set -- $frames; echo $#)
+        if [ "$count" -lt "$frames_n" ]; then
+            frames="$frames $p"
+        else
+            victim=""
+            victim_pos=-1
+            for f in $frames; do
+                pos=999999
+                j=1
+                for q in $seq_pages; do
+                    if [ "$j" -gt "$i" ] && [ "$q" = "$f" ]; then
+                        pos=$j
+                        break
+                    fi
+                    j=$((j + 1))
+                done
+                if [ "$pos" -gt "$victim_pos" ]; then
+                    victim_pos=$pos
+                    victim="$f"
+                fi
+            done
+            new_frames=""
+            for f in $frames; do
+                if [ "$f" = "$victim" ]; then
+                    new_frames="$new_frames $p"
+                else
+                    new_frames="$new_frames $f"
+                fi
+            done
+            frames="$new_frames"
+        fi
+        i=$((i + 1))
+    done
+    echo "$pf"
+}
+
+last_used_pos() {
+    target="$1"
+    up_to="$2"
+    j=1
+    last=0
+    for q in $seq_pages; do
+        [ "$j" -gt "$up_to" ] && break
+        [ "$q" = "$target" ] && last=$j
+        j=$((j + 1))
+    done
+    echo "$last"
+}
+
+lru_pf() {
+    frames=""
+    pf=0
+    i=1
+    for p in $seq_pages; do
+        if contains "$frames" "$p"; then
+            i=$((i + 1))
+            continue
+        fi
+        pf=$((pf + 1))
+        count=$(set -- $frames; echo $#)
+        if [ "$count" -lt "$frames_n" ]; then
+            frames="$frames $p"
+        else
+            victim=""
+            min_pos=999999
+            for f in $frames; do
+                pos=$(last_used_pos "$f" "$((i - 1))")
+                if [ "$pos" -lt "$min_pos" ]; then
+                    min_pos=$pos
+                    victim="$f"
+                fi
+            done
+            new_frames=""
+            for f in $frames; do
+                if [ "$f" = "$victim" ]; then
+                    new_frames="$new_frames $p"
+                else
+                    new_frames="$new_frames $f"
+                fi
+            done
+            frames="$new_frames"
+        fi
+        i=$((i + 1))
+    done
+    echo "$pf"
+}
+
+mru_pf() {
+    frames=""
+    pf=0
+    i=1
+    for p in $seq_pages; do
+        if contains "$frames" "$p"; then
+            i=$((i + 1))
+            continue
+        fi
+        pf=$((pf + 1))
+        count=$(set -- $frames; echo $#)
+        if [ "$count" -lt "$frames_n" ]; then
+            frames="$frames $p"
+        else
+            victim=""
+            max_pos=-1
+            for f in $frames; do
+                pos=$(last_used_pos "$f" "$((i - 1))")
+                if [ "$pos" -gt "$max_pos" ]; then
+                    max_pos=$pos
+                    victim="$f"
+                fi
+            done
+            new_frames=""
+            for f in $frames; do
+                if [ "$f" = "$victim" ]; then
+                    new_frames="$new_frames $p"
+                else
+                    new_frames="$new_frames $f"
+                fi
+            done
+            frames="$new_frames"
+        fi
+        i=$((i + 1))
+    done
+    echo "$pf"
+}
+
+echo "FIFO: $(fifo_pf)"
+echo "OPT:  $(opt_pf)"
+echo "LRU:  $(lru_pf)"
+echo "MRU:  $(mru_pf)"
+\end{minted}
+
+3 frame-uri, sir: \texttt{1 2 0 2 7 5 2 4 3 2 5}:
+
+\begin{itemize}
+\item FIFO: \texttt{9} page fault-uri
+\item OPT: \texttt{7} page fault-uri
+\item LRU: \texttt{8} page fault-uri
+\item MRU: \texttt{10} page fault-uri
+\end{itemize}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./screenshots/3.png}
+\end{center}
+\section{4}
+\label{sec:org22d58a3}
+Intr-un sistem de gestiunea a memoriei exista la un moment de timp dat urmatoarea lista inlantuita de blocuri libere 6KB, 12KB, 10KB, 22KB, 19KB, 7KB. In acest sistem apar urmatoarele cereri de memorie: 10KB, 14KB, 12KB, 8KB si 6KB. Folosind metodele de gestiunea a memorie a) Rotating-First-Fit b) Best-Fit raspundeti la urmatoarele intrebari:
+
+\begin{enumerate}
+\item Ce blocuri de memorie libera vor fi asociate cererilor?
+
+\item Cum arata lista de spatii libere dupa prelucrarea tuturor cererilor?
+
+\item Cati pasi de cautare se fac in lista de blocuri de memorie libere?
+\end{enumerate}
+
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0}" >&2
+    echo "Computes RFF and Best-Fit allocations." >&2
+}
+
+# Check args
+[ "$#" -ne 0 ] && { usage; exit 1; }
+
+alloc_rotating_first_fit() {
+    free_list="6 12 10 22 19 7"
+    reqs="10 14 12 8 6"
+    start_idx=1
+    out=""
+    steps_total=0
+
+    for r in $reqs; do
+        set -- $free_list
+        n=$#
+        i=1
+        pos=$start_idx
+        found=0
+        steps=0
+        while [ "$i" -le "$n" ]; do
+            steps=$((steps + 1))
+            eval "b=\${$pos}"
+            if [ "$b" -ge "$r" ]; then
+                found=1
+                break
+            fi
+            pos=$((pos + 1))
+            [ "$pos" -gt "$n" ] && pos=1
+            i=$((i + 1))
+        done
+        steps_total=$((steps_total + steps))
+
+        if [ "$found" -eq 1 ]; then
+            rem=$((b - r))
+            out="$out$r->$b "
+            new=""
+            k=1
+            for x in $free_list; do
+                if [ "$k" -eq "$pos" ]; then
+                    if [ "$rem" -gt 0 ]; then
+                        new="$new $rem"
+                    fi
+                else
+                    new="$new $x"
+                fi
+                k=$((k + 1))
+            done
+            free_list="$new"
+            set -- $free_list
+            n2=$#
+            if [ "$n2" -eq 0 ]; then
+                start_idx=1
+            else
+                if [ "$rem" -gt 0 ]; then
+                    start_idx=$pos
+                else
+                    start_idx=$pos
+                    if [ "$start_idx" -gt "$n2" ]; then
+                        start_idx=1
+                    fi
+                fi
+            fi
+        fi
+    done
+
+    echo "RFF alloc: $out"
+    echo "RFF free :$free_list"
+    echo "RFF steps:$steps_total"
+}
+
+alloc_best_fit() {
+    free_list="6 12 10 22 19 7"
+    reqs="10 14 12 8 6"
+    out=""
+    steps_total=0
+
+    for r in $reqs; do
+        best=0
+        best_pos=0
+        pos=1
+        for b in $free_list; do
+            steps_total=$((steps_total + 1))
+            if [ "$b" -ge "$r" ]; then
+                if [ "$best_pos" -eq 0 ] || [ "$b" -lt "$best" ]; then
+                    best=$b
+                    best_pos=$pos
+                fi
+            fi
+            pos=$((pos + 1))
+        done
+
+        if [ "$best_pos" -ne 0 ]; then
+            rem=$((best - r))
+            out="$out$r->$best "
+            new=""
+            pos=1
+            for b in $free_list; do
+                if [ "$pos" -eq "$best_pos" ]; then
+                    [ "$rem" -gt 0 ] && new="$new $rem"
+                else
+                    new="$new $b"
+                fi
+                pos=$((pos + 1))
+            done
+            free_list="$new"
+        fi
+    done
+
+    echo "BF alloc:  $out"
+    echo "BF free :$free_list"
+    echo "BF steps:$steps_total"
+}
+
+alloc_rotating_first_fit
+alloc_best_fit
+\end{minted}
+
+\begin{enumerate}
+\item Rotating-First-Fit
+\end{enumerate}
+
+Alocari (ord.):
+\begin{itemize}
+\item 10KB -> 12KB (ramane 2KB)
+\item 14KB -> 22KB (ramane 8KB)
+\item 12KB -> 19KB (ramane 7KB)
+\item 8KB -> 10KB (ramane 2KB)
+\item 6KB -> 8KB (ramane 2KB)
+\end{itemize}
+
+Free-list final:
+\texttt{6KB, 2KB, 2KB, 2KB, 7KB, 7KB}
+
+Pasi cautare:
+\texttt{14}
+
+\begin{enumerate}
+\item Best-Fit
+\end{enumerate}
+
+Alocari:
+\begin{itemize}
+\item 10KB -> 10KB
+\item 14KB -> 19KB (ramane 5KB)
+\item 12KB -> 12KB
+\item 8KB -> 22KB (ramane 14KB)
+\item 6KB -> 6KB
+\end{itemize}
+
+Free-list final:
+\texttt{14KB, 5KB, 7KB}
+
+Pasi cautare:
+\texttt{24}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./screenshots/4.png}
+\end{center}
+\section{5}
+\label{sec:org2eaa254}
+Considerand cazul unui sistem de fisiere bazat pe inoduri cu dimensiunea blocului de 2 KB si stiind ca un inode contine 10 intrari pentru blocuri adresabile direct si ca fiecare referinta la un bloc de pe disc (numar al blocului) ocupa un cuvant de 32 de biti.
+
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
+#!/usr/bin/env sh
+
+usage() {
+    echo "Usage: ${0}" >&2
+    echo "Computes inode file size limits and linkage blocks for 50MB." >&2
+}
+
+# Check args
+[ "$#" -ne 0 ] && { usage; exit 1; }
+
+blk_kb=2
+ptr_b=4
+inode_direct=10
+
+addr_per_indirect=$((blk_kb * 1024 / ptr_b))
+
+no_indirect_kb=$((inode_direct * blk_kb))
+single_kb=$(((inode_direct + addr_per_indirect) * blk_kb))
+double_kb=$(((inode_direct + addr_per_indirect + addr_per_indirect * addr_per_indirect) * blk_kb))
+triple_kb=$(((inode_direct + addr_per_indirect + addr_per_indirect * addr_per_indirect + addr_per_indirect * addr_per_indirect * addr_per_indirect) * blk_kb))
+
+echo "Adrese/bloc indirect: $addr_per_indirect"
+echo "Fara indirecte: ${no_indirect_kb}KB"
+echo "Cu simplu indirect: ${single_kb}KB"
+echo "Cu dublu indirect: ${double_kb}KB"
+echo "Cu triplu indirect: ${triple_kb}KB"
+
+file_mb=50
+file_kb=$((file_mb * 1024))
+data_blocks=$((file_kb / blk_kb))
+left=$((data_blocks - inode_direct))
+
+indirect_blocks=0
+
+if [ "$left" -gt 0 ]; then
+    indirect_blocks=$((indirect_blocks + 1))
+    if [ "$left" -le "$addr_per_indirect" ]; then
+        left=0
+    else
+        left=$((left - addr_per_indirect))
+    fi
+fi
+
+if [ "$left" -gt 0 ]; then
+    indirect_blocks=$((indirect_blocks + 1))
+    lvl2=$((left / addr_per_indirect))
+    rem=$((left % addr_per_indirect))
+    [ "$rem" -ne 0 ] && lvl2=$((lvl2 + 1))
+    indirect_blocks=$((indirect_blocks + lvl2))
+fi
+
+echo "Blocuri legatura pentru 50MB: $indirect_blocks"
+\end{minted}
+
+\begin{enumerate}
+\item Calculati dimensiunea maxima a unui fisier adresabil fara blocuri indirecte, cu blocuri simplu indirecte, cu blocuri dublu indirecte, respectiv cu blocuri triplu indirecte.
+\end{enumerate}
+Dim. bloc = 2KB, referinta = 32 biti = 4B, deci un bloc indirect tine
+\texttt{2048 / 4 = 512} adrese.
+
+\begin{itemize}
+\item Fara indirecte: \texttt{10 * 2KB = 20KB}
+\item Cu simplu indirect: \texttt{(10 + 512) * 2KB = 1044KB}
+\item Cu dublu indirect: \texttt{(10 + 512 + 512\textasciicircum{}2) * 2KB = 525332KB} (\texttt{513.02MB})
+\item Cu triplu indirect: \texttt{(10 + 512 + 512\textasciicircum{}2 + 512\textasciicircum{}3) * 2KB = 268960788KB} (\texttt{256500.03MB})
+
+\item Cate blocuri cu informatie de legatura sunt necesare in cazul unui fisier de 50MB?
+\end{itemize}
+Consider \texttt{50MB = 50 * 1024KB}, deci datele ocupa:
+\texttt{(50 * 1024) / 2 = 25600} blocuri de date.
+
+Din inode: 10 blocuri directe, raman \texttt{25590}.
+
+\begin{itemize}
+\item 1 bloc simplu indirect acopera 512 blocuri de date, raman \texttt{25078}.
+\item Pentru restul, prin dublu indirect:
+\begin{itemize}
+\item 1 bloc de nivel 1 (pointeri spre blocuri indirecte de nivel 2)
+\item \texttt{ceil(25078 / 512) = 49} blocuri de nivel 2
+\end{itemize}
+\end{itemize}
+
+Total blocuri de legatura: \texttt{1 + 1 + 49 = 51}.
+\begin{center}
+\includegraphics[width=.9\linewidth]{./screenshots/5.png}
+\end{center}
+\end{document}

@@ -1,0 +1,203 @@
+% Created 2026-05-11 Mon 02:20
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{Elias-Robert BAJCSI}
+\date{}
+\title{Laborator 4\\\medskip
+\large PLFP}
+\hypersetup{
+ pdfauthor={Elias-Robert BAJCSI},
+ pdftitle={Laborator 4},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{\texttt{./Cargo.toml}}
+\label{sec:org6fb5f2d}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{toml}
+[package]
+name = "lab4"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ex1"
+path = "src/bin/ex1.rs"
+[[bin]]
+name = "ex2"
+path = "src/bin/ex2.rs"
+[[bin]]
+name = "ex3"
+path = "src/bin/ex3.rs"
+[[bin]]
+name = "ex4"
+path = "src/bin/ex4.rs"
+\end{minted}
+\section{\texttt{./src/bin/ex1.rs}}
+\label{sec:org20c6d9f}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+use std::cmp::Ordering;
+
+#[derive(Debug, Clone)]
+struct Album {
+    titlu: String,
+    gen: String,
+}
+
+fn cel_mai_bun_dupa<'a>(albume: &'a [Album], cheie: fn(&Album) -> &str) -> Option<&'a Album> {
+    albume.iter().min_by(|a, b| cheie(a).cmp(cheie(b)))
+}
+
+fn main() {
+    let mut albume = vec![
+        Album { titlu: "Black Monday".into(), gen: "Metal".into() },
+        Album { titlu: "Scientist".into(), gen: "Dub".into() },
+        Album { titlu: "Fireworks".into(), gen: "Pop".into() },
+        Album { titlu: "Fade".into(), gen: "Pop".into() },
+        Album { titlu: "Undertow".into(), gen: "Metal".into() },
+    ];
+
+    albume.sort_by(|a, b| {
+        let g = a.gen.cmp(&b.gen);
+        if g == Ordering::Equal { a.titlu.cmp(&b.titlu) } else { g }
+    });
+
+    for a in &albume {
+        println!("{} - {}", a.gen, a.titlu);
+    }
+
+    let minim_dupa_titlu = cel_mai_bun_dupa(&albume, |a| &a.titlu).unwrap();
+    println!("min titlu: {:?}", minim_dupa_titlu);
+
+    let div7: Vec<i32> = (1..=1000).filter(|n| n % 7 == 0).collect();
+    let suma: i32 = div7.iter().sum();
+    println!("count: {}, suma: {}", div7.len(), suma);
+}
+\end{minted}
+\section{\texttt{./src/bin/ex2.rs}}
+\label{sec:org80a1376}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn make_squares_up_to(x: u64) -> Vec<u64> {
+    (0..x).map(|n| n * n).collect()
+}
+
+fn factorial(n: u64) -> u64 {
+    if n <= 1 { 1 } else { n * factorial(n - 1) }
+}
+
+fn make_factorial() -> impl FnMut(u64) -> u64 {
+    move |n| factorial(n)
+}
+
+fn make_running_sum() -> impl FnMut(i32) -> i32 {
+    let mut suma = 0;
+    move |x| {
+        suma += x;
+        suma
+    }
+}
+
+fn main() {
+    println!("{:?}", make_squares_up_to(10));
+
+    let mut fact = make_factorial();
+    println!("{} {} {}", fact(3), fact(5), fact(7));
+
+    let mut run = make_running_sum();
+    println!("{} {} {}", run(3), run(5), run(2));
+}
+\end{minted}
+\section{\texttt{./src/bin/ex3.rs}}
+\label{sec:orgb30c6de}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn agregeaza<T, R>(colectie: &[T], f: impl Fn(&[T]) -> R) -> R {
+    f(colectie)
+}
+
+fn mediana(nums: &[i32]) -> Option<i32> {
+    if nums.is_empty() {
+        return None;
+    }
+    let mut v = nums.to_vec();
+    v.sort();
+    Some(v[v.len() / 2])
+}
+
+fn main() {
+    let nums = [9, 3, 1, 8, 7, 2, 6, 5, 4];
+
+    let suma = agregeaza(&nums, |v| v.iter().sum::<i32>());
+    let maxim = agregeaza(&nums, |v| *v.iter().max().unwrap());
+    let med = agregeaza(&nums, mediana);
+
+    println!("suma: {}", suma);
+    println!("maxim: {}", maxim);
+    println!("mediana: {:?}", med);
+}
+\end{minted}
+\section{\texttt{./src/bin/ex4.rs}}
+\label{sec:org35cdfd1}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn compune_n(fns: Vec<Box<dyn Fn(i32) -> i32>>) -> impl Fn(i32) -> i32 {
+    move |x| fns.iter().fold(x, |acc, f| f(acc))
+}
+
+fn main() {
+    let fns: Vec<Box<dyn Fn(i32) -> i32>> = vec![
+        Box::new(|x| x + 1),
+        Box::new(|x| x * 2),
+        Box::new(|x| x - 3),
+        Box::new(|x| x * x),
+    ];
+
+    let compusa = compune_n(fns);
+    println!("{}", compusa(5));
+
+    println!(
+        "La [Album], agregarea trebuie sa foloseasca un camp numeric (ex: durata, rating), nu varste inexistente."
+    );
+}
+\end{minted}
+\end{document}

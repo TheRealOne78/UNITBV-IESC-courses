@@ -1,0 +1,20 @@
+[package]
+name = "lab3"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ex1"
+path = "src/bin/ex1.rs"
+
+[[bin]]
+name = "ex2"
+path = "src/bin/ex2.rs"
+
+[[bin]]
+name = "ex3"
+path = "src/bin/ex3.rs"
+
+[[bin]]
+name = "ex4"
+path = "src/bin/ex4.rs"

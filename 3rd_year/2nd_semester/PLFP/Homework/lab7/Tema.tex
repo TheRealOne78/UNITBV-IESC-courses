@@ -1,0 +1,275 @@
+% Created 2026-05-10 Sun 16:49
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{Elias-Robert BAJCSI}
+\date{\textit{<2026-05-10 Sun>}}
+\title{Laborator 7\\\medskip
+\large PLFP}
+\hypersetup{
+ pdfauthor={Elias-Robert BAJCSI},
+ pdftitle={Laborator 7},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{\texttt{./Cargo.toml}}
+\label{sec:org2db891c}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{toml}
+[package]
+name = "lab7"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ex1"
+path = "src/bin/ex1.rs"
+[[bin]]
+name = "ex2"
+path = "src/bin/ex2.rs"
+[[bin]]
+name = "ex3"
+path = "src/bin/ex3.rs"
+\end{minted}
+\section{\texttt{./src/bin/ex1.rs}}
+\label{sec:org05637c9}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+// regula 1+2+3+4: depinde de stare globala, fara parametri, nedeterminist daca starea se schimba, efect secundar
+static TVA: f64 = 0.21;
+fn calculeaza_tva_impura() -> f64 { 100.0 * TVA }
+
+struct Appender {
+    sufix: String,
+}
+
+impl Appender {
+    fn append_to_word_impura(&self, baza: &str) -> String {
+        format!("{}{}", baza, self.sufix)
+    }
+}
+
+fn append_to_word_pura(baza: &str, sufix: &str) -> String {
+    format!("{}{}", baza, sufix)
+}
+
+fn pret_total(pret: f64, tva: f64) -> f64 {
+    pret + pret * tva
+}
+
+fn adauga(v: &[i32], item: i32) -> Vec<i32> {
+    let mut rez = v.to_vec();
+    rez.push(item);
+    rez
+}
+
+fn main() {
+    let a = Appender { sufix: "!".into() };
+    println!("{}", calculeaza_tva_impura());
+    println!("{} {}", a.append_to_word_impura("Salut"), append_to_word_pura("Salut", "!"));
+    println!("{} {:?}", pret_total(100.0, 0.21), adauga(&[1, 2, 3], 4));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_append_pura() {
+        assert_eq!(append_to_word_pura("ana", "_x"), "ana_x");
+    }
+
+    #[test]
+    fn test_pret_total_pura() {
+        assert_eq!(pret_total(10.0, 0.21), 12.1);
+    }
+
+    #[test]
+    fn test_adauga_pura() {
+        let v = vec![1, 2, 3];
+        let v2 = adauga(&v, 4);
+        assert_eq!(v, vec![1, 2, 3]);
+        assert_eq!(v2, vec![1, 2, 3, 4]);
+    }
+}
+\end{minted}
+\section{\texttt{./src/bin/ex2.rs}}
+\label{sec:orgdaaa16a}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn f(x: f64, y: f64) -> Option<f64> {
+    let num = x + y;
+    let den = (x - y).powi(2);
+    if den == 0.0 {
+        return None;
+    }
+    let inside = num / den;
+    if inside < 0.0 {
+        return None;
+    }
+    let root = inside.sqrt();
+    let div = 4.0 * root;
+    if div == 0.0 {
+        return None;
+    }
+    Some(x / div)
+}
+
+fn aplica_tva_catalog(produse: &[(String, f64)], tva: f64) -> Vec<(String, f64)> {
+    produse.iter().map(|(n, p)| (n.clone(), p + p * tva)).collect()
+}
+
+fn compune_pure(f: fn(i32) -> i32, g: fn(i32) -> i32) -> impl Fn(i32) -> i32 {
+    move |x| f(g(x))
+}
+
+fn dublu(x: i32) -> i32 { x * 2 }
+fn adauga3(x: i32) -> i32 { x + 3 }
+
+fn main() {
+    println!("{:?}", f(10.0, 2.0));
+    let p = vec![("Paine".to_string(), 5.5), ("Cafea".to_string(), 20.0)];
+    println!("{:?}", aplica_tva_catalog(&p, 0.21));
+    println!("{}", compune_pure(dublu, adauga3)(7));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_f_ok() {
+        assert!(f(10.0, 2.0).is_some());
+    }
+
+    #[test]
+    fn test_f_div_zero() {
+        assert_eq!(f(2.0, 2.0), None);
+    }
+
+    #[test]
+    fn test_f_negative_root() {
+        assert_eq!(f(-10.0, 1.0), None);
+    }
+
+    #[test]
+    fn test_catalog_immutable() {
+        let p = vec![("X".to_string(), 100.0)];
+        let out = aplica_tva_catalog(&p, 0.21);
+        assert_eq!(p[0].1, 100.0);
+        assert_eq!(out[0].1, 121.0);
+    }
+
+    #[test]
+    fn test_compune_pure() {
+        let c = compune_pure(dublu, adauga3);
+        assert_eq!(c(5), 16);
+        assert_eq!(c(5), 16);
+    }
+}
+\end{minted}
+\section{\texttt{./src/bin/ex3.rs}}
+\label{sec:org5405a30}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+#[derive(Clone, Debug)]
+struct Produs {
+    nume: String,
+    pret: f64,
+    stoc: u32,
+}
+
+fn filtreaza_disponibile(produse: &[Produs]) -> Vec<Produs> {
+    produse.iter().filter(|p| p.stoc > 0).cloned().collect()
+}
+
+fn aplica_discount(produse: &[Produs], procent: f64) -> Vec<Produs> {
+    produse
+        .iter()
+        .map(|p| Produs { nume: p.nume.clone(), pret: p.pret * (1.0 - procent / 100.0), stoc: p.stoc })
+        .collect()
+}
+
+fn total_stoc(produse: &[Produs]) -> f64 {
+    produse.iter().map(|p| p.pret * p.stoc as f64).sum()
+}
+
+fn main() {
+    let produse = vec![
+        Produs { nume: "Paine".into(), pret: 5.5, stoc: 3 },
+        Produs { nume: "Lapte".into(), pret: 7.0, stoc: 0 },
+        Produs { nume: "Cafea".into(), pret: 20.0, stoc: 2 },
+    ];
+
+    let disponibile = filtreaza_disponibile(&produse);
+    let reduse = aplica_discount(&disponibile, 10.0);
+    println!("{:.2}", total_stoc(&reduse));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_filtreaza() {
+        let p = vec![
+            Produs { nume: "A".into(), pret: 10.0, stoc: 1 },
+            Produs { nume: "B".into(), pret: 20.0, stoc: 0 },
+        ];
+        assert_eq!(filtreaza_disponibile(&p).len(), 1);
+    }
+
+    #[test]
+    fn test_discount() {
+        let p = vec![Produs { nume: "Paine".into(), pret: 100.0, stoc: 1 }];
+        let r = aplica_discount(&p, 10.0);
+        assert_eq!(r[0].pret, 90.0);
+    }
+
+    #[test]
+    fn test_total() {
+        let p = vec![
+            Produs { nume: "Paine".into(), pret: 10.0, stoc: 2 },
+            Produs { nume: "Lapte".into(), pret: 5.0, stoc: 3 },
+        ];
+        assert_eq!(total_stoc(&p), 35.0);
+    }
+}
+\end{minted}
+\end{document}

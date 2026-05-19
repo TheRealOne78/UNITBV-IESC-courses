@@ -1,0 +1,38 @@
+#+title: Tema LFT curs
+
+* Realizati o gramatica pentru a creea un arbore de derivare pentru expresii matematice care sa suporte operatorii * si +
+
+E = E + E | id
+T = E * E | id
+T = T * E | id
+
+E = E + T
+int a = 3 + 10 * (5+2)
+
+
+A = 5 + 2
+B = 10 * B
+C = 3 + B
+
+        3, +
+        /
+     10, *
+     /
+   5, +
+   /
+ 2
+
+* 2 
+S -> AB
+A -> a | e
+B -> b
+
+S -> AB \ B
+A -> a
+B -> b
+
+* Elimina recursivitatea
+S -> Aa | b
+A -> Sb | c
+
+

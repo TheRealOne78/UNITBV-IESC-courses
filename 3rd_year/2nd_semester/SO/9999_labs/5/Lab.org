@@ -1,0 +1,370 @@
+#+TITLE: N15 - teme lab05
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: <2026-05-03 Sun>
+#+INCLUDE: ../config.org
+#+LATEX_HEADER: \usepackage{pgfgantt}
+#+LATEX_HEADER: \definecolor{tfpink1}{HTML}{FF0080}
+#+LATEX_HEADER: \definecolor{tfpink2}{HTML}{FF66B2}
+#+LATEX_HEADER: \definecolor{tfpink3}{HTML}{FFB2D8}
+#+LATEX_HEADER: \definecolor{tfpink4}{HTML}{FFE5F2}
+#+LATEX_HEADER: \definecolor{tfblue}{HTML}{55CDFC}
+
+* 1. Urmatoarele cereri sunt intalnite într-un sistem cu un singur procesor (un număr mai mare pentru prioritate semnifică o importanță mai mare). Timpii de interschimbare a proceselor sunt neglijați.
+
+| Cerere | Timp de deservire | Prioritate |
+|--------+------------------+------------|
+| 0      | 10               | 3          |
+| 1      | 6                | 5          |
+| 2      | 2                | 2          |
+| 3      | 4                | 1          |
+| 4      | 8                | 4          |
+
+Propuneți următoarele tipuri de planificări. Se cer diagramele la fiecare tip:
+
+** First Come First Served
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{30}
+\gantttitlelist{0,...,30}{1} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P0}{0}{9} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P1}{10}{15} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P2}{16}{17} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P3}{18}{21} \\
+\ganttbar[bar/.style={fill=tfblue}]{P4}{22}{29}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{0 + 10 + 16 + 18 + 22}{5} = \frac{66}{5} = 13.2$
+
+** Priority
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{30}
+\gantttitlelist{0,...,30}{1} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P1}{0}{5} \\
+\ganttbar[bar/.style={fill=tfblue}]{P4}{6}{13} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P0}{14}{23} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P2}{24}{25} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P3}{26}{29}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{14 + 0 + 24 + 26 + 6}{5} = \frac{70}{5} = 14.0$
+
+** Shortest Job First
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{30}
+\gantttitlelist{0,...,30}{1} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P2}{0}{1} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P3}{2}{5} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P1}{6}{11} \\
+\ganttbar[bar/.style={fill=tfblue}]{P4}{12}{19} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P0}{20}{29}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{20 + 6 + 0 + 2 + 12}{5} = \frac{40}{5} = 8.0$
+
+** Round-Robin (q=3)
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{30}
+\gantttitlelist{0,...,30}{1} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P0}{0}{2} \ganttbar[inline=false, bar/.style={fill=tfpink1}]{}{14}{16} \ganttbar[inline=false, bar/.style={fill=tfpink1}]{}{24}{26} \ganttbar[inline=false, bar/.style={fill=tfpink1}]{}{29}{29} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P1}{3}{5} \ganttbar[inline=false, bar/.style={fill=tfpink2}]{}{17}{19} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P2}{6}{7} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P3}{8}{10} \ganttbar[inline=false, bar/.style={fill=tfpink4}]{}{20}{20} \\
+\ganttbar[bar/.style={fill=tfblue}]{P4}{11}{13} \ganttbar[inline=false, bar/.style={fill=tfblue}]{}{21}{23} \ganttbar[inline=false, bar/.style={fill=tfblue}]{}{27}{28}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{20 + 14 + 6 + 17 + 21}{5} = \frac{78}{5} = 15.6$
+
+
+* 2. Fiind dat un proces care e rulat in medie pe T unitati de timp inainte de o blocare si stiind ca o interschimbare a procesului costa S unitati de timp,dati pentru planificarea Round Robin,cu panta de timp Q,o formula de utilizare a procesorului C(capacitatea),atunci cand:
+
+- $Q \to 100$: $C = \frac{T}{T + S}$
+- $Q > T$: $C = \frac{T}{T + S}$
+- $S < Q < T$: $C = \frac{Q}{Q + S}$
+- $Q = S$: $C = 0.5$
+- $Q \to 0$: $C = 0$
+
+* 3. Urmatoarele cereri sunt intalnite intr-un sistem cu un singur procesor:
+
+| Cerere | Timp de sosire | Timp de deservire | Prioritate |
+|--------+----------------+------------------+------------|
+| 1      | 0              | 5                | 3          |
+| 2      | 3              | 2                | 5          |
+| 3      | 6              | 2                | 4          |
+| 4      | 10             | 4                | 1          |
+| 5      | 12             | 3                | 4          |
+| 6      | 13             | 1                | 2          |
+
+Dati diagrama planificarii pe baza de prioritati si calculati timpul mediu de asteptare.
+
+** Soluție (1 procesor)
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{20}
+\gantttitlelist{0,...,20}{1} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P1}{0}{4} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P2}{5}{6} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P3}{7}{8} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P4}{10}{13} \\
+\ganttbar[bar/.style={fill=tfblue}]{P5}{14}{16} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P6}{17}{17}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Spațiile din diagramă reprezintă timpul în care procesorul așteaptă.
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{(0-0) + (5-3) + (7-6) + (10-10) + (14-12) + (17-13)}{6} = \frac{0 + 2 + 1 + 0 + 2 + 4}{6} = \frac{9}{6} = 1.5$
+
+* 4. Rezolvati exercitiul 3 pentru doua procesoare.
+
+** Soluție (2 procesoare)
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{20}
+\gantttitlelist{0,...,20}{1} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P1}{0}{4} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P2}{3}{4} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P3}{6}{7} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P4}{10}{13} \\
+\ganttbar[bar/.style={fill=tfblue}]{P5}{12}{14} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P6}{14}{14}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+Distribuția pe cele două procesoare.
+
+Timpul mediu de așteptare:
+$T_{ma} = \frac{(0-0) + (3-3) + (6-6) + (10-10) + (12-12) + (14-13)}{6} = \frac{0 + 0 + 0 + 0 + 0 + 1}{6} = \frac{1}{6} \approx 0.166$
+
+* 5. Urmatoarele cereri sunt intalnite intr-un sistem cu un singur procesor:
+
+| Cerere | Timp de sosire | Timp de deservire |
+|--------+----------------+------------------|
+| 1      | 0              | 6                |
+| 2      | 3              | 2                |
+| 3      | 6              | 6                |
+| 4      | 7              | 3                |
+| 5      | 12             | 4                |
+| 6      | 13             | 2                |
+
+** Dati diagrama de planificare Shortest Remaining Job First
+
+#+BEGIN_EXPORT latex
+\begin{center}
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    x unit=0.4cm,
+    y unit chart=0.6cm,
+    bar height=0.5
+]{0}{23}
+\gantttitlelist{0,...,23}{1} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P1}{0}{2} \ganttbar[inline=false, bar/.style={fill=tfpink1}]{}{5}{7} \\
+\ganttbar[bar/.style={fill=tfpink2}]{P2}{3}{4} \\
+\ganttbar[bar/.style={fill=tfpink3}]{P3}{11}{11} \ganttbar[inline=false, bar/.style={fill=tfpink3}]{}{18}{22} \\
+\ganttbar[bar/.style={fill=tfpink4}]{P4}{8}{10} \\
+\ganttbar[bar/.style={fill=tfblue}]{P5}{12}{12} \ganttbar[inline=false, bar/.style={fill=tfblue}]{}{15}{17} \\
+\ganttbar[bar/.style={fill=tfpink1}]{P6}{13}{14}
+\end{ganttchart}
+\end{center}
+#+END_EXPORT
+
+** Calculati timpul mediu de așteptare și timpul mediu de deservire
+
+*** Timp de așteptare
+- **P1**: $2$
+- **P2**: $0$
+- **P3**: $11$
+- **P4**: $1$
+- **P5**: $2$
+- **P6**: $0$
+
+$T_{ma} = \frac{2 + 0 + 11 + 1 + 2 + 0}{6} = \frac{16}{6} \approx 2.66$
+
+*** Timp de deservire ($T_{t}$)
+- **P1**: $8$
+- **P2**: $2$
+- **P3**: $17$
+- **P4**: $4$
+- **P5**: $6$
+- **P6**: $2$
+
+$T_{mt} = \frac{8 + 2 + 17 + 4 + 6 + 2}{6} = \frac{39}{6} = 6.5$
+
+* 6. Sa se ruleze exemplele de programe care utilizeaza functiile system() si popen(). Explicati pe scurt ce fac aceste programe.
+
+** Functiile system() si popen()
+Functiile system() si popen() sunt utilizate pentru apelarea altor programe.
+
+*** Functia system()
+Functia system() lanseaza o comanda si asteapta terminarea acesteia.
+
+Exemplu: ex-system.c
+#+INCLUDE: ./src/ex-system.c src c
+
+Programul listează fișierele dintr-un director.
+
+*** Functia popen()
+Functia popen() lanseaza o comanda shell cu intrarea sau iesirea redirectata dinspre, respectiv spre, procesul apelant.
+
+Daca comanda a fost lansata cu intrarea redirectata dinspre procesul apelant, atunci in continuare putem trimite date comenzii lansate prin fwrite() sau fprintf() .
+
+Daca comanda a fost lansata cu iesirea redirectata spre procesul apelant, atunci iesirea comenzii se poate citi din p[rocesul apelant cu functiile fread() sau fscanf() .
+
+In ambele cazuri, incheierea se face prin apelul functiei pclose() .
+
+**** Exemple:
+
+***** rd-popen.c
+#+INCLUDE: ./src/rd-popen.c src c
+
+Programul citește și afișează rezultatul comenzii ls.
+
+***** wr-popen.c
+#+INCLUDE: ./src/wr-popen.c src c
+
+Programul comprimă text folosind gzip.
+[[./Screenshots/ex6.png]]
+
+
+* 7. Reamintim ca un proces este "un program in executie".
+In acest exercitiu se for folosi apelurile sistem referitoare la crearea proceselor. Pentru aceasta exista la dispozitie:
+
+- ~int fork();~ -- crearea unui proces fiu
+- ~int execve(char *filename, char *argv[], char *env[]);~ -- incarca programul specificat
+- ~int wait(int *status);~ -- asteapta terminarea unui fiu
+- ~int exit(int status);~ -- termina executia procesului
+- ~int getpid();~ -- returneaza identificatorul procesului curent
+- ~int getppid();~ -- returneaza identificatorul procesului parinte
+
+Alte functii C necesare pentru acest exercitiu:
+- ~void sleep(int seconds);~ -- blocheaza executia
+- ~void system(char *string);~ -- executa o comanda
+
+Creati intr-un director *ExProcese* trei programe C astfel:
+- Primul program parinte.c trebuie sa ruleze ca proces parinte. El creaza in continuare doua procese fii, dintre care primul ruleaza programul 2., iar al doilea ruleaza programul 3. Dupa ce a creat cei doi fii afiseaza mesajul "Parinte:" si identificatorii celor doua procese fii. Apoi executa un ciclu cu numarul de ITERATII=5, in care doarme pentru SLEEP_TIME=5 secunde si apoi afiseaza ora (cu ajutorul comenzii shell date). In final asteapta terminarea celor doi fii, iar la terminarea fiecaruia afiseaza mesajul "Fiul x este gata" si ora la care se termina. Cand ce-i doi fii si-au terminat executia, isi termina executia si procesul parinte.
+- Primul proces fiu, dat de programul fiu1.c, afiseaza mai intai textul "Fiul 1", identificatorul sau de proces si al tatalui sau, precum si ora, apoi se blocheaza pentru 30 de secunde si apoi se termina.
+- Al doilea proces fiu, dat de programul fiu2.c, afiseaza textul "Fiu 2", identificatorul sau de proces, al tatalui, precum si ora, apoi ruleaza un ciclu de 30 de pasi in care numara pana la MAX=10.000.000 si afiseaza un punct ".", iar apoi se termina.
+
+** parinte.c
+#+INCLUDE: ./src/ExProcese/parinte.c src c
+
+Programul parinte creează doi fii și așteaptă terminarea lor.
+
+** fiu1.c
+#+INCLUDE: ./src/ExProcese/fiu1.c src c
+
+Primul fiu afișează datele de identificare și așteaptă.
+
+** fiu2.c
+#+INCLUDE: ./src/ExProcese/fiu2.c src c
+
+Al doilea fiu afișează datele de identificare și execută o buclă.
+[[./Screenshots/ex7.png]]
+
+* Probleme optionale - procese
+1. Se da un numar natural N. Se cere sa se genereze toate numerele prime pana la N.
+#+INCLUDE: ./src/generate_primes.sh src sh
+[[./Screenshots/opt1.png]]
+2. Sa se sorteze un sir de numere folosind metoda interclasarii.
+#+INCLUDE: ./src/merge_sort.sh src sh
+[[./Screenshots/opt2.png]]
+3. Se cere sa se calculeze valoarea unei expresii aritmetice.
+#+INCLUDE: ./src/calc_expression.sh src sh
+[[./Screenshots/opt3.png]]
+4. Sa se scrie un program capabil sa interpreteze comenzile compuse cu '|'.
+#+INCLUDE: ./src/shell_pipe.sh src sh
+[[./Screenshots/opt4.png]]
+5. Sa se calculeze suma vectorilor.
+#+INCLUDE: ./src/vector_sum.sh src sh
+[[./Screenshots/opt5.png]]
+6. Sa se calculeze suma unui sir de numere prin 'divide et impera'.
+#+INCLUDE: ./src/divide_sum.sh src sh
+[[./Screenshots/opt6.png]]
+7. Sa se calculeze cmmdc al unui sir de numere prin 'divide et impera'.
+#+INCLUDE: ./src/divide_gcd.sh src sh
+[[./Screenshots/opt7.png]]
+
+
+* Probleme optionale - popen si fifo
+Pentru problemele urmatoare se cere un program C care sa creeze doua procese: un proces server si un proces client.
+
+1. Clientul transmite serverului un nume de fisier iar serverul intoarce continutul.
+2. Clientul transmite un nume de utilizator iar serverul intoarce numele statiei.
+3. Clientul transmite o ora iar serverul intoarce numele utilizatorilor conectati după ora respectiva.
+4. Clientul transmite un nume de fisier si un numar octal pentru verificarea drepturilor.
+5. Clientul transmite un nume de director iar serverul intoarce continutul.
+6. Clientul transmite un nume de host iar serverul verifica accesibilitatea.
+7. Clientul transmite un nume de fisier iar serverul intoarce numele directoarelor care il contin.
+8. Clientul transmite un nume de utilizator iar serverul intoarce informatiile "finger".
+9. Clientul transmite o comanda Unix iar serverul o executa.
+10. Clientul transmite un nume de utilizator iar serverul intoarce datele de conectare.
+11. Clientul transmite un nume de server si primeste lista utilizatorilor.
+12. Clientul transmite un nume de utilizator si verifica posta electronica.
+13. Clientul transmite un nume de host si primeste lista utilizatorilor conectati.
+14. Clientul transmite un nume de fisier si primeste tipul acestuia.
+15. Clientul transmite un nume de director si primeste lista fisierelor text.
+16. Clientul transmite un text si un nume de director iar serverul intoarce fisierele care contin textul.
+    
+** Rezolvare
+*** core.h
+#+INCLUDE: ./src/fifo_popen/core.h src c
+
+*** server.c
+#+INCLUDE: ./src/fifo_popen/server.c src c
+
+*** client.c
+#+INCLUDE: ./src/fifo_popen/client.c src c

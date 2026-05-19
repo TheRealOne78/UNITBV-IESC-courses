@@ -1,0 +1,108 @@
+#+TITLE: N16 - teme lab06
+#+AUTHOR: BAJCSI Elias-Robert
+#+options: date:nil
+#+INCLUDE: ../config.org
+
+Cerințe:
+Rezolvați cel puțin 3 din problemele din lista de mai jos, astfel:
+- probleme impuse / obligatorii: 3, 4;
+- o problemă la alegere dintre cele din lista de mai jos.
+
+* 1
+a) Se se ruleze exemplul cu matrice alocata dinamic din fisier (exemplu alocare memorie).
+#+INCLUDE: ./src/ex1a_matrix.c src c
+
+a) Sa se implementeze un fractal recursiv folosind matrice alocata dinamic.
+#+INCLUDE: ./src/ex1b_fractal.c src c
+[[./screenshots/1.png]]
+   
+* 2
+a) Se se ruleze exemplul de lista simplu inlatuita din fisier.
+#+INCLUDE: ./src/ex2a_linked_list.c src c
+
+b) Sa se implementeze o structura student si operatiile de adaugare, modificare si stergere folosind liste simplu inlantuite.
+#+INCLUDE: ./src/ex2b_student_list.c src c
+[[./screenshots/2.png]]
+   
+* 3
+Algoritmi de inlocuire a paginilor de memorie virtuala. O eroare de aredare a unei pagini de memorie (page fault) are loc atunci când un program care rulează accesează o pagină de memorie care este mapată în spațiul de adrese virtuale, dar nu este încărcată în memoria fizică. Deoarece memoria fizică reală este mult mai mică decât memoria virtuală, apar erori de adresare. În cazul unei erori de adresare pagina, sistemul de operare ar putea fi nevoit să înlocuiască una dintre paginile existente cu pagina nou cerută.. Sa se determine numarul de erori (de tipul page fault) pentru un sistem care lucreaza cu trei pagini si primeste urmatorul sir de cereri pentru incarcare pagini  1 2 0 2 7 5 2 4 3 2 5 folosind alogoritmii FIFO (First-In First Out),  Optimal, LRU (Least Recently Used), MRU (Most Recently Used).
+
+#+INCLUDE: ./src/ex3_page_faults.sh src sh
+
+3 frame-uri, sir: ~1 2 0 2 7 5 2 4 3 2 5~:
+
+- FIFO: ~9~ page fault-uri
+- OPT: ~7~ page fault-uri
+- LRU: ~8~ page fault-uri
+- MRU: ~10~ page fault-uri
+[[./screenshots/3.png]]
+
+* 4
+Intr-un sistem de gestiunea a memoriei exista la un moment de timp dat urmatoarea lista inlantuita de blocuri libere 6KB, 12KB, 10KB, 22KB, 19KB, 7KB. In acest sistem apar urmatoarele cereri de memorie: 10KB, 14KB, 12KB, 8KB si 6KB. Folosind metodele de gestiunea a memorie a) Rotating-First-Fit b) Best-Fit raspundeti la urmatoarele intrebari:
+
+1) Ce blocuri de memorie libera vor fi asociate cererilor?
+   
+2) Cum arata lista de spatii libere dupa prelucrarea tuturor cererilor?
+
+3) Cati pasi de cautare se fac in lista de blocuri de memorie libere?
+
+#+INCLUDE: ./src/ex4_memory_fit.sh src sh
+
+a) Rotating-First-Fit
+
+Alocari (ord.):
+- 10KB -> 12KB (ramane 2KB)
+- 14KB -> 22KB (ramane 8KB)
+- 12KB -> 19KB (ramane 7KB)
+- 8KB -> 10KB (ramane 2KB)
+- 6KB -> 8KB (ramane 2KB)
+
+Free-list final:
+~6KB, 2KB, 2KB, 2KB, 7KB, 7KB~
+
+Pasi cautare:
+~14~
+
+b) Best-Fit
+
+Alocari:
+- 10KB -> 10KB
+- 14KB -> 19KB (ramane 5KB)
+- 12KB -> 12KB
+- 8KB -> 22KB (ramane 14KB)
+- 6KB -> 6KB
+
+Free-list final:
+~14KB, 5KB, 7KB~
+
+Pasi cautare:
+~24~
+[[./screenshots/4.png]]
+
+* 5
+Considerand cazul unui sistem de fisiere bazat pe inoduri cu dimensiunea blocului de 2 KB si stiind ca un inode contine 10 intrari pentru blocuri adresabile direct si ca fiecare referinta la un bloc de pe disc (numar al blocului) ocupa un cuvant de 32 de biti.
+
+#+INCLUDE: ./src/ex5_inode_calc.sh src sh
+
+a) Calculati dimensiunea maxima a unui fisier adresabil fara blocuri indirecte, cu blocuri simplu indirecte, cu blocuri dublu indirecte, respectiv cu blocuri triplu indirecte.
+Dim. bloc = 2KB, referinta = 32 biti = 4B, deci un bloc indirect tine
+~2048 / 4 = 512~ adrese.
+
+- Fara indirecte: ~10 * 2KB = 20KB~
+- Cu simplu indirect: ~(10 + 512) * 2KB = 1044KB~
+- Cu dublu indirect: ~(10 + 512 + 512^2) * 2KB = 525332KB~ (~513.02MB~)
+- Cu triplu indirect: ~(10 + 512 + 512^2 + 512^3) * 2KB = 268960788KB~ (~256500.03MB~)
+
+b) Cate blocuri cu informatie de legatura sunt necesare in cazul unui fisier de 50MB?
+Consider ~50MB = 50 * 1024KB~, deci datele ocupa:
+~(50 * 1024) / 2 = 25600~ blocuri de date.
+
+Din inode: 10 blocuri directe, raman ~25590~.
+
+- 1 bloc simplu indirect acopera 512 blocuri de date, raman ~25078~.
+- Pentru restul, prin dublu indirect:
+  - 1 bloc de nivel 1 (pointeri spre blocuri indirecte de nivel 2)
+  - ~ceil(25078 / 512) = 49~ blocuri de nivel 2
+
+Total blocuri de legatura: ~1 + 1 + 49 = 51~.
+[[./screenshots/5.png]]

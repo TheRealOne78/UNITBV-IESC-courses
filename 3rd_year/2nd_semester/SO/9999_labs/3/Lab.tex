@@ -1,6 +1,7 @@
-% Created 2026-02-17 Tue 22:14
+% Created 2026-04-20 Mon 08:58
 % Intended LaTeX compiler: lualatex
 \documentclass[11pt]{article}
+
 \usepackage{amsmath}
 \usepackage{fontspec}
 \usepackage{graphicx}
@@ -47,14 +48,14 @@ FontFace={m}{n}{UT Sans Medium}
  pdftitle={N13 - teme lab0},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdfcreator={},
  pdflang={English}}
 \begin{document}
 
 \maketitle
 3
 \section{Scrieti un script shell care afiseaza lista utilizatorilor si timpul cat au fost logati (din ultima sesiune de lucru)}
-\label{sec:orgea48200}
+\label{sec:orgc70b65e}
 \begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 #!/usr/bin/env sh
 
@@ -74,7 +75,7 @@ for user in $(awk -F: '$3 >= 1000 {print $1}' /etc/passwd); do
 done
 \end{minted}
 \section{Scrieti un script care implementeaza un browser text folosind comenzile wget si links -dump . Utilizatorul are trei optiuni introduce un URL, b pentru back si q pentru quit. Ultimele 10 URL-uri introduse de user sunt stocate intr-un array, de unde utilizatorul poate sa le acceseze folosind functionalitatea back.}
-\label{sec:org73bf3ed}
+\label{sec:org110272e}
 \begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 #!/usr/bin/env sh
 
@@ -135,7 +136,7 @@ while :; do
 done
 \end{minted}
 \section{Scrieti un script care automatizeaza instalarea unui pachet de pe Internet (trebuie dat numele, descarcat, dezarhivat si compilat). Doar instalarea poate fi intrerupta.}
-\label{sec:org971f29c}
+\label{sec:orgcd8c39e}
 \begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{sh}
 echo "Attempting to build $PACKAGE_NAME..."
 
@@ -200,11 +201,10 @@ echo "Error: No recognized build method succeeded."
 exit 1
 \end{minted}
 \section{Scrieti un program C care implementeaza comanda kill.}
-\label{sec:orge605b16}
+\label{sec:orgb76eac7}
 \begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{c}
 #include <stdio.h>
 #include <signal.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 void term_handler(int);

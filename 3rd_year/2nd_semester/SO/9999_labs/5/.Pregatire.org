@@ -1,0 +1,45 @@
+#+TITLE: Pregătire Colocviu - Lab 4 (Sisteme de Operare)
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: 2026-05-04 Mon
+
+* 1. Planificarea Proceselor (Scheduling)
+** Algoritmi de bază
+- *FCFS (First Come First Served)*: Procesele sunt executate în ordinea sosirii. Este non-preemptiv. Problema principală: "efectul de convoy" (un proces lung blochează procesele scurte).
+- *SJF (Shortest Job First)*: Alege procesul cu cel mai scurt timp de execuție. Este optim pentru reducerea timpului mediu de așteptare.
+- *Prioritate*: Fiecare proces are o prioritate asociată. Cel cu prioritatea mai mare rulează primul. Poate cauza "înfometare" (starvation) pentru procesele cu prioritate mică.
+- *Round Robin (RR)*: Fiecare proces primește o unitate de timp (cuantă). Dacă nu termină, este mutat la sfârșitul cozii. Bun pentru sisteme interactive (time-sharing).
+
+** Metrici importante
+- *Timp de așteptare (Waiting Time)*: Timpul total petrecut de un proces în coada "Ready".
+- *Timp de deservire / Răspuns (Turnaround Time)*: Intervalul de la sosire până la finalizarea execuției.
+
+* 2. Utilizarea Procesorului (Eficiența)
+- Formula generală: $C = \frac{\text{Timp Util}}{\text{Timp Total}}$.
+- În Round Robin, timpul total include și overhead-ul de *Context Switch* (interschimbare de context), notat cu $S$.
+- Dacă cuanta $Q$ este foarte mică, procesorul petrece mai mult timp schimbând procesele decât executându-le ($C \to 0$).
+
+* 3. SRJF (Shortest Remaining Job First)
+- Este varianta preemptivă a SJF.
+- La fiecare sosire a unui nou proces, se compară timpul rămas al procesului curent cu timpul total al celui nou. Dacă cel nou este mai scurt, procesul curent este întrerupt.
+
+* 4. Gestiunea Proceselor în C
+** system() vs popen()
+- *system(comandă)*: Lansează un shell, execută comanda și așteaptă finalizarea. Returnează codul de stare al comenzii.
+- *popen(comandă, mod)*: Creează un pipe (conductă) către un proces nou. Permite citirea ieșirii comenzii (mod "r") sau trimiterea de date către intrarea acesteia (mod "w").
+
+** Apeluri sistem esențiale
+- *fork()*: Creează un proces fiu identic. Returnează 0 în fiu și PID-ul fiului în părinte.
+- *exec()*: Înlocuiește imaginea procesului curent cu un program nou. Procesul păstrează același PID, dar codul este diferit.
+- *wait()*: Suspendă execuția părintelui până când un fiu se termină.
+- *exit()*: Termină procesul curent și trimite un cod de stare părintelui.
+
+* 5. FIFO (Named Pipes)
+- Spre deosebire de pipe-urile obișnuite (anonime), FIFO-urile au un nume în sistemul de fișiere (creat cu =mkfifo=).
+- Permit comunicarea între procese care nu au o relație părinte-fiu.
+- Blocare: =open= pe un FIFO se blochează până când un alt proces deschide celălalt capăt (citire/scriere).
+
+* 6. Shell Scripting (POSIX)
+- Utilizarea =$(...)= sau =`...`= pentru capturarea ieșirii unei comenzi.
+- *Background processes*: Utilizarea =&= pentru a lansa un proces în fundal.
+- *Gestiunea proceselor*: Utilizarea =wait $!= pentru a aștepta ultimul proces lansat în fundal.
+- *Filtre*: =grep= (căutare), =awk= (procesare text/câmpuri), =sed= (editare flux), =bc= (calcule matematice).

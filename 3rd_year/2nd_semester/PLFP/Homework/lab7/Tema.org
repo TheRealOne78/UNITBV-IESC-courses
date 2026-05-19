@@ -1,0 +1,17 @@
+#+TITLE: Laborator 7
+#+SUBTITLE: PLFP
+#+AUTHOR: Elias-Robert BAJCSI
+#+DATE: <2026-05-10 Sun>
+#+INCLUDE: ../config.org
+
+* =./Cargo.toml=
+#+INCLUDE: ./Cargo.toml src toml
+
+* =./src/bin/ex1.rs=
+#+INCLUDE: ./src/bin/ex1.rs src rs
+
+* =./src/bin/ex2.rs=
+#+INCLUDE: ./src/bin/ex2.rs src rs
+
+* =./src/bin/ex3.rs=
+#+INCLUDE: ./src/bin/ex3.rs src rs

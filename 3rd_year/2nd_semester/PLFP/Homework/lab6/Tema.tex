@@ -1,0 +1,274 @@
+% Created 2026-05-11 Mon 02:22
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmainfont{UT Sans}[
+BoldFont={UT Sans Bold},
+UprightFont={UT Sans Regular},
+FontFace={m}{n}{UT Sans Medium}
+]
+% Fallback fake italic using a slant
+\usepackage{etoolbox}
+\newcommand{\fakeitalic}[1]{{\addfontfeatures{FakeSlant=0.18}#1}}
+\AtBeginDocument{\renewcommand{\emph}[1]{\fakeitalic{#1}}}
+\usepackage{minted}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}                % set fancy style
+\fancyhf{}                        % clear all headers and footers
+\cfoot{\thepage/\pageref*{LastPage}}  % center footer
+\renewcommand{\headrulewidth}{0pt}    % remove header line
+\renewcommand{\footrulewidth}{0pt}    % remove footer line
+% also override plain page style for first page
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\cfoot{\thepage/\pageref*{LastPage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\usepackage{url}
+\author{Elias-Robert BAJCSI}
+\date{}
+\title{Laborator 6\\\medskip
+\large PLFP}
+\hypersetup{
+ pdfauthor={Elias-Robert BAJCSI},
+ pdftitle={Laborator 6},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{\texttt{./Cargo.toml}}
+\label{sec:orgdcec4de}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{toml}
+[package]
+name = "lab6"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ex1"
+path = "src/bin/ex1.rs"
+[[bin]]
+name = "ex2"
+path = "src/bin/ex2.rs"
+[[bin]]
+name = "ex3"
+path = "src/bin/ex3.rs"
+[[bin]]
+name = "ex4"
+path = "src/bin/ex4.rs"
+\end{minted}
+\section{\texttt{./src/bin/ex1.rs}}
+\label{sec:orgf20b159}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn putere(baza: i64, exp: u32) -> i64 {
+    if exp == 0 { 1 } else { baza * putere(baza, exp - 1) }
+}
+
+fn putere_tail(baza: i64, exp: u32, acc: i64) -> i64 {
+    if exp == 0 { acc } else { putere_tail(baza, exp - 1, acc * baza) }
+}
+
+fn putere_tc(baza: i64, exp: u32) -> i64 { putere_tail(baza, exp, 1) }
+
+fn inverseaza(s: &str) -> String {
+    let chars: Vec<char> = s.chars().collect();
+    fn aux(v: &[char]) -> String {
+        if v.len() <= 1 { v.iter().collect() } else {
+            let mut r = aux(&v[1..]);
+            r.push(v[0]);
+            r
+        }
+    }
+    aux(&chars)
+}
+
+fn este_palindrom(s: &str) -> bool {
+    let v: Vec<char> = s.chars().collect();
+    fn aux(v: &[char]) -> bool {
+        if v.len() <= 1 { true } else { v[0] == v[v.len() - 1] && aux(&v[1..v.len() - 1]) }
+    }
+    aux(&v)
+}
+
+fn medie_recursiva(sir: &[f64]) -> f64 {
+    fn suma_rec(sir: &[f64]) -> f64 {
+        if sir.is_empty() { 0.0 } else { sir[0] + suma_rec(&sir[1..]) }
+    }
+    if sir.is_empty() { 0.0 } else { suma_rec(sir) / sir.len() as f64 }
+}
+
+fn main() {
+    println!("{} {}", putere(2, 10), putere(3, 0));
+    println!("{} {}", putere_tc(2, 10), putere_tc(3, 0));
+    println!("{}", inverseaza("recursiv"));
+    println!("{} {}", este_palindrom("capac"), este_palindrom("rust"));
+    println!("{}", medie_recursiva(&[1.0, 2.0, 3.0, 4.0]));
+}
+\end{minted}
+\section{\texttt{./src/bin/ex2.rs}}
+\label{sec:org321f9fe}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+#[derive(Debug)]
+enum Arbore {
+    Gol,
+    Nod { val: i32, st: Box<Arbore>, dr: Box<Arbore> },
+}
+
+impl Arbore {
+    fn contine(&self, val: i32) -> bool {
+        match self {
+            Arbore::Gol => false,
+            Arbore::Nod { val: v, st, dr } => {
+                if *v == val { true } else if val < *v { st.contine(val) } else { dr.contine(val) }
+            }
+        }
+    }
+
+    fn adancime(&self) -> usize {
+        match self {
+            Arbore::Gol => 0,
+            Arbore::Nod { st, dr, .. } => 1 + st.adancime().max(dr.adancime()),
+        }
+    }
+}
+
+fn construieste_perechi<A: Clone, B: Clone>(a: &[A], b: &[B]) -> Vec<(A, B)> {
+    if a.is_empty() || b.is_empty() {
+        vec![]
+    } else {
+        let mut rest = construieste_perechi(&a[1..], &b[1..]);
+        rest.insert(0, (a[0].clone(), b[0].clone()));
+        rest
+    }
+}
+
+fn main() {
+    let arbore = Arbore::Nod {
+        val: 8,
+        st: Box::new(Arbore::Nod {
+            val: 3,
+            st: Box::new(Arbore::Nod { val: 1, st: Box::new(Arbore::Gol), dr: Box::new(Arbore::Gol) }),
+            dr: Box::new(Arbore::Nod { val: 6, st: Box::new(Arbore::Gol), dr: Box::new(Arbore::Gol) }),
+        }),
+        dr: Box::new(Arbore::Nod {
+            val: 10,
+            st: Box::new(Arbore::Gol),
+            dr: Box::new(Arbore::Nod { val: 14, st: Box::new(Arbore::Gol), dr: Box::new(Arbore::Gol) }),
+        }),
+    };
+
+    println!("{} {}", arbore.contine(6), arbore.contine(9));
+    println!("{}", arbore.adancime());
+    println!("{:?}", construieste_perechi(&['a', 'b', 'c', 'd'], &[1, 2, 3, 4]));
+}
+\end{minted}
+\section{\texttt{./src/bin/ex3.rs}}
+\label{sec:org6ad6240}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+use std::collections::{HashMap, HashSet, VecDeque};
+
+type Graf<'a> = HashMap<&'a str, Vec<&'a str>>;
+
+fn bfs_rec<'a>(graf: &Graf<'a>, coada: &mut VecDeque<&'a str>, viz: &mut HashSet<&'a str>, out: &mut Vec<&'a str>) {
+    if let Some(nod) = coada.pop_front() {
+        out.push(nod);
+        if let Some(vecini) = graf.get(nod) {
+            for v in vecini {
+                if viz.insert(*v) {
+                    coada.push_back(*v);
+                }
+            }
+        }
+        bfs_rec(graf, coada, viz, out);
+    }
+}
+
+fn bfs<'a>(graf: &Graf<'a>, start: &'a str) -> Vec<&'a str> {
+    let mut coada = VecDeque::from([start]);
+    let mut viz = HashSet::from([start]);
+    let mut out = vec![];
+    bfs_rec(graf, &mut coada, &mut viz, &mut out);
+    out
+}
+
+fn toate_caile<'a>(graf: &Graf<'a>, start: &'a str, end: &'a str) -> Vec<Vec<&'a str>> {
+    fn dfs<'a>(graf: &Graf<'a>, cur: &'a str, end: &'a str, viz: &mut HashSet<&'a str>, cale: &mut Vec<&'a str>, rez: &mut Vec<Vec<&'a str>>) {
+        if cur == end {
+            rez.push(cale.clone());
+            return;
+        }
+        if let Some(vecini) = graf.get(cur) {
+            for v in vecini {
+                if viz.insert(*v) {
+                    cale.push(*v);
+                    dfs(graf, v, end, viz, cale, rez);
+                    cale.pop();
+                    viz.remove(v);
+                }
+            }
+        }
+    }
+
+    let mut rez = vec![];
+    let mut viz = HashSet::from([start]);
+    let mut cale = vec![start];
+    dfs(graf, start, end, &mut viz, &mut cale, &mut rez);
+    rez
+}
+
+fn main() {
+    let graf: Graf = HashMap::from([
+        ("Ana", vec!["Bogdan", "Carmen"]),
+        ("Bogdan", vec!["Dan", "Elena"]),
+        ("Carmen", vec!["Elena"]),
+        ("Dan", vec!["Filip"]),
+        ("Elena", vec!["Filip"]),
+        ("Filip", vec![]),
+    ]);
+
+    println!("{:?}", bfs(&graf, "Ana"));
+    println!("{:?}", toate_caile(&graf, "Ana", "Filip"));
+}
+\end{minted}
+\section{\texttt{./src/bin/ex4.rs}}
+\label{sec:orgca51c9b}
+\begin{minted}[breaklines=true,breakanywhere=true,breaksymbol=,fontsize=\small,linenos=false]{rs}
+fn umple_rec(tabla: &mut [i32; 9], pas: usize, seed: &mut u64) {
+    if pas == 9 {
+        return;
+    }
+    *seed = seed.wrapping_mul(1664525).wrapping_add(1013904223);
+    let mut idx = (*seed as usize) % 9;
+    while tabla[idx] != -1 {
+        idx = (idx + 1) % 9;
+    }
+    tabla[idx] = if pas % 2 == 0 { 1 } else { 0 };
+    umple_rec(tabla, pas + 1, seed);
+}
+
+fn main() {
+    let mut tabla = [-1; 9];
+    let mut seed = 42u64;
+    umple_rec(&mut tabla, 0, &mut seed);
+    println!("{:?}", tabla);
+}
+\end{minted}
+\end{document}
