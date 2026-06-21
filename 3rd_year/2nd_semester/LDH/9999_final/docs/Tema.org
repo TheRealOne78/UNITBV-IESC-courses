@@ -1,0 +1,40 @@
+#+TITLE: Etapa 0
+#+SUBTITLE: Limbaje de Descriere Hardware -- Proiect
+#+AUTHOR: Elias-Robert BAJCSI 
+#+DATE: 2026-03-18 Wed
+#+INCLUDE: ../../config.org
+
+* Cod sursă
+** =seven_segment.sv= -- Modul 7-segmente
+#+INCLUDE: ../rtl/seven_segment.sv src sv
+
+** =afisare_led.sv= -- Modul afișare LED
+#+INCLUDE: ../rtl/afisare_led.sv src sv
+
+
+** =position_ctrl.sv= -- Modul control poziție
+#+INCLUDE: ../rtl/position_ctrl.sv src sv
+
+** =girator.sv= -- Modul top-level
+#+INCLUDE: ../rtl/girator.sv src sv
+
+** =dut.sv= -- Modul top-level simulare
+#+INCLUDE: ../rtl/dut.sv src sv
+
+** =tb.sv= -- Testbench
+#+INCLUDE: ../rtl/tb.sv src sv
+
+* Scheme logice RTL
+
+** Girator (top-level)
+[[./pdf/1_girator.pdf]]
+
+** Afișare LED
+[[./pdf/2_afisare_led.pdf]]
+
+** 7-segmente
+[[./pdf/3_seven_segment.pdf]]
+
+
+** Control poziție
+[[./pdf/5_position_ctrl.pdf]]

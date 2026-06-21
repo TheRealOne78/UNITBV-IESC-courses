@@ -1,2 +1,18 @@
-LDH/
 DPPD/
+
+# LDH coursework should be tracked, but generated/vendor IP must stay out.
+LDH/**/ip/
+LDH/**/db/alt_*pll*.v
+
+# LDH build outputs.
+LDH/**/db/
+LDH/**/incremental_db/
+LDH/**/output_files/
+LDH/**/obj_dir/
+LDH/**/greybox_tmp/
+LDH/**/*.qws
+LDH/**/*.qws.bak
+LDH/**/*_assignment_defaults.qdf
+LDH/**/qar_info.json
+LDH/**/*.vcd
+LDH/**/*.bak

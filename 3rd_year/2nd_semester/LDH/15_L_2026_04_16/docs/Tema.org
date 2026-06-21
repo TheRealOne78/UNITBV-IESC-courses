@@ -1,0 +1,35 @@
+#+TITLE: Etapa 1
+#+SUBTITLE: Limbaje de Descriere Hardware -- Proiect
+#+AUTHOR: Elias-Robert BAJCSI 
+#+DATE: 2026-04-22 Wed
+#+INCLUDE: ../config.org
+
+* Cod sursă
+** =adxl345_controller.sv= -- Controller de inițializare și citire prin SPI la chip-ul adlx345
+#+INCLUDE: ../rtl/adxl345_controller.sv src sv
+
+** =DE10_LITE_Golden_Top.sv= -- Top level module
+#+INCLUDE: ../rtl/DE10_LITE_Golden_Top.sv src sv
+
+** =spy_phy.sv= -- Driver SPI 3 fire
+#+INCLUDE: ../rtl/spi_phy.sv src sv
+
+** =alt_pll.v= -- IP Altera PLL 
+#+INCLUDE: ../ip/alt_pll.v src v
+
+* Scheme logice RTL
+
+** Ansamblu top-level
+[[./pdf/1_overall.pdf]]
+
+** PLL generat
+[[./pdf/2_alt_pll.pdf]]
+
+** Componenta internă =altpll=
+[[./pdf/3_altpll_component.pdf]]
+
+** Controller ADXL345
+[[./pdf/4_adxl345_controller.pdf]]
+
+** Driver SPI 3 fire
+[[./pdf/5_spi_phy.pdf]]
