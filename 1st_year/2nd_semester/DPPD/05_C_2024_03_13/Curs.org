@@ -1,0 +1,40 @@
+#+title: Curs FPSE - 13 Martie 2024
+#+description: Dimensiunile educației
+
+* Chestionar
+** Reguli:
+- 1 punct: nu este cazul meu
+- 2 puncte:
+- 3 puncte:
+- 4 puncte:
+- 5 puncte:
+- 6 puncte: sigur ca este cazul meu
+** Rezolvare
+1. 3
+2. 3
+3. 4
+4. 2
+5. 6
+6. 4
+7. 3
+8. 1
+9. 3
+10. 2
+11. 5
+12. 4
+13. 6
+14. 3
+15. 3
+16. 3
+17. 4
+18. 3
+19. 5
+20. 2
+** Grupa I: 3 + 2 + 4 + 1 + 4 = 14
+** Grupa II: 3 + 3 + 2 + 3 + 2 = 13
+** Grupa III: 4 + 3 + 5 + 3 + 5 = 20
+** Grupa IV: 6 + 4 + 6 + 3 + 3 = 22
+
+* Definire
+Reprezintă conținuturile relativ stabile ale activității de formare și dezvoltare a personalității umane.
+* Caracteristici, Finalități

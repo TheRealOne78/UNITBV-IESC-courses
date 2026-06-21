@@ -1,0 +1,72 @@
+#+title: Curs FPSE - 24 Aprilie 2024
+#+description: Operaționalizarea obiectivelor educaționale
+
+1. Definire
+2. Condițiile operaționalizării
+3. *Taxonomiile* operaționalizării
+4. Pașii operaționalizării
+
+* Horoscop
+1. 3
+2. 3
+3. Oază
+4. Regele este Barbos și bătrân. Regina este batrana. Relația lor este probabil ok.
+5. Nu imi mai amintesc
+6. Plin
+* Definiție
+Descriu cât mai concret posibil ce va știi și va fi capabil să facă elevul la sfârșitul unei activități de instruire.
+Anticipează o schimbare comportamentală observabilă și măsurabilă.
+După domeniul activității psihice implecate în învățare, avem obiective cognitive, afectiv atitudinale și psiho-motorii.
+* Condiții
+1. Obiectivul vizează activitatea elevilor, nu pe cea a profesorului
+2. Să descrie comportamente observabile, nu acțiuni sau procese psihice interne
+   - Verbe interzise:
+     - Se știe
+     - Să înțeleagă
+     - Să conștientizeze
+     - Să cunoască
+     - Să fie atent
+3. Fiecare obiectiv va viza o operație singulară
+4. Desemnează un rezultat imediat, nu unul de perspectivă
+5. Obiectivul trebuie să fie realizabil și nu se va repeta prin reformulări diferite
+* Taxonomiile operaționalizării
+1. Cunoștiințele
+   - Să definească
+   - Să identifice
+   - Să recunoască
+2. Ințelegerile
+   - A explica
+   - A demonstra
+   - A exprima cu cuvinte proprii
+   - A interpreta
+3. Aplicarea
+   - A aplica
+   - A clasifica
+   - A utiliza
+4. Analiza
+   - A analiza
+   - A deduce
+   - A contrasta
+5. Sinteza
+   - A creea
+   - A modifica
+   - A proiecta
+   - A combina
+   - A formula
+6. Evaluarea
+   - A argumenta
+   - A judeca
+   - A valida
+* Pași
+Tema: Realizarea prezentărilor digitale
+Competența specifică: Utilizarea eficientă a instrumentelor specializate în scopul realizării unei prezentări.
+1. Cine va produce comportamenul dorit?
+   Pe percursul activității, elevii clasei a VII-a B la disciplina TIC și Informatică, cu subiectul "Realizarea prezentărilor digitale" vor fi capabili:
+2. Care este comportamentul așteptat?
+   1. Obiectiv cognitiv: Să identifice instrumentele de bază ale aplicației PowerPoint.
+3. Care este produsul comportamentului?
+   Să identifice instrumentele de bază ale aplicației PowerPoint
+4. În ce condiții se va realiza comportamentul?
+   Cu ajutorul ilustrațiilor din manual.
+5. Care sunt criteriile de reușită?
+   Se admite o singură greșeală.

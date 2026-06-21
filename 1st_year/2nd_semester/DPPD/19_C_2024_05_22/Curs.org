@@ -1,0 +1,42 @@
+#+title: Curs FPSE - 22 May 2024
+
+* Quiz
+1. Cu spatar
+2. Acasa
+3. O surpriza
+4. Ceva ce se asteapta el sa primeasca
+5. Albia raului e mai ingusta
+
+* Informatii examen
+15 intrebari - fundamentele pedaogice
+15 intrebari - ciriculumul
+
+* Tema 1 - Educatia
+** Definire
+- Ce este educatia?
+- Cine sunt implicati in realizarea ei?
+- Ce urmareste?
+** Structura educatiei
+- De ce avem nevoie de o structura?
+  - Pentru a evalua
+- Care e? (elementele)
+** Formele educatiei
+- Care sunt principile caracteristice?
+- Ce urmaresc?
+- Care sunt filanitatile lor?
+- Cum se realizeaza evaluarea?
+** Curiculumul
+- Ce este?
+** Finalitatile educatei
+- Ce sunt?
+- Care sunt finalitatile educatiei?
+** Obiective
+- Cum formulam obiective?
+- Care sunt pasii?
+- Taxonomii Bloom
+** Dimensiunile educatiei
+- morala
+- fizica
+- estetica
+- etc.
+- Ce urmareste?

@@ -1,10 +1,7 @@
 DPPD/
 
-# LDH coursework should be tracked, but generated/vendor IP must stay out.
+# Track LDH coursework, but keep generated/vendor hardware IP out.
 LDH/**/ip/
-LDH/**/db/alt_*pll*.v
-
-# LDH build outputs.
 LDH/**/db/
 LDH/**/incremental_db/
 LDH/**/output_files/

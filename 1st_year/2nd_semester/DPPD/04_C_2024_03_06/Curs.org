@@ -1,0 +1,38 @@
+#+title: Curs PsihoPedagogie - 06 Martie 2024
+#+description: Formele Educatiei
+
+* Exercitiu initial
+A zbura, Invizibilitatea
+
+* Formele educatiei
+** Ed. formală
+*** Etimologie
+*** Definire
+*** Finalitati
+*** Caractersticile
+*** Evaluare
+*** Avantaje
+*** Limite
+** Ed. nonformală
+*** Etimologie
+*** Definire
+*** Finalitati
+*** Caractersticile
+*** Evaluare
+*** Avantaje
+*** Limite
+** Ed. informală
+*** Etimologie
+*** Definire
+*** Finalitati
+*** Caractersticile
+*** Evaluare
+*** Avantaje
+*** Limite
+
+* Analiza comparativa a formelor educatiei
+Vezi [[./Analiza comparativă a formelor educației.odt]]
+
+* Temp
+- mediul de invatare este in afara cadrului educational
+- achizitii dobandite in situatii aleatorii

@@ -1,0 +1,93 @@
+#+TITLE: MCE - evaluare MCE
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: 2026-05-22
+#+INCLUDE: ../config.org
+
+* A. Contextul apariției comportamentului perturbator
+
+Ora începuse normal: prezență, anunțarea temei și activitate practică. Fără să
+fie provocat și fără să implice alți elevi, un elev s-a ridicat din bancă, s-a
+dus la geam, a luat șnurul cu bile de la jaluzeaua cu role și a ieșit afară. În
+curtea școlii a început să se joace cu șnurul, folosindu-l ca pe o coardă de
+sărit.
+
+Comportamentul a perturbat ora deoarece elevul a părăsit clasa fără permisiune,
+a folosit greșit un bun al școlii și a atras atenția celorlalți elevi. Nu a
+fost o situație violentă, dar a fost o abatere cu risc: elevul era în afara
+clasei, obiectul putea fi deteriorat, iar ora putea deveni un spectacol.
+
+* B. Cauzele posibile ale comportamentului perturbator
+
+Nu pot stabili o singură cauză sigură. Pot doar să notez câteva explicații
+posibile.
+
+Prima cauză poate fi testarea limitelor. Fiind profesor suplinitor, elevul putea
+să verifice cât de ferm sunt și cât de mult poate controla ora.
+
+A doua cauză poate fi nevoia de atenție. Gestul a fost vizibil și suficient de
+neobișnuit încât să atragă reacția clasei.
+
+A treia cauză poate fi lipsa de autocontrol. Comportamentul nu mi s-a părut
+normal pentru vârsta lui: a luat un obiect al clasei și a ieșit afară ca și cum
+nu ar fi anticipat consecințele. Nu pot pune eu un diagnostic, dar aș lua în
+calcul și o posibilă dificultate de atenție, impulsivitate sau adaptare socială,
+de tip ADHD (tulburare de deficit de atenție și hiperactivitate) sau TSA
+(tulburare de spectru autist), dacă apar și alte semne
+@@latex:\cite{apa2022,cdcAdhd,cdcAutism}@@.
+
+În concluzie, îl tratez ca pe o abatere disciplinară, dar nu doar ca pe un act
+de indisciplină intenționată. Modul brusc în care a acționat ar trebui urmărit
+de școală.
+
+* C. Strategia de intervenție adecvată
+
+Strategia mea are două scopuri: să opresc abaterea și să nu escaladez situația.
+O reacție nervoasă ar fi atras și mai mult atenția clasei.
+
+În timpul incidentului, aș proceda astfel:
+
+- cer clasei să rămână la loc și să continue o sarcină scurtă;
+- îl chem pe elev înapoi pe un ton ferm și calm;
+- recuperez șnurul și verific dacă este deteriorat;
+- spun scurt regula: nu părăsim clasa fără permisiune și nu folosim obiectele
+  clasei în alte scopuri;
+- continui lecția.
+
+După oră, discut individual cu elevul. Îi explic ce a fost greșit și ce trebuia
+să facă în schimb. Dacă voia pauză sau atenție, putea să ridice mâna sau să
+aștepte pauza, nu să iasă din clasă cu un obiect al școlii.
+
+Dacă incidentul rămâne izolat, discuția și consemnarea sunt suficiente. Dacă
+elevul refuză, repetă comportamentul sau obiectul este deteriorat, fac referat
+și anunț dirigintele/conducerea școlii.
+
+Separat, aș recomanda dirigintelui să discute cazul cu psihologul sau
+consilierul școlar. Nu ca pedeapsă, ci pentru o verificare profesională. Dacă
+există dificultăți de atenție, impulsivitate sau semne de TSA/ADHD, școala ar
+trebui să știe cum să lucreze corect cu elevul.
+
+* D. Impactul intervenției asupra grupului de elevi
+
+Pentru clasă, intervenția arată că regula există și se aplică. Elevii văd că
+profesorul reacționează, dar nu pierde controlul. Asta reduce riscul ca alți
+elevi să copieze comportamentul.
+
+Pentru elev, scopul nu este doar pedeapsa. Important este să înțeleagă regula,
+să repare ce se poate repara și să nu repete gestul. Dacă are o dificultate de
+autoreglare, consilierul școlar poate ajuta mai mult decât o simplă sancțiune.
+
+Intervenția este eficientă dacă elevul revine în clasă, obiectul este recuperat,
+ora continuă și incidentul nu se repetă. Dacă se repetă, cazul trebuie dus mai
+departe către diriginte, consilier și conducerea școlii.
+
+* Concluzie
+
+Situația a fost o abatere disciplinară apărută brusc. Soluția corectă este una
+fermă, dar calmă: opresc abaterea, recuperez obiectul, continui ora, discut cu
+elevul și documentez situația dacă este nevoie. Dacă apar suspiciuni de ADHD,
+TSA sau alte dificultăți de autoreglare, cazul trebuie verificat de consilierul
+școlar, nu tratat doar ca abatere de disciplină.
+
+* Bibliografie
+
+#+LATEX: \input{bib.tex}

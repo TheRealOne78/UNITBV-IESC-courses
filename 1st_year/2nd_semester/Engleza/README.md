@@ -1,4 +1,4 @@
-## Engleza - Limba Engleză II
+## Limba Engleză
 
 Profesor de curs: SASU Laura Elena
 Profesor de seminar: SASU Laura Elena

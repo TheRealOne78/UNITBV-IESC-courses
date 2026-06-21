@@ -1,0 +1,92 @@
+#+TITLE: MCE - Decizie neprogramată în condiții de risc/incertitudine
+#+AUTHOR: BAJCSI Elias-Robert
+#+DATE: 2026-04-16
+#+INCLUDE: ../config.org
+
+* Situația
+
+20.05.2025, ora de /Măsuri Electrice în Curent Continuu/, clasa a IX-a,
+Colegiul Tehnic de Transporturi Brașov. Elev de 18 ani, repetent, profil
+cunoscut de toți profesorii. Vorbea cu colegul de bancă, i-am atras atenția.
+Răspuns: /"Da, vedeți-vă de treabă"/ . I-am comunicat că voi întocmi un referat
+pentru comisia de violență. Replica: /"Mă c*c pe referatul tău"/, urmată de
+amenințări verbale la adresa mea. La un moment dat s-a ridicat, a dat noroc cu
+toată clasa --- teatral, deliberat --- și a ieșit. L-am trecut absent și am
+scris referatul după oră.
+
+* A. Identificarea problemei
+
+Problema imediată: agresivitate verbală și părăsire neautorizată a sălii de
+clasă. Problema reală e că elevul a calculat tot --- tonul, momentul, ieșirea
+--- ca să testeze reacția profesorului în fața clasei. Nu era o izbucnire
+emoțională, era o punere în scenă.
+
+Caracteristici ale deciziei: *neprogramată* (nicio procedură nu acoperă exact
+această combinație de agresivitate + ieșire teatrală + audiență activă),
+*în condiții de risc* (reacția clasei și a conducerii nu erau previzibile) și
+*urgentă* (orice răspuns --- inclusiv absența unui răspuns --- era un semnal
+pentru restul clasei).
+
+Contextul mai larg: elevul știa că va repeta anul, venea la școală declarat
+cu scopul de a deranja, primise deja nota minimă la purtare (1/10), iar
+toate mecanismele instituționale fuseseră epuizate. Marja de acțiune era,
+practic, zero.
+
+* B. Discuții pe marginea problemei
+
+Orice reacție avea un cost. Dacă ripostam verbal --- escaladare în public.
+Dacă ignoram --- semnalul era că comportamentul merge. Dacă chemam directorul
+pe loc --- elevul obținea exact atenția maximă pe care o urmărea.
+
+Stilul meu decizional, *grijuliu/stimulativ*, e bazat pe dialog și pe
+menținerea relației cu elevul. Funcționează bine preventiv. Nu funcționează
+când interlocutorul nu dorește dialog, ci spectacol.
+
+* C. Examinarea datelor
+
+Factori relevanți: elevul era major (responsabilitate legală deplină),
+comportamentul anterior era documentat la nivelul școlii, clasa urmărea
+activ ce fac, ora nu putea fi întreruptă fără consecințe pentru ceilalți
+elevi.
+
+Persoane implicate: eu (ca profesor), dirigintele clasei, Comisia de
+violență, conducerea școlii. Indirect --- restul clasei, care a văzut tot.
+
+* D. Luarea deciziei
+
+Decizia: nu escaladez verbal, consemnez absența pe loc, documentez totul
+în scris după oră și raportez instituțional.
+
+Am respins celelalte variante: confruntarea directă ar fi amplificat scena
+în fața clasei, ignorarea totală ar fi legitimat comportamentul, chematul
+directorului pe loc i-ar fi oferit elevului exact publicul maxim pe care
+îl căuta. Raportarea scrisă era singurul răspuns proporțional, documentabil
+și legal solid.
+
+* E. Implementarea deciziei
+
+*În timpul incidentului:* ton calm, fără replică la injurii, absența
+consemnată imediat în catalog.
+
+*După oră:* referat detaliat înaintat Comisiei de violență, cu citate
+exacte --- inclusiv cele vulgare, pentru că un document oficial trebuie să
+reflecte realitatea, nu o versiune curățată a ei. Dirigintele a fost
+informat separat.
+
+* F. Evaluarea eficienței
+
+*Ce a funcționat:* ora a continuat după plecarea elevului, clasa a văzut
+că profesorul nu a intrat în panică și nu a pierdut controlul situației,
+documentarea a creat o bază procedurală clară pentru pașii următori.
+
+*Ce ar fi putut fi diferit:* primul răspuns al elevului (/"vedeți-vă de
+treabă"/) putea justifica o intervenție mai timpurie --- o discuție în pauză,
+înainte ca situația să devină publică. Un stil grijuliu/stimulativ e cel mai
+eficient înainte de criză, nu în mijlocul ei.
+
+*Limita reală a deciziei:* când un elev a epuizat toate sancțiunile
+disponibile și vine la școală explicit ca să deranjeze, nicio decizie a
+profesorului nu rezolvă problema structural. Decizia corectă în acel moment
+a fost să limitez daunele --- pentru clasă, pentru ora de curs, și pentru
+credibilitatea mea ca profesor --- nu să pretind că pot rezolva prin decizie
+individuală ceea ce sistemul nu a reușit instituțional.

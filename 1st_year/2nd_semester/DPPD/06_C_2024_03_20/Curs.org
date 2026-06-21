@@ -1,0 +1,45 @@
+#+title: Curs FPSE - 20 Martie 2024
+#+description: Mediile Educaționale
+
+* Horoscop
+- Masivă din lemn, cu fier forjat
+- Salon de evenimente
+- Drepte, ascutite, masive
+- Normală
+- Pădure înzăpezită
+- Stare impecabilă
+
+* Mediile Educaționale
+1. [X] Școala
+   - Puncte forte
+     + Școala contribuie la dezvoltarea unor abilități și competențe instrumentale
+     + Facilitează dezvoltarea competențelor de comunicare într-un context social
+     + Se realizează într-un cadru realizat de către persoane calificate pe baza unor programe dedicate
+   - Puncte slabe
+     + Incapacitatea școlii de a contribui real la dezvoltarea socio-emoțională a elevilor
+     + Dificultăți în a se adapta la schimbările sociale și economice
+2. [X] Familia
+   - Puncte forte
+     + Familia este mediul care susține fizic, psihologic, moral, economic tânăra generație
+     + Servește ca mediu pentru modelarea comportamentului tinerilor
+       + Furnizează un climat afectiv favorabil
+       + Stimulează socializarea individului
+   - Puncte slabe
+     + Situațiile de neglijare, de abuz, sau lipsa securității afective pot contribui negativ la dezvoltarea individului
+     + Lipsa pregătirii pentru rolul de părinte poate conduce la aplicarea unor strategii educaționale ineficiente
+     + Tensiunile și conflictele familiale care pot avea impact negativ asupra familiilor
+     + Diferențele socio-economice
+     + Creșterea numărului de familii dezorganizate poate afecta negativ socializarea tinerilor
+     + Discrepanțele regionale care pot afecta copii la educație
+3. [ ] Comunitatea locală
+4. [X] Mass-Media și Internetul
+   - Puncte forte
+     + Access facil la o gamă largă de informații din diverse domenii
+     + Realizarea educației cu costuri mult diminuate
+     + Furnizează informații în acord cu nevoile prezentului
+   - Puncte slabe
+     + Prezentarea de modele de comportament
+     + Dezinformarea
+     + Infantilizarea audioriului
+     + Distorsiuni în percepția realității
+5. [ ] Organizațiile de tineret

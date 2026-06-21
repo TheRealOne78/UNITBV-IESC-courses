@@ -1,0 +1,6 @@
+#+title: Conceptul de predare
+
+| Ce stiu      | Ce vreau sa stiu | Ce am invatat? |
+| [6 elemente] | [6 elemente]     | [n ...]        |
+|--------------+------------------+----------------|
+|              |                  |                |

@@ -1,0 +1,69 @@
+#+title: Curs FPSE - 28 Februarie 2024
+#+description: Structura si functiile educatiei
+
+* Exercitiu initial
+- lumina apusului
+- nu vad o carare
+- ieftina
+- cupa o iau cu mine
+- urs adevarat matur
+- m-a vazut dar este ocupat
+- il ignor
+- niciun om
+- plaja e pustie
+
+* Materie
+#+BEGIN_SRC
+  F -> C      * cadru spațial
+ /      \     * cadru temporar
+/ -----> v
+S   Re   O ---> R ---> Me
+\ <----- ^        \__> Fe
+ v      /
+ Mm -> Fo
+#+END_SRC
+
+
+** Legenda
+*** S - Subiectul educatiei
+Este agentul individual sau colectiv care actioneaza asupra obiectului educatiei urmarind modelarea sa potrivit unor valori.
+*** O - Obiectul educatiei
+Orice persoana sau grup care se afla intr-un camp de influente sau situatii educationale.
+*** Re - Relatia educationala
+*** F - Finalitatile educatiei
+La nivelul lor, sunt integrate valori stiintifice, tehnologice, ideologice, artistice si modele de comportament, atitudinale, de cunoastere, etc.
+*** C - Continutul educatiei
+Sunt fapte, situatii problematice, notiuni, principii, teorii
+*** Fo - Forme de organizare
+*** R - Rezultatul educatiei
+*** Me - Metode de evaluare
+*** Fe - Forme de evaluare
+
+** Premise
+*** Premisa 1
+Educatia poate fi conceputa in sens larg ca o intalnire intre individ si societate
+#+BEGIN_CENTER
+[[./assets/1.png]]
+#+END_CENTER
+*** Premisa 2
+Functiile educatiei evidenteaza activitatea educationala prin prizma dezvoltarii personalitatii umane prin prisma unor cerinte ale societatii fata de un individ.
+*** Concluzia
+Prin functiile sale, educatia urmareste stabilirea unui echilibru dinamic dintre societate si individ.
+
+** Functii Sociale
+- functia sociala generică
+  - socializarea individului
+    - pp. grupului
+    - pp. individ
+- functia sociale particulare
+  a) functia profesional-economica
+  b) functia social-politica și ideologică
+  c) functia stiintifica si tehnologica
+  d) functia cultural-artistica
+** Functii Individuale
+- functia individuala generică
+  - socializarea individului - viseasă unucitatea individului
+- functii indivuduale particulare
+  a) functia de ingrijire si umanizarea
+  b) functia de formare a contiintei de sine si a capacitatii de auto-conducere
+  c) functia de detectare si de cultivare a dispozitiilor individuale (talente, aptitudini)

@@ -1,0 +1,8 @@
+#+title: Seminar FPSE - 2024 May 14th
+
+* Ce?
+Elevul va determina ce header este folosit pentru a printa text in consola pentru limbajul C++.
+* Cum?
+Pe monitor.
+* Cat?
+Integral.

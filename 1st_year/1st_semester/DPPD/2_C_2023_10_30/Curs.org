@@ -1,0 +1,36 @@
+#+title: Curs Psiho-Pedagogie - 30 Octombrie 2023
+
+* Cine sunt eu?
+** 20 propozitii scurte care toate incep cu "Eu sunt" si se continua cu o caracteristica a mea [0/20]
+1. [ ] Eu sunt semi-complicat.
+2. [ ] Eu sunt tacut.
+3. [ ] Eu sunt foarte inteligent.
+4. [ ] Eu sunt de asemenea foarte prost.
+5. [ ] Eu sunt pasionat de electronica si calculatoare.
+6. [ ] Eu sunt un om care cauta discomfortul.
+7. [ ] Eu sunt ciudat.
+8. [ ] Eu sunt moralist.
+9. [ ] Eu sunt semi-traditionalist.
+10. [ ] Eu sunt scund.
+11. [ ] Eu sunt ganditor.
+12. [ ] Eu sunt introvertit.
+13. [ ] Eu sunt diferit de majoritate.
+14. [ ] Eu sunt greu de inteles.
+15. [ ] Eu sunt perfectionist.
+16. [ ] Eu sunt semi-curios.
+17. [ ] Eu sunt limitat.
+18. [ ] Eu sunt anti-corporatist.
+19. [ ] Eu sunt zgarcit.
+20. [ ] Eu sunt interesat de anime.
+
+** Status
+|     | Fizic | Psihic | Social |
+|-----+-------+--------+--------|
+| +   | 1     |        |        |
+| -   |       |        |        |
+| +/- |       |        |        |
+
+** Schimbare
+- Trebuie
+- Vreau
+- Pot

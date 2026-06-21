@@ -1,0 +1,21 @@
+#+title: Curs FPSE 08 Mai 2024
+#+description: Finalitățile educației
+
+- Ce sunt?
+- Care sunt finalitățile educației?
+- Relația finalităților educației
+
+* Ce sunt?
++ Pe de o parte sunt intenționalitățile procesului de învățământ de diferite tipuri și grade de generalitate
++ Sunt rezultate la care urmează să ajungă elevii, schimbări care urmează să se producă în conștiința și comportamentul lor
++ Sunt componente structurale strategice ale procesului de învățământ care dau direcția, sensul, ordinea și perspectiva activității educaționale
+
+* Care sunt finalitățile educației?
+Ele îmbracă forma idealului educațional, a competențelor educaționale generale și a competențelor specifice.
+
+** Ideal educațional
+Definește modelul de personalitate dorit de societate pe termen mediu și lung. Este finalitatea cu gradul cel mai mare de generalitate și apare explicit în legea educației.
+*** Competențe generale
+Sunt competențe dezvoltate din mai multe discipline pe parcursul unui ciclu școlar.
+*** Competențe specifice
+Se formeaza în parcursul unui an școlar și sunt derivate din competențele generale reprezentând etape în dobândirea acestora.
